@@ -3,7 +3,7 @@ import theme from '../../global/styles/theme';
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'column',
+    width: '100%',
     position: 'relative',
     marginTop: 10,
   },
@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     left: 25,
     color: theme.colors.baby_blue90,
     fontSize: 20,
-    fontWeight: '500',
+    fontFamily: theme.fonts.heebo500,
     lineHeight: 22,
     paddingHorizontal: 5,
     backgroundColor: '#FFFFFF',
@@ -22,19 +22,18 @@ const styles = StyleSheet.create({
   },
 
   inputBorder: {
-    width: '100%',
     height: 54,
     borderRadius: 26,
     padding: 2,
   },
 
   input: {
-    maxWidth: '100%',
-    width: '100%',
     height: '100%',
     borderRadius: 26,
     backgroundColor: '#FFFFFF',
     paddingHorizontal: 10,
+    fontFamily: theme.fonts.heebo400,
+    fontSize: 18,
   },
 });
 

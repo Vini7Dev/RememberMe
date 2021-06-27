@@ -10,11 +10,11 @@ import Input from '../../components/Input';
 import Button from '../../components/Button';
 
 const Teste: React.FC = () => {
-  const { baby_blue70, cyan100 } = theme.colors;
+  const { baby_blue90, cyan90 } = theme.colors;
 
   return (
     <LinearGradient
-      colors={[baby_blue70, cyan100]}
+      colors={[baby_blue90, cyan90]}
       style={styles.container}
     >
       <View style={styles.content}>
@@ -27,7 +27,7 @@ const Teste: React.FC = () => {
           <Text style={styles.greetings}>Bem-Vindo(a)!</Text>
         </View>
 
-        <View>
+        <View style={styles.form}>
           <Text style={styles.question}>Como gostaria de ser chamado(a)?</Text>
 
           <Input

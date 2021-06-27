@@ -32,18 +32,23 @@ const styles = StyleSheet.create({
   appName: {
     color: theme.colors.baby_blue70,
     fontSize: 20,
-    fontWeight: '500',
+    fontFamily: theme.fonts.poppins600,
   },
 
   greetings: {
     color: theme.colors.cyan90,
     fontSize: 35,
-    fontWeight: '500',
+    fontFamily: theme.fonts.heebo500,
+  },
+
+  form: {
+    width: '100%',
   },
 
   question: {
     color: theme.colors.text,
     fontSize: 18,
+    fontFamily: theme.fonts.heebo400,
   },
 });
 

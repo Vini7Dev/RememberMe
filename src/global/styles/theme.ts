@@ -18,6 +18,14 @@ const theme = {
 
     white_transparent: 'rgba(100, 100, 100, 0.8)',
   },
+
+  fonts: {
+    heebo400: 'Heebo_400Regular',
+    heebo500: 'Heebo_500Medium',
+    heebo700: 'Heebo_700Bold',
+    poppins500: 'Poppins_500Medium',
+    poppins600: 'Poppins_600SemiBold',
+  },
 };
 
 export default theme;

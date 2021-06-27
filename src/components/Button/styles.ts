@@ -1,24 +1,26 @@
 import { StyleSheet } from 'react-native';
+import theme from '../../global/styles/theme';
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'column',
+    width: '80%',
     height: 40,
     borderRadius: 20,
-    marginHorizontal: 25,
     marginVertical: 10,
+    marginLeft: 'auto',
+    marginRight: 'auto',
   },
 
   content: {
     justifyContent: 'center',
     alignItems: 'center',
-    width: '100%',
     height: '100%',
   },
 
   name: {
     color: '#FFFFFF',
     fontSize: 18,
+    fontFamily: theme.fonts.poppins600,
   },
 });
 
