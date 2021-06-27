@@ -2,11 +2,11 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { View } from 'react-native';
 
-import Test from './src';
+import Greetings from './src/screens/Greetings';
 
 const App: React.FC = () => (
   <View>
-    <Test />
+    <Greetings />
     <StatusBar style="auto" />
   </View>
 );
