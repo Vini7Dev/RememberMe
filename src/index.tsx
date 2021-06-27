@@ -1,0 +1,10 @@
+import React from 'react';
+import { View, Text } from 'react-native';
+
+const Teste: React.FC = () => (
+  <View>
+    <Text>Hello World!</Text>
+  </View>
+);
+
+export default Teste;
