@@ -19,6 +19,8 @@ const Button: React.FC<IButtonProps> = ({
   return (
     <LinearGradient
       colors={[baby_blue100, cyan90]}
+      start={[0, 0]}
+      end={[1, 1]}
       style={styles.container}
     >
       <RectButton style={styles.content} {...rest}>
