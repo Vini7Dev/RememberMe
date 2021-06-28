@@ -1,10 +1,10 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
+  "expoServerPort": null,
   "packagerPort": 19000,
   "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null,
-  "webpackServerPort": 19006
+  "expoServerNgrokUrl": "https://cv-ngm.anonymous.rememberme.exp.direct",
+  "packagerNgrokUrl": "https://packager.cv-ngm.anonymous.rememberme.exp.direct",
+  "ngrokPid": 6596,
+  "webpackServerPort": null
 }

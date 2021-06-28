@@ -9,7 +9,7 @@ import styles from './styles';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
-const Teste: React.FC = () => {
+const Greetings: React.FC = () => {
   const { baby_blue90, cyan90 } = theme.colors;
 
   return (
@@ -43,4 +43,4 @@ const Teste: React.FC = () => {
   );
 };
 
-export default Teste;
+export default Greetings;
