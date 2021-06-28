@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingTop: 40,
     justifyContent: 'center',
+    elevation: 11,
   },
 
   content: {
