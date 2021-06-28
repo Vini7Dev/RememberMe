@@ -16,7 +16,7 @@ const theme = {
 
     text: '#787878',
 
-    white_transparent: 'rgba(100, 100, 100, 0.8)',
+    white_transparent: 'rgba(255, 255, 255, 0.8)',
   },
 
   fonts: {

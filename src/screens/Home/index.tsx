@@ -1,22 +1,13 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 
 import styles from './styles';
+import Header from '../../components/Header';
 
 const Teste: React.FC = () => {
   return (
     <View style={styles.container}>
-      <Text>Hello Home!</Text>
-      <Text>Hello Home!</Text>
-      <Text>Hello Home!</Text>
-      <Text>Hello Home!</Text>
-      <Text>Hello Home!</Text>
-      <Text>Hello Home!</Text>
-      <Text>Hello Home!</Text>
-      <Text>Hello Home!</Text>
-      <Text>Hello Home!</Text>
-      <Text>Hello Home!</Text>
-      <Text>Hello Home!</Text>
+      <Header name="Vinícius" />
     </View>
   );
 };

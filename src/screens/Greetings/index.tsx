@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { View, Text, Image } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import IconBlueIMG from '../../assets/icon_blue.png';
@@ -10,7 +11,12 @@ import Input from '../../components/Input';
 import Button from '../../components/Button';
 
 const Greetings: React.FC = () => {
+  const navigation = useNavigation();
   const { baby_blue90, cyan90 } = theme.colors;
+
+  const handleNavigateToHome = useCallback(() => {
+    navigation.navigate('Home');
+  }, [navigation]);
 
   return (
     <LinearGradient
@@ -36,6 +42,7 @@ const Greetings: React.FC = () => {
 
           <Button
             name="Prosseguir"
+            onPress={handleNavigateToHome}
           />
         </View>
       </View>
