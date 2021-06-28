@@ -1,6 +1,9 @@
 import { StyleSheet } from 'react-native';
 import theme from '../../global/styles/theme';
 
+const { baby_blue70, cyan90, text } = theme.colors;
+const { poppins600, heebo400, heebo500 } = theme.fonts;
+
 const styles = StyleSheet.create({
   container: {
     width: '100%',
@@ -30,15 +33,15 @@ const styles = StyleSheet.create({
   },
 
   appName: {
-    color: theme.colors.baby_blue70,
+    color: baby_blue70,
     fontSize: 20,
-    fontFamily: theme.fonts.poppins600,
+    fontFamily: poppins600,
   },
 
   greetings: {
-    color: theme.colors.cyan90,
+    color: cyan90,
     fontSize: 35,
-    fontFamily: theme.fonts.heebo500,
+    fontFamily: heebo500,
   },
 
   form: {
@@ -46,9 +49,9 @@ const styles = StyleSheet.create({
   },
 
   question: {
-    color: theme.colors.text,
+    color: text,
     fontSize: 18,
-    fontFamily: theme.fonts.heebo400,
+    fontFamily: heebo400,
   },
 });
 

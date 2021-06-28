@@ -1,6 +1,8 @@
 import { StyleSheet } from 'react-native';
 import theme from '../../global/styles/theme';
 
+const { poppins600 } = theme.fonts;
+
 const styles = StyleSheet.create({
   container: {
     width: '80%',
@@ -20,7 +22,7 @@ const styles = StyleSheet.create({
   name: {
     color: '#FFFFFF',
     fontSize: 18,
-    fontFamily: theme.fonts.poppins600,
+    fontFamily: poppins600,
   },
 });
 
