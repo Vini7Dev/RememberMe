@@ -51,21 +51,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 2,
     right: 0,
-    width: 40,
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 20,
-  },
-
-  filterButtonContainer: {
-    width: 36,
-    height: 36,
-    borderRadius: 20,
-    backgroundColor: '#FFFFFF',
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingTop: 4,
   },
 });
 
