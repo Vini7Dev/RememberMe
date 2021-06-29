@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import { View, Text, FlatList } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import { Feather } from '@expo/vector-icons';
 
-import TodayTask, { ITaskTodayProps } from '../../components/TodayTask';
+import theme from '../../global/styles/theme';
 import styles from './styles';
+import TodayTask, { ITaskTodayProps } from '../../components/TodayTask';
 import Header from '../../components/Header';
 import UpperWhiteBackground from '../../components/UpperWhiteBackground';
+
+const { baby_blue100, blue } = theme.colors;
 
 const tasksExample = [
   {
@@ -52,6 +57,22 @@ const Home: React.FC = () => {
           )}
         />
       </UpperWhiteBackground>
+
+      <View style={styles.tasksListArea}>
+        <View style={styles.tasksListTitleView}>
+          <Text style={styles.tasksListTitle}>Tarefas</Text>
+          <LinearGradient
+            colors={[baby_blue100, blue]}
+            start={[0, 0]}
+            end={[1, 1]}
+            style={styles.filterButtonView}
+          >
+            <View style={styles.filterButtonContainer}>
+              <Feather name="filter" color={baby_blue100} size={24} />
+            </View>
+          </LinearGradient>
+        </View>
+      </View>
     </View>
   );
 };
