@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
   tasksListArea: {
     backgroundColor: '#FFFFFF',
     marginTop: 15,
-    marginBottom: 40,
+    marginBottom: 25,
     marginHorizontal: 10,
     borderRadius: 15,
     padding: 15,

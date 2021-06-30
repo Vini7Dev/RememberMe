@@ -5,7 +5,6 @@ const { poppins600 } = theme.fonts;
 
 const styles = StyleSheet.create({
   container: {
-    width: '80%',
     height: 40,
     borderRadius: 20,
     marginVertical: 10,
@@ -14,6 +13,7 @@ const styles = StyleSheet.create({
   },
 
   content: {
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     height: '100%',

@@ -42,6 +42,8 @@ const Greetings: React.FC = () => {
 
           <Button
             name="Prosseguir"
+            wSize="80%"
+            color="blue"
             onPress={handleNavigateToHome}
           />
         </View>

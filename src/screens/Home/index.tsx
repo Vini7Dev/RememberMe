@@ -8,6 +8,7 @@ import TaskItem, { ITaskItemProps } from '../../components/TaskItem';
 import Header from '../../components/Header';
 import UpperWhiteBackground from '../../components/UpperWhiteBackground';
 import CircleButton from '../../components/CircleButton';
+import Button from '../../components/Button';
 
 const tasksExample = [
   {
@@ -26,6 +27,7 @@ const tasksExample = [
 
 const Home: React.FC = () => {
   const [todayTasks, setTodayTasks] = useState<ITodayTaskProps[]>(tasksExample);
+  const [allTasks, setAllTasks] = useState<ITaskItemProps[]>(tasksExample);
 
   return (
     <ScrollView style={styles.container}>
@@ -68,11 +70,18 @@ const Home: React.FC = () => {
           </View>
         </View>
 
+        <Button
+          name="Adicionar"
+          wSize="100%"
+          color="lightBlue"
+          icon="plus"
+        />
+
         <FlatList
           style={{ marginTop: 10, flexGrow: 0 }}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingRight: 20 }}
-          data={todayTasks}
+          data={allTasks}
           keyExtractor={(task) => task.id}
           renderItem={({ item }) => (
             <TaskItem
