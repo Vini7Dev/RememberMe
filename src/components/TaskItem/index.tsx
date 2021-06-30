@@ -8,7 +8,7 @@ import styles from './styles';
 import theme from '../../global/styles/theme';
 import CircleButton from '../CircleButton';
 
-export interface ITodayTaskProps {
+export interface ITaskItemProps {
   id: string;
   title: string;
   time: string;
@@ -16,7 +16,7 @@ export interface ITodayTaskProps {
   description: string;
 }
 
-const TodayTask: React.FC<ITodayTaskProps> = ({
+const TaskItem: React.FC<ITaskItemProps> = ({
   title,
   time,
   period,
@@ -68,10 +68,13 @@ const TodayTask: React.FC<ITodayTaskProps> = ({
       </RectButton>
 
       <View style={styles.checkButtonView}>
-        <CircleButton />
+        <CircleButton
+          color="danger"
+          icon="trash-2"
+        />
       </View>
     </LinearGradient>
   );
 };
 
-export default TodayTask;
+export default TaskItem;

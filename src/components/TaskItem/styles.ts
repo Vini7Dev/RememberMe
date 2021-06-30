@@ -6,39 +6,34 @@ const { poppins600, heebo400 } = theme.fonts;
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     position: 'relative',
-    width: 220,
-    height: 160,
-    marginLeft: 17,
-    marginTop: 10,
+    width: '103%',
+    marginTop: 15,
+    padding: 2,
     borderRadius: 25,
     justifyContent: 'center',
     alignItems: 'center',
   },
 
   content: {
-    flex: 1,
-    width: 215,
-    marginVertical: 2,
-    borderRadius: 23,
     backgroundColor: '#FFFFFF',
+    width: '100%',
+    borderRadius: 23,
   },
 
   titleView: {
     width: '100%',
-    height: 50,
+    marginTop: 5,
+    marginBottom: -5,
     paddingHorizontal: 10,
-    borderBottomWidth: 2,
-    borderBottomColor: 'rgba(16, 96, 255, 0.25)',
   },
 
   title: {
     width: '100%',
-    height: '100%',
     color: cyan90,
     fontFamily: poppins600,
     fontSize: 18,
-    textAlign: 'center',
     textAlignVertical: 'center',
   },
 
@@ -57,10 +52,10 @@ const styles = StyleSheet.create({
   },
 
   dataText: {
+    flex: 1,
     fontFamily: heebo400,
     fontSize: 15,
     color: baby_blue80,
-    width: 180,
   },
 
   checkButtonView: {

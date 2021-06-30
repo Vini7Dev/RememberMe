@@ -1,17 +1,13 @@
 import React, { useState } from 'react';
-import { View, Text, FlatList } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-import { Feather } from '@expo/vector-icons';
-
-import { RectButton } from 'react-native-gesture-handler';
-import theme from '../../global/styles/theme';
+import {
+  View, Text, FlatList, ScrollView,
+} from 'react-native';
 import styles from './styles';
-import TodayTask, { ITaskTodayProps } from '../../components/TodayTask';
+import TodayTask, { ITodayTaskProps } from '../../components/TodayTask';
+import TaskItem, { ITaskItemProps } from '../../components/TaskItem';
 import Header from '../../components/Header';
 import UpperWhiteBackground from '../../components/UpperWhiteBackground';
 import CircleButton from '../../components/CircleButton';
-
-const { baby_blue100, blue } = theme.colors;
 
 const tasksExample = [
   {
@@ -24,15 +20,15 @@ const tasksExample = [
     id: '3', title: 'Ir no Centro', time: '17:00', period: 'Terça e Sexta', description: 'Levar garrafinha',
   },
   {
-    id: '4', title: 'Fazer Exercício', time: '18:25', period: 'Segunda, Terçam Quarta, Quinta e Sexta', description: 'Sem descrição...',
+    id: '4', title: 'Fazer Exercício', time: '18:25', period: 'Segunda, Terça, Quarta, Quinta e Sexta', description: 'Sem descrição...',
   },
 ];
 
 const Home: React.FC = () => {
-  const [todayTasks, setTodayTasks] = useState<ITaskTodayProps[]>(tasksExample);
+  const [todayTasks, setTodayTasks] = useState<ITodayTaskProps[]>(tasksExample);
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Header name="Vinícius" />
 
       <UpperWhiteBackground>
@@ -71,8 +67,25 @@ const Home: React.FC = () => {
             />
           </View>
         </View>
+
+        <FlatList
+          style={{ marginTop: 10, flexGrow: 0 }}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{ paddingRight: 20 }}
+          data={todayTasks}
+          keyExtractor={(task) => task.id}
+          renderItem={({ item }) => (
+            <TaskItem
+              id={item.id}
+              title={item.title}
+              time={item.time}
+              period={item.period}
+              description={item.description}
+            />
+          )}
+        />
       </View>
-    </View>
+    </ScrollView>
   );
 };
 
