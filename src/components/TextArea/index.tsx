@@ -7,11 +7,11 @@ import { LinearGradient } from 'expo-linear-gradient';
 import styles from './styles';
 import theme from '../../global/styles/theme';
 
-interface IInputProps extends TextInputProps {
+interface ITextAreaProps extends TextInputProps {
   label?: string;
 }
 
-const Input: React.FC<IInputProps> = ({
+const TextArea: React.FC<ITextAreaProps> = ({
   label,
   ...rest
 }) => {
@@ -26,10 +26,15 @@ const Input: React.FC<IInputProps> = ({
         colors={[baby_blue70, blue]}
         style={styles.inputBorder}
       >
-        <TextInput style={styles.input} {...rest} />
+        <TextInput
+          style={styles.input}
+          multiline
+          numberOfLines={5}
+          {...rest}
+        />
       </LinearGradient>
     </View>
   );
 };
 
-export default Input;
+export default TextArea;
