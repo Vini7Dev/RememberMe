@@ -29,7 +29,7 @@ const TextArea: React.FC<ITextAreaProps> = ({
         <TextInput
           style={styles.input}
           multiline
-          numberOfLines={5}
+          numberOfLines={3}
           {...rest}
         />
       </LinearGradient>
