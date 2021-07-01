@@ -9,9 +9,9 @@ import theme from '../../global/styles/theme';
 
 interface IButtonProps extends RectButtonProps {
   name: string;
-  wSize: '100%' | '80%';
+  wSize: '100%' | '80%' | '50%';
   color: 'blue' | 'lightBlue';
-  icon?: 'plus';
+  icon?: 'plus' | 'edit-3';
 }
 
 const { baby_blue100, baby_blue80, cyan90 } = theme.colors;
@@ -28,10 +28,10 @@ const Button: React.FC<IButtonProps> = ({
   useEffect(() => {
     switch (color) {
       case 'blue':
-        setGradientColor([baby_blue100, cyan90]);
+        setGradientColor([baby_blue80, cyan90]);
         break;
       case 'lightBlue':
-        setGradientColor([baby_blue80, cyan90]);
+        setGradientColor([baby_blue100, cyan90]);
         break;
       default:
         setGradientColor([baby_blue80, cyan90]);
@@ -51,7 +51,14 @@ const Button: React.FC<IButtonProps> = ({
     >
       <RectButton style={styles.content} {...rest}>
         {
-          icon && <Feather name={icon} size={24} color="#FFFFFF" />
+          icon && (
+          <Feather
+            name={icon}
+            size={24}
+            color="#FFFFFF"
+            style={{ marginRight: 5 }}
+          />
+          )
         }
         <Text style={styles.name}>{name}</Text>
       </RectButton>
