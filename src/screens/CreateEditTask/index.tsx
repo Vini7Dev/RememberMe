@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View, Text, ScrollView,
 } from 'react-native';
@@ -13,6 +13,8 @@ import TimeInput from '../../components/TimeInput';
 import Button from '../../components/Button';
 
 const CreateEditTask: React.FC = () => {
+  const [optionSelected, setOptionSelected] = useState(0);
+
   return (
     <ScrollView style={styles.container}>
       <Header name="Vinícius" />
@@ -37,7 +39,11 @@ const CreateEditTask: React.FC = () => {
           </View>
 
           <View style={styles.periodSelectorView}>
-            <PeriodSelector />
+            <PeriodSelector
+              optionSelected={optionSelected}
+              onPressInLeftButton={() => setOptionSelected(0)}
+              onPressInRightButton={() => setOptionSelected(1)}
+            />
 
             <Button
               name="Editar"
