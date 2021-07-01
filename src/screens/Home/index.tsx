@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import {
   View, Text, FlatList, ScrollView,
 } from 'react-native';
+
+import { useNavigation } from '@react-navigation/native';
 import styles from './styles';
 import TodayTask, { ITodayTaskProps } from '../../components/TodayTask';
 import TaskItem, { ITaskItemProps } from '../../components/TaskItem';
@@ -26,8 +28,13 @@ const tasksExample = [
 ];
 
 const Home: React.FC = () => {
+  const navigation = useNavigation();
   const [todayTasks, setTodayTasks] = useState<ITodayTaskProps[]>(tasksExample);
   const [allTasks, setAllTasks] = useState<ITaskItemProps[]>(tasksExample);
+
+  const navigateToCreateEditTask = useCallback((id?: string) => {
+    navigation.navigate('CreateEditTask', { id });
+  }, [navigation]);
 
   return (
     <ScrollView style={styles.container}>
@@ -73,8 +80,9 @@ const Home: React.FC = () => {
         <Button
           name="Adicionar"
           wSize="100%"
-          color="lightBlue"
+          color="blue"
           icon="plus"
+          onPress={() => navigateToCreateEditTask()}
         />
 
         <FlatList
