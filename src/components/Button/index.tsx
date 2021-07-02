@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Text } from 'react-native';
-import { RectButton, RectButtonProps } from 'react-native-gesture-handler';
-import { LinearGradient } from 'expo-linear-gradient';
-
+import { RectButtonProps } from 'react-native-gesture-handler';
 import { Feather } from '@expo/vector-icons';
-import styles from './styles';
+
+import {
+  Container, ButtonElement, ButtonText,
+} from './styles';
 import theme from '../../global/styles/theme';
 
 interface IButtonProps extends RectButtonProps {
@@ -40,16 +40,13 @@ const Button: React.FC<IButtonProps> = ({
   }, [color]);
 
   return (
-    <LinearGradient
+    <Container
       colors={gradientColor}
       start={[0, 0]}
       end={[1, 1]}
-      style={[
-        styles.container,
-        { width: wSize },
-      ]}
+      wSize={wSize}
     >
-      <RectButton style={styles.content} {...rest}>
+      <ButtonElement {...rest}>
         {
           icon && (
           <Feather
@@ -60,9 +57,9 @@ const Button: React.FC<IButtonProps> = ({
           />
           )
         }
-        <Text style={styles.name}>{name}</Text>
-      </RectButton>
-    </LinearGradient>
+        <ButtonText>{name}</ButtonText>
+      </ButtonElement>
+    </Container>
   );
 };
 

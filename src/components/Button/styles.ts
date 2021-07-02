@@ -1,29 +1,31 @@
-import { StyleSheet } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import { RectButton } from 'react-native-gesture-handler';
+import styled from 'styled-components/native';
+
 import theme from '../../global/styles/theme';
+
+interface IContainerProps {
+  wSize: string;
+}
 
 const { poppins600 } = theme.fonts;
 
-const styles = StyleSheet.create({
-  container: {
-    height: 40,
-    borderRadius: 20,
-    marginVertical: 10,
-    marginLeft: 'auto',
-    marginRight: 'auto',
-  },
+export const Container = styled(LinearGradient)<IContainerProps>`
+    width: ${(props) => props.wSize};
+    height: 40px;
+    border-radius: 20px;
+    margin: 10px auto;
+`;
 
-  content: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: '100%',
-  },
+export const ButtonElement = styled(RectButton)`
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+`;
 
-  name: {
-    color: '#FFFFFF',
-    fontSize: 18,
-    fontFamily: poppins600,
-  },
-});
-
-export default styles;
+export const ButtonText = styled.Text`
+    color: #FFFFFF;
+    font-size: 18px;
+    font-family: ${poppins600};
+`;
