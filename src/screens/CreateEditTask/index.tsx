@@ -11,6 +11,8 @@ import TextArea from '../../components/TextArea';
 import PeriodSelector from '../../components/PeriodSelector';
 import TimeInput from '../../components/TimeInput';
 import Button from '../../components/Button';
+import MarkupButton from '../../components/MarkupButton';
+import ModalContainer from '../../components/ModalContainer';
 
 const CreateEditTask: React.FC = () => {
   const [optionSelected, setOptionSelected] = useState(0);
@@ -74,6 +76,27 @@ const CreateEditTask: React.FC = () => {
           color="blue"
         />
       </View>
+
+      <ModalContainer
+        title="Modal"
+      >
+        <MarkupButton
+          id="0"
+          name="Domingo"
+          checked
+          handleAlternatingChecks={() => {
+            //
+          }}
+        />
+        <MarkupButton
+          id="1"
+          name="Segunda-feira"
+          checked={false}
+          handleAlternatingChecks={() => {
+            //
+          }}
+        />
+      </ModalContainer>
     </ScrollView>
   );
 };

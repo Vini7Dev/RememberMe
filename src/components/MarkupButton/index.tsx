@@ -1,9 +1,9 @@
 import React from 'react';
-import { Text } from 'react-native';
-import { RectButton, RectButtonProps } from 'react-native-gesture-handler';
-import { LinearGradient } from 'expo-linear-gradient';
+import { RectButtonProps } from 'react-native-gesture-handler';
 
-import styles from './styles';
+import {
+  Container, InsideGradient, ButtonElement, ButtonText,
+} from './styles';
 import theme from '../../global/styles/theme';
 
 interface IMarkupButtonProps extends RectButtonProps {
@@ -14,7 +14,7 @@ interface IMarkupButtonProps extends RectButtonProps {
 }
 
 const {
-  baby_blue100, baby_blue90, baby_blue80, cyan90,
+  baby_blue100, baby_blue80, cyan90,
 } = theme.colors;
 
 const MarkupButton: React.FC<IMarkupButtonProps> = ({
@@ -25,32 +25,26 @@ const MarkupButton: React.FC<IMarkupButtonProps> = ({
   ...rest
 }) => {
   return (
-    <LinearGradient
+    <Container
       colors={checked ? [baby_blue80, cyan90] : [baby_blue100, cyan90]}
       start={[0, 0]}
       end={[1, 1]}
-      style={styles.container}
     >
-      <LinearGradient
+      <InsideGradient
         colors={checked ? [baby_blue80, cyan90] : ['#FFFFFF', '#FFFFFF']}
-        style={styles.insideGradient}
       >
-        <RectButton
-          style={styles.content}
+        <ButtonElement
           onPress={() => handleAlternatingChecks(id)}
           {...rest}
         >
-          <Text
-            style={[
-              styles.name,
-              { color: checked ? '#FFFFFF' : baby_blue90 },
-            ]}
+          <ButtonText
+            checked={checked}
           >
             {name}
-          </Text>
-        </RectButton>
-      </LinearGradient>
-    </LinearGradient>
+          </ButtonText>
+        </ButtonElement>
+      </InsideGradient>
+    </Container>
   );
 };
 
