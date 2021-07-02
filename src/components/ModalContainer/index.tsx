@@ -13,11 +13,12 @@ interface IModalContainerProps extends ModalProps {
   title: string;
 }
 
-const ModalContainer: React.FC<IModalContainerProps> = ({ title, children }) => {
+const ModalContainer: React.FC<IModalContainerProps> = ({ title, children, ...rest }) => {
   return (
     <Modal
       animationType="slide"
       statusBarTranslucent
+      {...rest}
     >
       <LinearGradient
         style={styles.barTop}
