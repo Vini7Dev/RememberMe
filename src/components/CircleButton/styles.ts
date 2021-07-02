@@ -1,41 +1,44 @@
-import { StyleSheet } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import { RectButton } from 'react-native-gesture-handler';
+import styled, { css } from 'styled-components/native';
+
 import theme from '../../global/styles/theme';
 
-const { cyan100 } = theme.colors;
+interface IContainerProps {
+  inputColor: 'confirm' | 'danger' | 'transparent_blue';
+  borderColor: string;
+}
 
-const styles = StyleSheet.create({
-  container: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    borderWidth: 2,
-    borderColor: cyan100,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+interface IContentProps {
+  inputColor: 'confirm' | 'danger' | 'transparent_blue';
+  borderColor: string;
+}
 
-  content: {
-    borderRadius: 20,
-  },
+export const Container = styled(LinearGradient)<IContainerProps>`
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  justify-content: center;
+  align-items: center;
+  ${(props) => (
+    props.inputColor !== 'transparent_blue' && css`
+      border-width: 2px;
+      border-color: ${props.borderColor};
+    `
+  )}
+`;
 
-  containerTransparent: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    borderColor: cyan100,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+export const ButtonElement = styled(RectButton)<IContentProps>`
+  border-radius: 20px;
 
-  contentTransparent: {
-    width: 36,
-    height: 36,
-    borderRadius: 20,
-    backgroundColor: '#FFFFFF',
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingTop: 5,
-  },
-});
-
-export default styles;
+  ${(props) => (
+    props.inputColor === 'transparent_blue' && css`
+      width: 36px;
+      height: 36px;
+      justify-content: center;
+      align-items: center;
+      background-color: #FFFFFF;
+      padding-top: 5px;
+    `
+  )}
+`;

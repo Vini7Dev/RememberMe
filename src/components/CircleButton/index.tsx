@@ -3,7 +3,9 @@ import { RectButton, RectButtonProps } from 'react-native-gesture-handler';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Feather } from '@expo/vector-icons';
 
-import styles from './styles';
+import {
+  Container, ButtonElement,
+} from './styles';
 import theme from '../../global/styles/theme';
 
 interface ICircleButton extends RectButtonProps {
@@ -55,19 +57,15 @@ const CircleButton: React.FC<ICircleButton> = ({
   }, [color]);
 
   return (
-    <LinearGradient
+    <Container
       colors={gradientColor}
-      style={[
-        color === 'transparent_blue' ? styles.containerTransparent : styles.container,
-        { borderColor },
-      ]}
       start={[0, 0]}
       end={[1, 1]}
+      borderColor={borderColor}
+      inputColor={color}
     >
-      <RectButton
-        style={
-          color === 'transparent_blue' ? styles.contentTransparent : styles.content
-        }
+      <ButtonElement
+        inputColor={color}
         {...rest}
       >
         <Feather
@@ -75,8 +73,8 @@ const CircleButton: React.FC<ICircleButton> = ({
           size={28}
           color={iconColor}
         />
-      </RectButton>
-    </LinearGradient>
+      </ButtonElement>
+    </Container>
   );
 };
 
