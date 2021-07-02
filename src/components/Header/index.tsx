@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+import { View } from 'react-native';
 
-import styles from './styles';
+import {
+  Container, Content, Image, NameView, HelloMessage, NameText, Greeting,
+} from './styles';
 import theme from '../../global/styles/theme';
 import LogoIMG from '../../assets/icon.png';
 
@@ -29,25 +30,23 @@ const Header: React.FC<IHeaderProps> = ({
   }, []);
 
   return (
-    <LinearGradient
+    <Container
       colors={[baby_blue90, cyan90]}
-      style={styles.container}
     >
-      <View style={styles.content}>
+      <Content>
         <Image
           source={LogoIMG}
-          style={styles.logo}
         />
 
         <View>
-          <View style={styles.nameView}>
-            <Text style={styles.helloMessage}>Olá, </Text>
-            <Text style={styles.name}>{name}</Text>
-          </View>
-          <Text style={styles.greeting}>{ message }</Text>
+          <NameView>
+            <HelloMessage>Olá, </HelloMessage>
+            <NameText>{name}</NameText>
+          </NameView>
+          <Greeting>{ message }</Greeting>
         </View>
-      </View>
-    </LinearGradient>
+      </Content>
+    </Container>
   );
 };
 

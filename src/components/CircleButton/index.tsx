@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { RectButton, RectButtonProps } from 'react-native-gesture-handler';
-import { LinearGradient } from 'expo-linear-gradient';
+import { RectButtonProps } from 'react-native-gesture-handler';
 import { Feather } from '@expo/vector-icons';
 
 import {

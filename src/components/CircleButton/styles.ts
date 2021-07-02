@@ -2,8 +2,6 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { RectButton } from 'react-native-gesture-handler';
 import styled, { css } from 'styled-components/native';
 
-import theme from '../../global/styles/theme';
-
 interface IContainerProps {
   inputColor: 'confirm' | 'danger' | 'transparent_blue';
   borderColor: string;
@@ -11,7 +9,6 @@ interface IContainerProps {
 
 interface IContentProps {
   inputColor: 'confirm' | 'danger' | 'transparent_blue';
-  borderColor: string;
 }
 
 export const Container = styled(LinearGradient)<IContainerProps>`

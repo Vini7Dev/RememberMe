@@ -25,7 +25,7 @@ export const Label = styled.Text`
 `;
 
 export const InputBorder = styled(LinearGradient)`
-    height: 100;
+    height: 100px;
     border-radius: 26px;
     padding: 2px;
 `;
