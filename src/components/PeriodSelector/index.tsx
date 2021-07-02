@@ -1,9 +1,14 @@
-import React, { useState } from 'react';
-import { Text, View } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-import { RectButton } from 'react-native-gesture-handler';
+import React from 'react';
 
-import styles from './styles';
+import {
+  Container,
+  ButtonViewLeft,
+  ButtonViewRight,
+  ButtonLeftGradient,
+  ButtonRightGradient,
+  ButtonElement,
+  ButtonText,
+} from './styles';
 import theme from '../../global/styles/theme';
 
 const { baby_blue100, cyan90 } = theme.colors;
@@ -20,61 +25,37 @@ const PeriodSelector: React.FC<IPeriodSelectorProps> = ({
   onPressInRightButton,
 }) => {
   return (
-    <LinearGradient
+    <Container
       colors={[baby_blue100, cyan90]}
-      style={[
-        styles.container,
-      ]}
     >
-      <View style={[
-        styles.buttonView,
-        styles.btnLeft,
-      ]}
-      >
-        <LinearGradient
-          style={[styles.btnLeft]}
+      <ButtonViewLeft>
+        <ButtonLeftGradient
           colors={optionSelected === 0 ? [baby_blue100, cyan90] : ['#FFFFFF', '#FFFFFF']}
           start={[0, 0]}
           end={[1, 1]}
         >
-          <RectButton
-            style={styles.button}
-            onPress={onPressInLeftButton}
-          >
-            <Text
-              style={optionSelected === 0 ? styles.bntSelectedText : styles.bntText}
-            >
+          <ButtonElement onPress={onPressInLeftButton}>
+            <ButtonText selected={optionSelected === 0}>
               Dia do Mês
+            </ButtonText>
+          </ButtonElement>
+        </ButtonLeftGradient>
+      </ButtonViewLeft>
 
-            </Text>
-          </RectButton>
-        </LinearGradient>
-      </View>
-
-      <View style={[
-        styles.buttonView,
-        styles.btnRight,
-      ]}
-      >
-        <LinearGradient
-          style={[styles.btnRight]}
+      <ButtonViewRight>
+        <ButtonRightGradient
           colors={optionSelected === 1 ? [baby_blue100, cyan90] : ['#FFFFFF', '#FFFFFF']}
           start={[0, 0]}
           end={[1, 1]}
         >
-          <RectButton
-            style={styles.button}
-            onPress={onPressInRightButton}
-          >
-            <Text
-              style={optionSelected === 1 ? styles.bntSelectedText : styles.bntText}
-            >
+          <ButtonElement onPress={onPressInRightButton}>
+            <ButtonText selected={optionSelected === 1}>
               Dia da Semana
-            </Text>
-          </RectButton>
-        </LinearGradient>
-      </View>
-    </LinearGradient>
+            </ButtonText>
+          </ButtonElement>
+        </ButtonRightGradient>
+      </ButtonViewRight>
+    </Container>
   );
 };
 

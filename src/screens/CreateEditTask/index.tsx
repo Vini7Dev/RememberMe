@@ -79,6 +79,7 @@ const CreateEditTask: React.FC = () => {
 
       <ModalContainer
         title="Modal"
+        visible={false}
       >
         <MarkupButton
           id="0"
