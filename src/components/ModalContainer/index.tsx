@@ -1,10 +1,11 @@
 import React from 'react';
 import {
-  View, Text, Modal, ModalProps,
+  Modal, ModalProps,
 } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 
-import styles from './styles';
+import {
+  BarTop, BarTopLine, ModalBody, TitleView, TitleText, ModalContentArea,
+} from './styles';
 import theme from '../../global/styles/theme';
 
 const { baby_blue70, cyan90 } = theme.colors;
@@ -20,24 +21,21 @@ const ModalContainer: React.FC<IModalContainerProps> = ({ title, children, ...re
       statusBarTranslucent
       {...rest}
     >
-      <LinearGradient
-        style={styles.barTop}
+      <BarTop
         colors={[baby_blue70, cyan90]}
       >
-        <View style={styles.barTopLine} />
-      </LinearGradient>
+        <BarTopLine />
+      </BarTop>
 
-      <View
-        style={styles.container}
-      >
-        <View style={styles.titleView}>
-          <Text style={styles.title}>{title}</Text>
-        </View>
+      <ModalBody>
+        <TitleView>
+          <TitleText>{title}</TitleText>
+        </TitleView>
 
-        <View style={styles.contentArea}>
+        <ModalContentArea>
           {children}
-        </View>
-      </View>
+        </ModalContentArea>
+      </ModalBody>
     </Modal>
   );
 };
