@@ -1,44 +1,40 @@
-import { StyleSheet } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import styled from 'styled-components/native';
 import theme from '../../global/styles/theme';
 
 const { baby_blue90 } = theme.colors;
 const { heebo400, heebo500 } = theme.fonts;
 
-const styles = StyleSheet.create({
-  container: {
-    width: '100%',
-    position: 'relative',
-    marginTop: 10,
-  },
+export const Container = styled.View`
+    width: 100%;
+    position: relative;
+    margin-top: 10px;
+`;
 
-  label: {
-    position: 'absolute',
-    top: -10,
-    left: 25,
-    color: baby_blue90,
-    fontSize: 20,
-    fontFamily: heebo500,
-    lineHeight: 22,
-    paddingHorizontal: 5,
-    backgroundColor: '#FFFFFF',
-    zIndex: 1,
-  },
+export const Label = styled.Text`
+    position: absolute;
+    top: -10px;
+    left: 25px;
+    color: ${baby_blue90};
+    font-size: 20px;
+    font-family: ${heebo500};
+    line-height: 22px;
+    padding: 0 5px;
+    background-color: #FFFFFF;
+    z-index: 1;
+`;
 
-  inputBorder: {
-    height: 100,
-    borderRadius: 26,
-    padding: 2,
-  },
+export const InputBorder = styled(LinearGradient)`
+    height: 100;
+    border-radius: 26px;
+    padding: 2px;
+`;
 
-  input: {
-    height: '100%',
-    borderRadius: 26,
-    backgroundColor: '#FFFFFF',
-    padding: 10,
-    fontFamily: heebo400,
-    fontSize: 18,
-    textAlignVertical: 'top',
-  },
-});
-
-export default styles;
+export const TextInput = styled.TextInput`
+    height: 100%;
+    border-radius: 26px;
+    background-color: #FFFFFF;
+    padding: 10px;
+    font-family: ${heebo400};
+    font-size: 18px;
+`;
