@@ -1,30 +1,27 @@
-import { StyleSheet } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import styled from 'styled-components/native';
 import theme from '../../global/styles/theme';
 
 const { heebo400 } = theme.fonts;
 
-const styles = StyleSheet.create({
-  container: {
-    width: 80,
-    position: 'relative',
-    marginTop: 10,
-  },
+export const Conteiner = styled.View`
+  width: 80px;
+  position: relative;
+  margin-top: 10px;
+`;
 
-  inputBorder: {
-    height: 54,
-    borderRadius: 26,
-    padding: 2,
-  },
+export const InputBorder = styled(LinearGradient)`
+  height: 54px;
+  border-radius: 26px;
+  padding: 2px;
+`;
 
-  input: {
-    height: '100%',
-    borderRadius: 26,
-    backgroundColor: '#FFFFFF',
-    paddingHorizontal: 10,
-    fontFamily: heebo400,
-    fontSize: 24,
-    textAlign: 'center',
-  },
-});
-
-export default styles;
+export const TextInput = styled.TextInput`
+  height: 100%;
+  border-radius: 26px;
+  background-color: #FFFFFF;
+  padding: 0 10px;
+  font-family: ${heebo400};
+  font-size: 24px;
+  text-align: center;
+`;
