@@ -1,9 +1,18 @@
 import React, { useState } from 'react';
-import {
-  View, Text, ScrollView,
-} from 'react-native';
 
-import styles from './styles';
+import {
+  Container,
+  TitleView,
+  TitleText,
+  Form,
+  InputMargin,
+  PeriodSelectorView,
+  TimeLabel,
+  TimeInputsContainer,
+  TimeDivisionText,
+  SubmitButtonView,
+} from './styles';
+
 import Header from '../../components/Header';
 import UpperWhiteBackground from '../../components/UpperWhiteBackground';
 import Input from '../../components/Input';
@@ -18,29 +27,29 @@ const CreateEditTask: React.FC = () => {
   const [optionSelected, setOptionSelected] = useState(0);
 
   return (
-    <ScrollView style={styles.container}>
+    <Container>
       <Header name="Vinícius" />
 
       <UpperWhiteBackground>
-        <View style={styles.titleView}>
-          <Text style={styles.title}>Adicionar Tarefa</Text>
-        </View>
+        <TitleView>
+          <TitleText>Adicionar Tarefa</TitleText>
+        </TitleView>
 
-        <View style={styles.form}>
-          <View style={styles.inputMargin}>
+        <Form>
+          <InputMargin>
             <Input
               label="Título"
               placeholder="Informe o título da tarefa"
             />
-          </View>
-          <View style={styles.inputMargin}>
+          </InputMargin>
+          <InputMargin>
             <TextArea
               label="Descrição"
               placeholder="Descreva a tarefa..."
             />
-          </View>
+          </InputMargin>
 
-          <View style={styles.periodSelectorView}>
+          <PeriodSelectorView>
             <PeriodSelector
               optionSelected={optionSelected}
               onPressInLeftButton={() => setOptionSelected(0)}
@@ -53,29 +62,29 @@ const CreateEditTask: React.FC = () => {
               wSize="50%"
               icon="edit-3"
             />
-          </View>
+          </PeriodSelectorView>
 
-          <View style={styles.inputMargin}>
-            <Text style={styles.timeLabel}>
+          <InputMargin>
+            <TimeLabel>
               Horário
-            </Text>
+            </TimeLabel>
 
-            <View style={styles.timeInputsContainer}>
+            <TimeInputsContainer>
               <TimeInput />
-              <Text style={styles.timeDivisionText}>:</Text>
+              <TimeDivisionText>:</TimeDivisionText>
               <TimeInput />
-            </View>
-          </View>
-        </View>
+            </TimeInputsContainer>
+          </InputMargin>
+        </Form>
       </UpperWhiteBackground>
 
-      <View style={styles.submitButtonView}>
+      <SubmitButtonView>
         <Button
           name="Salvar"
           wSize="100%"
           color="blue"
         />
-      </View>
+      </SubmitButtonView>
 
       <ModalContainer
         title="Modal"
@@ -98,7 +107,7 @@ const CreateEditTask: React.FC = () => {
           }}
         />
       </ModalContainer>
-    </ScrollView>
+    </Container>
   );
 };
 

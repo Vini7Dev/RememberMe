@@ -1,67 +1,64 @@
-import { StyleSheet } from 'react-native';
+import styled from 'styled-components/native';
+
 import theme from '../../global/styles/theme';
 
 const { baby_blue90, cyan90 } = theme.colors;
 const { poppins600, heebo500 } = theme.fonts;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F1F1F1',
-  },
+export const Container = styled.ScrollView`
+  flex: 1;
+  background: #FFFFFF;
+`;
 
-  titleView: {
-    alignItems: 'center',
-  },
+export const TitleView = styled.View`
+  align-items: center;
+`;
 
-  title: {
-    color: cyan90,
-    fontFamily: poppins600,
-    fontSize: 30,
-    marginBottom: -18,
-  },
+export const TitleText = styled.Text`
+  color: ${cyan90};
+  font-family: ${poppins600};
+  font-size: 30px;
+  margin-bottom: -18px;
+`;
 
-  form: {
-    marginTop: 15,
-    paddingHorizontal: 20,
-  },
+export const Form = styled.View`
+  margin-top: 15px;
+  padding: 0 20px;
+`;
 
-  inputMargin: {
-    marginVertical: 6,
-  },
+export const InputMargin = styled.View`
+  margin: 6px 0;
+`;
 
-  periodSelectorView: {
-    paddingHorizontal: 8,
-    borderRadius: 20,
-    backgroundColor: '#F0F0F0',
-  },
+export const PeriodSelectorView = styled.View`
+  padding: 0 8px;
+  border-radius: 20px;
+  background-color: #FFFFFF;
+`;
 
-  timeLabel: {
-    marginTop: 10,
-    marginBottom: -10,
-    marginLeft: 8,
-    color: baby_blue90,
-    fontSize: 20,
-    fontFamily: heebo500,
-  },
+export const TimeLabel = styled.Text`
+  margin-top: 10px;
+  margin-bottom: -10px;
+  margin-left: 8px;
+  color: ${baby_blue90};
+  font-size: 20px;
+  font-family: ${heebo500};
+`;
 
-  timeInputsContainer: {
-    flexDirection: 'row',
-  },
+export const TimeInputsContainer = styled.View`
+  flex-direction: row;
+`;
 
-  timeDivisionText: {
-    fontFamily: heebo500,
-    fontSize: 40,
-    lineHeight: 70,
-    color: baby_blue90,
-    marginHorizontal: 3,
-  },
+export const TimeDivisionText = styled.Text`
+  font-family: ${heebo500};
+  font-size: 40px;
+  line-height: 70px;
+  color: ${baby_blue90};
+  margin: 0 3px;
+`;
 
-  submitButtonView: {
-    paddingHorizontal: 20,
-    marginTop: 10,
-    marginBottom: 20,
-  },
-});
-
-export default styles;
+export const SubmitButtonView = styled.View`
+  padding: 0 20px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+`;
