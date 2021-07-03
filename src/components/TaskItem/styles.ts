@@ -59,7 +59,7 @@ export const TaskDataText = styled.Text`
   color: ${baby_blue80};
 `;
 
-export const CheckButtonView = styled.View`
+export const DeleteButtonView = styled.View`
   position: absolute;
   top: -10px;
   right: -10px;

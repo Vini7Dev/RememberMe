@@ -1,73 +1,71 @@
-import { StyleSheet } from 'react-native';
+import { Feather } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
+import { RectButton } from 'react-native-gesture-handler';
+import styled from 'styled-components/native';
+
 import theme from '../../global/styles/theme';
 
 const { baby_blue80, cyan90 } = theme.colors;
 const { poppins600, heebo400 } = theme.fonts;
 
-const styles = StyleSheet.create({
-  container: {
-    position: 'relative',
-    width: 220,
-    height: 160,
-    marginLeft: 17,
-    marginTop: 10,
-    borderRadius: 25,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+export const Container = styled(LinearGradient)`
+  position: relative;
+  width: 220px;
+  height: 160px;
+  margin-left: 17px;
+  margin-top: 10px;
+  border-radius: 25px;
+  justify-content: center;
+  align-items: center;
+`;
 
-  content: {
-    flex: 1,
-    width: 215,
-    marginVertical: 2,
-    borderRadius: 23,
-    backgroundColor: '#FFFFFF',
-  },
+export const Button = styled(RectButton)`
+  flex: 1;
+  width: 215px;
+  margin: 2px 0;
+  border-radius: 23px;
+  background-color: #FFFFFF;
+`;
 
-  titleView: {
-    width: '100%',
-    height: 50,
-    paddingHorizontal: 10,
-    borderBottomWidth: 2,
-    borderBottomColor: 'rgba(16, 96, 255, 0.25)',
-  },
+export const TitleView = styled.View`
+  width: 100%;
+  height: 50px;
+  padding: 0 10px;
+  border-bottom-width: 2px;
+  border-bottom-color: rgba(16, 96, 255, 0.25);
+`;
 
-  title: {
-    width: '100%',
-    height: '100%',
-    color: cyan90,
-    fontFamily: poppins600,
-    fontSize: 18,
-    textAlign: 'center',
-    textAlignVertical: 'center',
-  },
+export const TitleText = styled.Text`
+  width: 100%;
+  height: 100%;
+  color: ${cyan90};
+  font-family: ${poppins600};
+  font-size: 18px;
+  text-align: center;
+`;
 
-  taskData: {
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-  },
+export const TaskData = styled.View`
+  padding: 5px 10px;
+`;
 
-  dataView: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
+export const DataView = styled.View`
+  flex-direction: row;
+  align-items: center;
+`;
 
-  dataIcon: {
-    marginRight: 5,
-  },
+export const DataIcon = styled(Feather)`
+  margin-right: 5px;
+`;
 
-  dataText: {
-    fontFamily: heebo400,
-    fontSize: 15,
-    color: baby_blue80,
-    width: 180,
-  },
+export const DataText = styled.Text`
+  width: 180px;
+  font-family: ${heebo400};
+  font-size: 15px;
+  color: ${baby_blue80};
+`;
 
-  checkButtonView: {
-    position: 'absolute',
-    top: -10,
-    right: -10,
-  },
-});
-
-export default styles;
+export const CheckButtonView = styled.View`
+  position: absolute;
+  top: -10px;
+  right: -10px;
+`;

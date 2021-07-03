@@ -1,10 +1,8 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-import { Feather } from '@expo/vector-icons';
-import { RectButton } from 'react-native-gesture-handler';
 
-import styles from './styles';
+import {
+  Container, Button, TitleView, TitleText, TaskData, DataView, DataIcon, DataText, CheckButtonView,
+} from './styles';
 import theme from '../../global/styles/theme';
 import CircleButton from '../CircleButton';
 
@@ -27,50 +25,48 @@ const TodayTask: React.FC<ITodayTaskProps> = ({
   } = theme.colors;
 
   return (
-    <LinearGradient
-      style={styles.container}
-      colors={[baby_blue90, blue]}
-    >
-      <RectButton style={styles.content}>
-        <View style={styles.titleView}>
-          <Text style={styles.title}>{title}</Text>
-        </View>
+    <Container colors={[baby_blue90, blue]}>
+      <Button>
+        <TitleView>
+          <TitleText
+            style={{ textAlignVertical: 'center' }}
+          >
+            {title}
+          </TitleText>
+        </TitleView>
 
-        <View style={styles.taskData}>
-          <View style={styles.dataView}>
-            <Feather
+        <TaskData>
+          <DataView>
+            <DataIcon
               name="clock"
               size={18}
               color={baby_blue80}
-              style={styles.dataIcon}
             />
-            <Text style={styles.dataText}>{time}</Text>
-          </View>
-          <View style={styles.dataView}>
-            <Feather
+            <DataText>{time}</DataText>
+          </DataView>
+          <DataView>
+            <DataIcon
               name="calendar"
               size={18}
               color={baby_blue80}
-              style={styles.dataIcon}
             />
-            <Text style={styles.dataText}>{period}</Text>
-          </View>
-          <View style={styles.dataView}>
-            <Feather
+            <DataText>{period}</DataText>
+          </DataView>
+          <DataView>
+            <DataIcon
               name="type"
               size={18}
               color={baby_blue80}
-              style={styles.dataIcon}
             />
-            <Text style={styles.dataText}>{description}</Text>
-          </View>
-        </View>
-      </RectButton>
+            <DataText>{description}</DataText>
+          </DataView>
+        </TaskData>
+      </Button>
 
-      <View style={styles.checkButtonView}>
+      <CheckButtonView>
         <CircleButton />
-      </View>
-    </LinearGradient>
+      </CheckButtonView>
+    </Container>
   );
 };
 

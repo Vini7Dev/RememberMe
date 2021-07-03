@@ -9,7 +9,7 @@ import {
   TaskDataView,
   TaskDataIcon,
   TaskDataText,
-  CheckButtonView,
+  DeleteButtonView,
 } from './styles';
 import theme from '../../global/styles/theme';
 import CircleButton from '../CircleButton';
@@ -73,12 +73,12 @@ const TaskItem: React.FC<ITaskItemProps> = ({
         </TaskDataArea>
       </ButtonElement>
 
-      <CheckButtonView>
+      <DeleteButtonView>
         <CircleButton
           color="danger"
           icon="trash-2"
         />
-      </CheckButtonView>
+      </DeleteButtonView>
     </Container>
   );
 };
