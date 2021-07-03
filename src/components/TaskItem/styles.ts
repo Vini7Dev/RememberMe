@@ -1,68 +1,66 @@
-import { StyleSheet } from 'react-native';
+import { Feather } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
+import { RectButton } from 'react-native-gesture-handler';
+import styled from 'styled-components/native';
+
 import theme from '../../global/styles/theme';
 
 const { baby_blue80, cyan90 } = theme.colors;
 const { poppins600, heebo400 } = theme.fonts;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    position: 'relative',
-    width: '103%',
-    marginTop: 15,
-    padding: 2,
-    borderRadius: 25,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+export const Container = styled(LinearGradient)`
+  flex: 1;
+  position: relative;
+  width: 103%;
+  margin-top: 15px;
+  padding: 2px;
+  border-radius: 25px;
+  justify-content: center;
+  align-items: center;
+`;
 
-  content: {
-    backgroundColor: '#FFFFFF',
-    width: '100%',
-    borderRadius: 23,
-  },
+export const ButtonElement = styled(RectButton)`
+  background-color: #FFFFFF;
+  width: 100%;
+  border-radius: 23px;
+`;
 
-  titleView: {
-    width: '100%',
-    marginTop: 5,
-    marginBottom: -5,
-    paddingHorizontal: 10,
-  },
+export const TitleView = styled.View`
+  width: 100%;
+  margin-top: 5px;
+  margin-bottom: -5px;
+  padding: 0 10px;
+`;
 
-  title: {
-    width: '100%',
-    color: cyan90,
-    fontFamily: poppins600,
-    fontSize: 18,
-    textAlignVertical: 'center',
-  },
+export const TitleText = styled.Text`
+  width: 100%;
+  color: ${cyan90};
+  font-family: ${poppins600};
+  font-size: 18px;
+`;
 
-  taskData: {
-    paddingVertical: 5,
-    paddingHorizontal: 10,
-  },
+export const TaskDataArea = styled.View`
+  padding: 5px 10px;
+`;
 
-  dataView: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
+export const TaskDataView = styled.View`
+  flex-direction: row;
+  align-items: center;
+`;
 
-  dataIcon: {
-    marginRight: 5,
-  },
+export const TaskDataIcon = styled(Feather)`
+  margin-right: 5px;
+`;
 
-  dataText: {
-    flex: 1,
-    fontFamily: heebo400,
-    fontSize: 15,
-    color: baby_blue80,
-  },
+export const TaskDataText = styled.Text`
+  flex: 1;
+  font-family: ${heebo400};
+  font-size: 15px;
+  color: ${baby_blue80};
+`;
 
-  checkButtonView: {
-    position: 'absolute',
-    top: -10,
-    right: -10,
-  },
-});
-
-export default styles;
+export const CheckButtonView = styled.View`
+  position: absolute;
+  top: -10px;
+  right: -10px;
+`;
