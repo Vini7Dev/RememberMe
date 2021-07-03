@@ -33,7 +33,7 @@ export const InputMargin = styled.View`
 export const PeriodSelectorView = styled.View`
   padding: 0 8px;
   border-radius: 20px;
-  background-color: #FFFFFF;
+  background-color: #F1F1F1;
 `;
 
 export const TimeLabel = styled.Text`
