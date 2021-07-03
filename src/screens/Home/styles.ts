@@ -1,58 +1,53 @@
-import { StyleSheet } from 'react-native';
+import styled from 'styled-components/native';
+
 import theme from '../../global/styles/theme';
 
 const { cyan90 } = theme.colors;
 const { poppins600, heebo500 } = theme.fonts;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F1F1F1',
-  },
+export const Container = styled.ScrollView`
+  flex: 1;
+  background-color: #F1F1F1;
+`;
 
-  titleView: {
-    alignItems: 'center',
-  },
+export const TitleView = styled.View`
+  align-items: center;
+`;
 
-  title: {
-    color: cyan90,
-    fontFamily: poppins600,
-    fontSize: 30,
-    marginBottom: -18,
-  },
+export const TitleText = styled.Text`
+  color: ${cyan90};
+  font-family: ${poppins600};
+  font-size: 30px;
+  margin-bottom: -18px;
+`;
 
-  subtitle: {
-    color: cyan90,
-    fontFamily: heebo500,
-    fontSize: 22,
-  },
+export const SubtitleText = styled.Text`
+  color: ${cyan90};
+  font-family: ${heebo500};
+  font-size: 22px;
+`;
 
-  tasksListArea: {
-    backgroundColor: '#FFFFFF',
-    marginTop: 15,
-    marginBottom: 25,
-    marginHorizontal: 10,
-    borderRadius: 15,
-    padding: 15,
-    elevation: 5,
-  },
+export const TasksListArea = styled.View`
+  background-color: #FFFFFF;
+  margin: 15px 10px 25px 10px;
+  border-radius: 15px;
+  padding: 15px;
+  elevation: 5;
+`;
 
-  tasksListTitleView: {
-    position: 'relative',
-  },
+export const TasksListTitleView = styled.View`
+  position: relative;
+`;
 
-  tasksListTitle: {
-    color: cyan90,
-    fontFamily: poppins600,
-    fontSize: 30,
-    textAlign: 'center',
-  },
+export const TasksListTitleText = styled.Text`
+  color: ${cyan90};
+  font-family: ${poppins600};
+  font-size: 30px;
+  text-align: center;
+`;
 
-  filterButtonView: {
-    position: 'absolute',
-    top: 2,
-    right: 0,
-  },
-});
-
-export default styles;
+export const FilterButtonView = styled.View`
+  position: absolute;
+  top: 2px;
+  right: 0;
+`;

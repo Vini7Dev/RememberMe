@@ -1,10 +1,18 @@
 import React, { useState, useCallback } from 'react';
-import {
-  View, Text, FlatList, ScrollView,
-} from 'react-native';
-
+import { FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import styles from './styles';
+
+import {
+  Container,
+  TitleView,
+  TitleText,
+  SubtitleText,
+  TasksListArea,
+  TasksListTitleView,
+  TasksListTitleText,
+  FilterButtonView,
+} from './styles';
+
 import TodayTask, { ITodayTaskProps } from '../../components/TodayTask';
 import TaskItem, { ITaskItemProps } from '../../components/TaskItem';
 import Header from '../../components/Header';
@@ -37,14 +45,14 @@ const Home: React.FC = () => {
   }, [navigation]);
 
   return (
-    <ScrollView style={styles.container}>
+    <Container>
       <Header name="Vinícius" />
 
       <UpperWhiteBackground>
-        <View style={styles.titleView}>
-          <Text style={styles.title}>Tarefas do Dia</Text>
-          <Text style={styles.subtitle}>28/06/2021</Text>
-        </View>
+        <TitleView>
+          <TitleText>Tarefas do Dia</TitleText>
+          <SubtitleText>28/06/2021</SubtitleText>
+        </TitleView>
 
         <FlatList
           style={{ marginTop: 10 }}
@@ -65,17 +73,17 @@ const Home: React.FC = () => {
         />
       </UpperWhiteBackground>
 
-      <View style={styles.tasksListArea}>
-        <View style={styles.tasksListTitleView}>
-          <Text style={styles.tasksListTitle}>Tarefas</Text>
+      <TasksListArea>
+        <TasksListTitleView>
+          <TasksListTitleText>Tarefas</TasksListTitleText>
 
-          <View style={styles.filterButtonView}>
+          <FilterButtonView>
             <CircleButton
               color="transparent_blue"
               icon="filter"
             />
-          </View>
-        </View>
+          </FilterButtonView>
+        </TasksListTitleView>
 
         <Button
           name="Adicionar"
@@ -101,8 +109,8 @@ const Home: React.FC = () => {
             />
           )}
         />
-      </View>
-    </ScrollView>
+      </TasksListArea>
+    </Container>
   );
 };
 
