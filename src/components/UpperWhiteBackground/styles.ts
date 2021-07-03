@@ -1,15 +1,11 @@
-import { StyleSheet } from 'react-native';
+import styled from 'styled-components/native';
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#FFFFFF',
-    marginTop: -30,
-    paddingTop: 45,
-    paddingBottom: 25,
-    borderBottomLeftRadius: 15,
-    borderBottomRightRadius: 15,
-    elevation: 10,
-  },
-});
-
-export default styles;
+export const Container = styled.View`
+  background-color: #FFFFFF;
+  margin-top: -30px;
+  padding-top: 45px;
+  padding-bottom: 25px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  elevation: 10;
+`;
