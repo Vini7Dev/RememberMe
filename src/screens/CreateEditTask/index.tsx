@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 
 import {
   Container,
@@ -24,7 +24,12 @@ import MarkupButton from '../../components/MarkupButton';
 import ModalContainer from '../../components/ModalContainer';
 
 const CreateEditTask: React.FC = () => {
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const [optionSelected, setOptionSelected] = useState(0);
+
+  const handleToggleModalIsOpen = useCallback(() => {
+    setModalIsOpen(!modalIsOpen);
+  }, [modalIsOpen]);
 
   return (
     <Container>
@@ -61,6 +66,7 @@ const CreateEditTask: React.FC = () => {
               color="blue"
               wSize="50%"
               icon="edit-3"
+              onPress={handleToggleModalIsOpen}
             />
           </PeriodSelectorView>
 
@@ -88,7 +94,7 @@ const CreateEditTask: React.FC = () => {
 
       <ModalContainer
         title="Modal"
-        visible={false}
+        isVisible={modalIsOpen}
       >
         <MarkupButton
           id="0"
@@ -105,6 +111,13 @@ const CreateEditTask: React.FC = () => {
           handleAlternatingChecks={() => {
             //
           }}
+        />
+
+        <Button
+          name="Confirmar"
+          color="lightBlue"
+          wSize="80%"
+          onPress={handleToggleModalIsOpen}
         />
       </ModalContainer>
     </Container>

@@ -3,8 +3,22 @@ import styled from 'styled-components/native';
 
 import theme from '../../global/styles/theme';
 
+interface IModalElementProps {
+  isVisible: boolean;
+}
+
 const { cyan90 } = theme.colors;
 const { poppins600 } = theme.fonts;
+
+export const ModalElement = styled.View<IModalElementProps>`
+  display: ${(props) => (props.isVisible ? 'flex' : 'none')};
+  position: ${(props) => (props.isVisible ? 'absolute' : 'relative')};
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #FFFFFF;
+  elevation: 11;
+`;
 
 export const BarTop = styled(LinearGradient)`
     margin-top: 25px;

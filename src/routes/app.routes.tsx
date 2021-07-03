@@ -9,20 +9,20 @@ import CreateEditTask from '../screens/CreateEditTask';
 const { Navigator, Screen } = createStackNavigator();
 
 const AppRoutes: React.FC = () => {
-    return (
-        <Navigator
-            headerMode="none"
-            screenOptions={{
-                cardStyle: {
-                    backgroundColor: theme.colors.baby_blue100,
-                }
-            }}
-        >
-            <Screen name="Greetings" component={Greetings} />
-            <Screen name="Home" component={Home} />
-            <Screen name="CreateEditTask" component={CreateEditTask} />
-        </Navigator>
-    );
-}
+  return (
+    <Navigator
+      headerMode="none"
+      screenOptions={{
+        cardStyle: {
+          backgroundColor: theme.colors.baby_blue100,
+        },
+      }}
+    >
+      <Screen name="Greetings" component={Greetings} />
+      <Screen name="Home" component={Home} />
+      <Screen name="CreateEditTask" component={CreateEditTask} />
+    </Navigator>
+  );
+};
 
 export default AppRoutes;

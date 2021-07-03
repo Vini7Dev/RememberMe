@@ -1,26 +1,22 @@
 import React from 'react';
-import {
-  Modal, ModalProps,
-} from 'react-native';
 
 import {
-  BarTop, BarTopLine, ModalBody, TitleView, TitleText, ModalContentArea,
+  ModalElement, BarTop, BarTopLine, ModalBody, TitleView, TitleText, ModalContentArea,
 } from './styles';
 import theme from '../../global/styles/theme';
 
 const { baby_blue70, cyan90 } = theme.colors;
 
-interface IModalContainerProps extends ModalProps {
+interface IModalContainerProps {
   title: string;
+  isVisible?: boolean;
 }
 
-const ModalContainer: React.FC<IModalContainerProps> = ({ title, children, ...rest }) => {
+const ModalContainer: React.FC<IModalContainerProps> = ({
+  title, isVisible = false, children,
+}) => {
   return (
-    <Modal
-      animationType="slide"
-      statusBarTranslucent
-      {...rest}
-    >
+    <ModalElement isVisible={isVisible}>
       <BarTop
         colors={[baby_blue70, cyan90]}
       >
@@ -36,7 +32,7 @@ const ModalContainer: React.FC<IModalContainerProps> = ({ title, children, ...re
           {children}
         </ModalContentArea>
       </ModalBody>
-    </Modal>
+    </ModalElement>
   );
 };
 

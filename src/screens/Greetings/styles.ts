@@ -15,7 +15,7 @@ export const Container = styled(LinearGradient)`
 export const Content = styled.View`
   background-color: #FFFFFF;
   width: 90%;
-  border-radius: 25;
+  border-radius: 25px;
   justify-content: center;
   align-items: center;
   padding: 50px 15px;
