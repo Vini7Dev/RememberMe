@@ -18,17 +18,23 @@ import {
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import Loading from '../../components/Loading';
 
 const { baby_blue90, cyan90 } = theme.colors;
 
 const Greetings: React.FC = () => {
   const navigation = useNavigation();
+  const [isLoading, setIsLoading] = useState(false);
   const [name, setName] = useState('');
 
   const handleNavigateToHome = useCallback(async () => {
+    setIsLoading(true);
+
     await AsyncStorage.setItem('@RememberMe:name', name);
 
     navigation.navigate('Home');
+
+    setIsLoading(false);
   }, [name, navigation]);
 
   return (
@@ -59,6 +65,10 @@ const Greetings: React.FC = () => {
           />
         </Form>
       </Content>
+
+      {
+        isLoading && <Loading />
+      }
     </Container>
   );
 };

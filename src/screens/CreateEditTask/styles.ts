@@ -62,15 +62,3 @@ export const SubmitButtonView = styled.View`
   margin-top: 10px;
   margin-bottom: 20px;
 `;
-
-export const LoadingView = styled.View`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.5);
-  elevation: 11;
-`;

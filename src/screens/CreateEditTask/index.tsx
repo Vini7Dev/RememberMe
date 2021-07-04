@@ -1,5 +1,4 @@
 import React, { useState, useCallback } from 'react';
-import { ActivityIndicator } from 'react-native';
 
 import {
   Container,
@@ -12,11 +11,9 @@ import {
   TimeInputsContainer,
   TimeDivisionText,
   SubmitButtonView,
-  LoadingView,
 } from './styles';
 
 import DefaultDaysData, { IDayProps } from '../../utils/DefaultDaysData';
-import theme from '../../global/styles/theme';
 import Header from '../../components/Header';
 import UpperWhiteBackground from '../../components/UpperWhiteBackground';
 import Input from '../../components/Input';
@@ -26,8 +23,7 @@ import PeriodOptions from '../../components/PeriodOptions';
 import TimeInput from '../../components/TimeInput';
 import Button from '../../components/Button';
 import ModalContainer from '../../components/ModalContainer';
-
-const { baby_blue90 } = theme.colors;
+import Loading from '../../components/Loading';
 
 const CreateEditTask: React.FC = () => {
   const [showLoading, setShowLoading] = useState(false);
@@ -105,11 +101,7 @@ const CreateEditTask: React.FC = () => {
       </SubmitButtonView>
 
       {
-        showLoading && (
-          <LoadingView>
-            <ActivityIndicator color={baby_blue90} size="large" />
-          </LoadingView>
-        )
+        showLoading && <Loading />
       }
 
       <ModalContainer
