@@ -4,13 +4,17 @@ import styled from 'styled-components/native';
 
 import theme from '../../global/styles/theme';
 
+interface IContainerProps {
+  wSize: '100%' | '110px';
+}
+
 const { baby_blue90, text } = theme.colors;
 const { heebo400, heebo500 } = theme.fonts;
 
-export const Container = styled.View`
-  width: 100%;
+export const Container = styled.View<IContainerProps>`
+  width: ${(props) => props.wSize};
   position: relative;
-  margin-top: 10px;
+  margin: 10px auto 0;
 `;
 
 export const Label = styled.Text`

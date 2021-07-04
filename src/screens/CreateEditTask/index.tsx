@@ -15,6 +15,7 @@ import {
   LoadingView,
 } from './styles';
 
+import DefaultDaysData, { IDayProps } from '../../utils/DefaultDaysData';
 import theme from '../../global/styles/theme';
 import Header from '../../components/Header';
 import UpperWhiteBackground from '../../components/UpperWhiteBackground';
@@ -25,7 +26,6 @@ import PeriodOptions from '../../components/PeriodOptions';
 import TimeInput from '../../components/TimeInput';
 import Button from '../../components/Button';
 import ModalContainer from '../../components/ModalContainer';
-import DefaultDaysData, { IDayProps } from '../../utils/DefaultDaysData';
 
 const { baby_blue90 } = theme.colors;
 
@@ -113,7 +113,7 @@ const CreateEditTask: React.FC = () => {
       }
 
       <ModalContainer
-        title="Modal"
+        title={periodType === 0 ? 'Selecione os Dias do Mês' : 'Selecione os Dias da Semana'}
         isVisible={modalIsOpen}
       >
         <PeriodOptions

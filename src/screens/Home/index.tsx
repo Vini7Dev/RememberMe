@@ -11,6 +11,7 @@ import {
   TasksListTitleView,
   TasksListTitleText,
   FilterButtonView,
+  Form,
 } from './styles';
 
 import TodayTask, { ITodayTaskProps } from '../../components/TodayTask';
@@ -18,7 +19,11 @@ import TaskItem, { ITaskItemProps } from '../../components/TaskItem';
 import Header from '../../components/Header';
 import UpperWhiteBackground from '../../components/UpperWhiteBackground';
 import CircleButton from '../../components/CircleButton';
+import Input from '../../components/Input';
+import PeriodSelector from '../../components/PeriodSelector';
+import SelectInput from '../../components/SelectInput';
 import Button from '../../components/Button';
+import ModalContainer from '../../components/ModalContainer';
 
 const tasksExample = [
   {
@@ -39,10 +44,17 @@ const Home: React.FC = () => {
   const navigation = useNavigation();
   const [todayTasks, setTodayTasks] = useState<ITodayTaskProps[]>(tasksExample);
   const [allTasks, setAllTasks] = useState<ITaskItemProps[]>(tasksExample);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+
+  const [periodType, setPeriodType] = useState(0);
 
   const navigateToCreateEditTask = useCallback((id?: string) => {
     navigation.navigate('CreateEditTask', { id });
   }, [navigation]);
+
+  const handleToggleModalIsOpen = useCallback(() => {
+    setModalIsOpen(!modalIsOpen);
+  }, [modalIsOpen]);
 
   return (
     <Container>
@@ -81,6 +93,7 @@ const Home: React.FC = () => {
             <CircleButton
               color="transparent_blue"
               icon="filter"
+              onPress={handleToggleModalIsOpen}
             />
           </FilterButtonView>
         </TasksListTitleView>
@@ -110,6 +123,40 @@ const Home: React.FC = () => {
           )}
         />
       </TasksListArea>
+
+      <ModalContainer
+        title="Filtrar"
+        isVisible={modalIsOpen}
+      >
+        <Form>
+          <Input
+            label="Título"
+            placeholder="Informe o títutlo"
+          />
+
+          <PeriodSelector
+            optionSelected={periodType}
+            onPressInLeftButton={() => setPeriodType(0)}
+            onPressInRightButton={() => setPeriodType(1)}
+          />
+
+          <SelectInput
+            wSize={periodType === 0 ? '110px' : '100%'}
+            label={periodType === 0 ? 'Dia' : 'Dia da Semana'}
+            selectedValue="1"
+            onValueChange={() => {
+              //
+            }}
+          />
+
+          <Button
+            name="Confirmar"
+            color="lightBlue"
+            wSize="80%"
+            onPress={handleToggleModalIsOpen}
+          />
+        </Form>
+      </ModalContainer>
     </Container>
   );
 };

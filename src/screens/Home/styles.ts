@@ -51,3 +51,7 @@ export const FilterButtonView = styled.View`
   top: 2px;
   right: 0;
 `;
+
+export const Form = styled.View`
+  padding: 0 20px;
+`;
