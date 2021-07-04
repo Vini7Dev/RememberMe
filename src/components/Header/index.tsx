@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {
   Container, Content, Image, NameView, HelloMessage, NameText, Greeting,
@@ -7,26 +8,29 @@ import {
 import theme from '../../global/styles/theme';
 import LogoIMG from '../../assets/icon.png';
 
-interface IHeaderProps {
-  name: string;
-}
-
-const Header: React.FC<IHeaderProps> = ({
-  name,
-}) => {
+const Header: React.FC = () => {
   const { baby_blue90, cyan90 } = theme.colors;
+  const [name, setName] = useState('');
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    const currentHour = (new Date()).getHours();
+    const loadingData = async () => {
+      const currentHour = (new Date()).getHours();
 
-    if (currentHour > 0 && currentHour < 12) {
-      setMessage('Tenha um bom dia!');
-    } else if (currentHour < 18) {
-      setMessage('Tenha uma excelente tarde!');
-    } else {
-      setMessage('Tenha uma noite agradável!');
-    }
+      if (currentHour > 0 && currentHour < 12) {
+        setMessage('Tenha um bom dia!');
+      } else if (currentHour < 18) {
+        setMessage('Tenha uma excelente tarde!');
+      } else {
+        setMessage('Tenha uma noite agradável!');
+      }
+
+      const nameSaved = await AsyncStorage.getItem('@RememberMe:name');
+
+      setName(nameSaved || '');
+    };
+
+    loadingData();
   }, []);
 
   return (

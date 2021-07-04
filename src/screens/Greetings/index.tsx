@@ -1,5 +1,6 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import IconBlueIMG from '../../assets/icon_blue.png';
 import theme from '../../global/styles/theme';
@@ -18,13 +19,17 @@ import {
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
+const { baby_blue90, cyan90 } = theme.colors;
+
 const Greetings: React.FC = () => {
   const navigation = useNavigation();
-  const { baby_blue90, cyan90 } = theme.colors;
+  const [name, setName] = useState('');
 
-  const handleNavigateToHome = useCallback(() => {
+  const handleNavigateToHome = useCallback(async () => {
+    await AsyncStorage.setItem('@RememberMe:name', name);
+
     navigation.navigate('Home');
-  }, [navigation]);
+  }, [name, navigation]);
 
   return (
     <Container colors={[baby_blue90, cyan90]}>
@@ -43,6 +48,7 @@ const Greetings: React.FC = () => {
 
           <Input
             placeholder="Informe seu nome ou apelido"
+            onChangeText={(text) => setName(text)}
           />
 
           <Button

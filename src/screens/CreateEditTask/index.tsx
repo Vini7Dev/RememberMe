@@ -45,7 +45,7 @@ const CreateEditTask: React.FC = () => {
 
   return (
     <Container>
-      <Header name="Vinícius" />
+      <Header />
 
       <UpperWhiteBackground>
         <TitleView>

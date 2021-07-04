@@ -13,6 +13,7 @@ interface IInputProps extends TextInputProps {
 const Input: React.FC<IInputProps> = ({
   label,
   placeholder,
+  onChangeText,
 }) => {
   const { baby_blue70, blue } = theme.colors;
 
@@ -24,7 +25,10 @@ const Input: React.FC<IInputProps> = ({
       <InputBorder
         colors={[baby_blue70, blue]}
       >
-        <TextInput placeholder={placeholder} />
+        <TextInput
+          placeholder={placeholder}
+          onChangeText={onChangeText}
+        />
       </InputBorder>
     </Container>
   );
