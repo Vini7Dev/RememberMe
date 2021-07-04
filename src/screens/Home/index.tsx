@@ -1,6 +1,8 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+
+import DateProvider from '../../utils/DateProvider';
 
 import {
   Container,
@@ -43,11 +45,19 @@ const tasksExample = [
 
 const Home: React.FC = () => {
   const navigation = useNavigation();
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [currentDate, setCurrentDate] = useState('DD/MM/YYYY');
+
   const [todayTasks, setTodayTasks] = useState<ITodayTaskProps[]>(tasksExample);
   const [allTasks, setAllTasks] = useState<ITaskItemProps[]>(tasksExample);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const [periodType, setPeriodType] = useState(0);
+
+  useEffect(() => {
+    const dateFormated = DateProvider.parseDateFormat(new Date());
+
+    setCurrentDate(dateFormated);
+  }, []);
 
   const navigateToCreateEditTask = useCallback((id?: string) => {
     navigation.navigate('CreateEditTask', { id });
@@ -64,7 +74,7 @@ const Home: React.FC = () => {
       <UpperWhiteBackground>
         <TitleView>
           <TitleText>Tarefas do Dia</TitleText>
-          <SubtitleText>28/06/2021</SubtitleText>
+          <SubtitleText>{currentDate}</SubtitleText>
         </TitleView>
 
         {
