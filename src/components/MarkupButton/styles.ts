@@ -3,6 +3,10 @@ import { RectButton } from 'react-native-gesture-handler';
 import styled from 'styled-components/native';
 import theme from '../../global/styles/theme';
 
+interface IContainerProps {
+  small: boolean;
+}
+
 interface IButtonTextProps {
   checked: boolean;
 }
@@ -10,12 +14,14 @@ interface IButtonTextProps {
 const { baby_blue90 } = theme.colors;
 const { heebo500 } = theme.fonts;
 
-export const Container = styled(LinearGradient)`
-  width: 80%;
+export const Container = styled(LinearGradient)<IContainerProps>`
+  width: ${(props) => (props.small ? '20%' : '80%')};
   height: 50px;
   border-radius: 50px;
-  margin: 5px auto;
+  margin: 5px;
   padding: 2px;
+
+  align-items: center;
 `;
 
 export const InsideGradient = styled(LinearGradient)`

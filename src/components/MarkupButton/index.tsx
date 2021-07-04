@@ -9,7 +9,8 @@ import theme from '../../global/styles/theme';
 interface IMarkupButtonProps extends RectButtonProps {
   id: string;
   name: string;
-  checked: boolean;
+  checked?: boolean;
+  small?: boolean;
   handleAlternatingChecks(id: string): void;
 }
 
@@ -20,7 +21,8 @@ const {
 const MarkupButton: React.FC<IMarkupButtonProps> = ({
   id,
   name,
-  checked,
+  checked = false,
+  small = false,
   handleAlternatingChecks,
   ...rest
 }) => {
@@ -29,6 +31,7 @@ const MarkupButton: React.FC<IMarkupButtonProps> = ({
       colors={checked ? [baby_blue80, cyan90] : [baby_blue100, cyan90]}
       start={[0, 0]}
       end={[1, 1]}
+      small={small}
     >
       <InsideGradient
         colors={checked ? [baby_blue80, cyan90] : ['#FFFFFF', '#FFFFFF']}
