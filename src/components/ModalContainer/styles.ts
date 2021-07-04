@@ -54,5 +54,6 @@ export const TitleText = styled.Text`
 `;
 
 export const ModalContentArea = styled.View`
+  flex: 1;
   margin-top: 20px;
 `;

@@ -6,7 +6,6 @@ interface IContainerProps {
 }
 
 export const Container = styled.View<IContainerProps>`
-  flex: 1;
   flex-wrap: ${(props) => (props.periodType === 0 ? 'wrap' : 'nowrap')};
   flex-direction: ${(props) => (props.periodType === 0 ? 'row' : 'column')};
   ${(props) => (props.periodType === 0

@@ -100,18 +100,18 @@ const CreateEditTask: React.FC = () => {
         title="Modal"
         isVisible={modalIsOpen}
       >
-        <Button
-          name="Confirmar"
-          color="lightBlue"
-          wSize="80%"
-          onPress={handleToggleModalIsOpen}
-        />
-
         <PeriodOptions
           renderButtons={modalIsOpen}
           periodType={periodType}
           monthDays={monthDays}
           weekDays={weekDays}
+        />
+
+        <Button
+          name="Confirmar"
+          color="lightBlue"
+          wSize="80%"
+          onPress={handleToggleModalIsOpen}
         />
       </ModalContainer>
     </Container>
