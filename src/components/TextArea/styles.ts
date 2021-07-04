@@ -18,7 +18,7 @@ export const Label = styled.Text`
     color: ${baby_blue90};
     font-size: 20px;
     font-family: ${heebo500};
-    line-height: 22px;
+    line-height: 26px;
     padding: 0 5px;
     background-color: #FFFFFF;
     z-index: 1;
