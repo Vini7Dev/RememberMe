@@ -16,6 +16,7 @@ import {
 
 import TodayTask, { ITodayTaskProps } from '../../components/TodayTask';
 import TaskItem, { ITaskItemProps } from '../../components/TaskItem';
+import EmptyListAlert from '../../components/EmptyListAlert';
 import Header from '../../components/Header';
 import UpperWhiteBackground from '../../components/UpperWhiteBackground';
 import CircleButton from '../../components/CircleButton';
@@ -66,23 +67,30 @@ const Home: React.FC = () => {
           <SubtitleText>28/06/2021</SubtitleText>
         </TitleView>
 
-        <FlatList
-          style={{ marginTop: 10 }}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ paddingRight: 20 }}
-          data={todayTasks}
-          keyExtractor={(task) => task.id}
-          renderItem={({ item }) => (
-            <TodayTask
-              id={item.id}
-              title={item.title}
-              time={item.time}
-              period={item.period}
-              description={item.description}
-            />
-          )}
-        />
+        {
+          todayTasks.length === 0
+            ? <EmptyListAlert />
+
+            : (
+              <FlatList
+                style={{ marginTop: 10 }}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={{ paddingRight: 20 }}
+                data={todayTasks}
+                keyExtractor={(task) => task.id}
+                renderItem={({ item }) => (
+                  <TodayTask
+                    id={item.id}
+                    title={item.title}
+                    time={item.time}
+                    period={item.period}
+                    description={item.description}
+                  />
+                )}
+              />
+            )
+        }
       </UpperWhiteBackground>
 
       <TasksListArea>
@@ -106,22 +114,28 @@ const Home: React.FC = () => {
           onPress={() => navigateToCreateEditTask()}
         />
 
-        <FlatList
-          style={{ marginTop: 10, flexGrow: 0 }}
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ paddingRight: 20 }}
-          data={allTasks}
-          keyExtractor={(task) => task.id}
-          renderItem={({ item }) => (
-            <TaskItem
-              id={item.id}
-              title={item.title}
-              time={item.time}
-              period={item.period}
-              description={item.description}
-            />
-          )}
-        />
+        {
+          allTasks.length === 0
+            ? <EmptyListAlert />
+            : (
+              <FlatList
+                style={{ marginTop: 10, flexGrow: 0 }}
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{ paddingRight: 20 }}
+                data={allTasks}
+                keyExtractor={(task) => task.id}
+                renderItem={({ item }) => (
+                  <TaskItem
+                    id={item.id}
+                    title={item.title}
+                    time={item.time}
+                    period={item.period}
+                    description={item.description}
+                  />
+                )}
+              />
+            )
+        }
       </TasksListArea>
 
       <ModalContainer
