@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import { ActivityIndicator } from 'react-native';
 
 import {
   Container,
@@ -11,8 +12,10 @@ import {
   TimeInputsContainer,
   TimeDivisionText,
   SubmitButtonView,
+  LoadingView,
 } from './styles';
 
+import theme from '../../global/styles/theme';
 import Header from '../../components/Header';
 import UpperWhiteBackground from '../../components/UpperWhiteBackground';
 import Input from '../../components/Input';
@@ -24,7 +27,10 @@ import Button from '../../components/Button';
 import ModalContainer from '../../components/ModalContainer';
 import DefaultDaysData, { IDayProps } from '../../utils/DefaultDaysData';
 
+const { baby_blue90 } = theme.colors;
+
 const CreateEditTask: React.FC = () => {
+  const [showLoading, setShowLoading] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [periodType, setPeriodType] = useState(0);
 
@@ -32,8 +38,10 @@ const CreateEditTask: React.FC = () => {
   const [weekDays, setWeekDays] = useState<IDayProps[]>(DefaultDaysData.getDefaultWeekDays);
 
   const handleToggleModalIsOpen = useCallback(() => {
-    setModalIsOpen(!modalIsOpen);
-  }, [modalIsOpen]);
+    setShowLoading(!showLoading);
+
+    setTimeout(() => setModalIsOpen(!modalIsOpen), 0.01);
+  }, [showLoading, modalIsOpen]);
 
   return (
     <Container>
@@ -95,6 +103,14 @@ const CreateEditTask: React.FC = () => {
           color="blue"
         />
       </SubmitButtonView>
+
+      {
+        showLoading && (
+          <LoadingView>
+            <ActivityIndicator color={baby_blue90} size="large" />
+          </LoadingView>
+        )
+      }
 
       <ModalContainer
         title="Modal"
