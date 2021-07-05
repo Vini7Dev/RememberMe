@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import { Alert } from 'react-native';
 
 import {
   Container,
@@ -14,6 +15,7 @@ import {
 } from './styles';
 
 import DefaultDaysData, { IDayProps } from '../../utils/DefaultDaysData';
+import SubmitTaskFormValidation from '../../utils/SubmitTaskFormValidation';
 import Header from '../../components/Header';
 import UpperWhiteBackground from '../../components/UpperWhiteBackground';
 import Input from '../../components/Input';
@@ -35,7 +37,7 @@ const CreateEditTask: React.FC = () => {
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [hours, setHours] = useState('00');
+  const [hours, setHours] = useState('06');
   const [minutes, setMinutes] = useState('00');
 
   const handleToggleModalIsOpen = useCallback(() => {
@@ -68,6 +70,22 @@ const CreateEditTask: React.FC = () => {
       : weekDays.forEach((day) => {
         if (day.checked) period.push(day.id);
       }));
+
+    const validationResponse = SubmitTaskFormValidation.submitFormValidation({
+      title,
+      hours,
+      minutes,
+      period,
+    });
+
+    if (validationResponse.type === 'error') {
+      Alert.alert(
+        validationResponse.error?.title || 'Informações incompletas!',
+        validationResponse.error?.description || 'Reveja o formulário.',
+      );
+
+      return;
+    }
 
     const taskData = {
       title,
@@ -127,9 +145,15 @@ const CreateEditTask: React.FC = () => {
             </TimeLabel>
 
             <TimeInputsContainer>
-              <TimeInput onChangeText={(text) => setHours(text)} />
+              <TimeInput
+                defaultValue={hours}
+                onChangeText={(text) => setHours(text)}
+              />
               <TimeDivisionText>:</TimeDivisionText>
-              <TimeInput onChangeText={(text) => setMinutes(text)} />
+              <TimeInput
+                defaultValue={minutes}
+                onChangeText={(text) => setMinutes(text)}
+              />
             </TimeInputsContainer>
           </InputMargin>
         </Form>
