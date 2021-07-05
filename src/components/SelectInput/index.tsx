@@ -6,16 +6,23 @@ import {
 } from './styles';
 import theme from '../../global/styles/theme';
 
+export interface IPickerItemProps {
+  label: string;
+  value: string;
+}
+
 interface ISelectInputProps extends PickerProps {
   label: string;
   selectedValue: string;
   onValueChange(): void;
   wSize?: '100%' | '110px';
+  items: IPickerItemProps[];
 }
 
 const SelectInput: React.FC<ISelectInputProps> = ({
   label,
   wSize = '100%',
+  items,
   ...rest
 }) => {
   const { baby_blue70, blue } = theme.colors;
@@ -29,9 +36,11 @@ const SelectInput: React.FC<ISelectInputProps> = ({
       >
         <PickerContainer>
           <PickerElement {...rest}>
-            <Picker.Item label="01" value="1" />
-            <Picker.Item label="02" value="2" />
-            <Picker.Item label="03" value="3" />
+            {
+              items.map((item) => (
+                <Picker.Item label={item.label} value={item.value} />
+              ))
+            }
           </PickerElement>
         </PickerContainer>
       </InputBorder>

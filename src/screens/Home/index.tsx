@@ -24,9 +24,10 @@ import UpperWhiteBackground from '../../components/UpperWhiteBackground';
 import CircleButton from '../../components/CircleButton';
 import Input from '../../components/Input';
 import PeriodSelector from '../../components/PeriodSelector';
-import SelectInput from '../../components/SelectInput';
+import SelectInput, { IPickerItemProps } from '../../components/SelectInput';
 import Button from '../../components/Button';
 import ModalContainer from '../../components/ModalContainer';
+import DefaultDaysData from '../../utils/DefaultDaysData';
 
 const tasksExample = [
   {
@@ -52,12 +53,28 @@ const Home: React.FC = () => {
   const [allTasks, setAllTasks] = useState<ITaskItemProps[]>(tasksExample);
 
   const [periodType, setPeriodType] = useState(0);
+  const [optionItems, setOptionItems] = useState<IPickerItemProps[]>([]);
+
+  const handleLoadPickerItems = useCallback(() => {
+    const daysData = periodType === 0
+      ? DefaultDaysData.getDefaultMonthDays()
+      : DefaultDaysData.getDefaultWeekDays();
+
+    const items = daysData.map((data) => ({
+      label: data.value,
+      value: data.id,
+    }));
+
+    setOptionItems(items);
+  }, [periodType]);
 
   useEffect(() => {
     const dateFormated = DateProvider.parseDateFormat(new Date());
 
     setCurrentDate(dateFormated);
-  }, []);
+
+    handleLoadPickerItems();
+  }, [handleLoadPickerItems]);
 
   const navigateToCreateEditTask = useCallback((id?: string) => {
     navigation.navigate('CreateEditTask', { id });
@@ -65,7 +82,9 @@ const Home: React.FC = () => {
 
   const handleToggleModalIsOpen = useCallback(() => {
     setModalIsOpen(!modalIsOpen);
-  }, [modalIsOpen]);
+
+    handleLoadPickerItems();
+  }, [modalIsOpen, handleLoadPickerItems]);
 
   return (
     <Container>
@@ -167,7 +186,8 @@ const Home: React.FC = () => {
           <SelectInput
             wSize={periodType === 0 ? '110px' : '100%'}
             label={periodType === 0 ? 'Dia' : 'Dia da Semana'}
-            selectedValue="1"
+            selectedValue={optionItems.length > 0 ? optionItems[0].value : ''}
+            items={optionItems}
             onValueChange={() => {
               //
             }}
