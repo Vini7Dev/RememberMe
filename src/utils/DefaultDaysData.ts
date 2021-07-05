@@ -4,6 +4,12 @@ export interface IDayProps {
   checked: boolean;
 }
 
+export interface IDayOptionItemProps {
+  id: string;
+  value: string;
+  checked: boolean;
+}
+
 class DefaultDaysData {
   public static getDefaultMonthDays(): IDayProps[] {
     const days = [];

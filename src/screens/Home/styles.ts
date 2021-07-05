@@ -55,3 +55,7 @@ export const FilterButtonView = styled.View`
 export const Form = styled.View`
   padding: 0 20px;
 `;
+
+export const InputMargin = styled.View`
+  margin-bottom: 18px;
+`;

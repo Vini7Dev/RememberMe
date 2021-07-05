@@ -14,7 +14,7 @@ export interface IPickerItemProps {
 interface ISelectInputProps extends PickerProps {
   label: string;
   selectedValue: string;
-  onValueChange(): void;
+  onValueChange(value: unknown, index: number): void;
   wSize?: '100%' | '110px';
   items: IPickerItemProps[];
 }
@@ -38,7 +38,11 @@ const SelectInput: React.FC<ISelectInputProps> = ({
           <PickerElement {...rest}>
             {
               items.map((item) => (
-                <Picker.Item label={item.label} value={item.value} />
+                <Picker.Item
+                  key={item.value}
+                  label={item.label}
+                  value={item.value}
+                />
               ))
             }
           </PickerElement>

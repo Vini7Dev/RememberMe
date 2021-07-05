@@ -49,7 +49,7 @@ const DayMarkupButton: React.FC<IDayMarkupButtonProps> = ({
           {...rest}
         >
           <ButtonText checked={buttonChecked}>
-            {name}
+            {small ? name.toString().padStart(2, '0') : name}
           </ButtonText>
         </ButtonElement>
       </InsideGradient>

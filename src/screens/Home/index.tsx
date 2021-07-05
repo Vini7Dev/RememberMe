@@ -14,6 +14,7 @@ import {
   TasksListTitleText,
   FilterButtonView,
   Form,
+  InputMargin,
 } from './styles';
 
 import TodayTask, { ITodayTaskProps } from '../../components/TodayTask';
@@ -54,6 +55,7 @@ const Home: React.FC = () => {
 
   const [periodType, setPeriodType] = useState(0);
   const [optionItems, setOptionItems] = useState<IPickerItemProps[]>([]);
+  const [dayFilterSelected, setDayFilterSelected] = useState('');
 
   const handleLoadPickerItems = useCallback(() => {
     const daysData = periodType === 0
@@ -61,11 +63,14 @@ const Home: React.FC = () => {
       : DefaultDaysData.getDefaultWeekDays();
 
     const items = daysData.map((data) => ({
-      label: data.value,
+      label: periodType === 0
+        ? data.value.padStart(2, '0')
+        : data.value,
       value: data.id,
     }));
 
     setOptionItems(items);
+    setDayFilterSelected(items[0].value);
   }, [periodType]);
 
   useEffect(() => {
@@ -172,26 +177,30 @@ const Home: React.FC = () => {
         isVisible={modalIsOpen}
       >
         <Form>
-          <Input
-            label="Título"
-            placeholder="Informe o títutlo"
-          />
+          <InputMargin>
+            <Input
+              label="Título"
+              placeholder="Informe o títutlo"
+            />
+          </InputMargin>
 
-          <PeriodSelector
-            optionSelected={periodType}
-            onPressInLeftButton={() => setPeriodType(0)}
-            onPressInRightButton={() => setPeriodType(1)}
-          />
+          <InputMargin>
+            <PeriodSelector
+              optionSelected={periodType}
+              onPressInLeftButton={() => setPeriodType(0)}
+              onPressInRightButton={() => setPeriodType(1)}
+            />
+          </InputMargin>
 
-          <SelectInput
-            wSize={periodType === 0 ? '110px' : '100%'}
-            label={periodType === 0 ? 'Dia' : 'Dia da Semana'}
-            selectedValue={optionItems.length > 0 ? optionItems[0].value : ''}
-            items={optionItems}
-            onValueChange={() => {
-              //
-            }}
-          />
+          <InputMargin>
+            <SelectInput
+              wSize={periodType === 0 ? '110px' : '100%'}
+              label={periodType === 0 ? 'Dia' : 'Dia da Semana'}
+              items={optionItems}
+              selectedValue={dayFilterSelected}
+              onValueChange={(value: string) => setDayFilterSelected(value)}
+            />
+          </InputMargin>
 
           <Button
             name="Confirmar"
