@@ -6,7 +6,7 @@ import {
 } from './styles';
 import theme from '../../global/styles/theme';
 
-const TimeInput: React.FC<TextInputProps> = () => {
+const TimeInput: React.FC<TextInputProps> = ({ ...rest }) => {
   const { baby_blue70, blue } = theme.colors;
 
   return (
@@ -16,6 +16,7 @@ const TimeInput: React.FC<TextInputProps> = () => {
           placeholder="__"
           keyboardType="numeric"
           maxLength={2}
+          {...rest}
         />
       </InputBorder>
     </Conteiner>

@@ -13,6 +13,7 @@ interface ITextAreaProps extends TextInputProps {
 const TextArea: React.FC<ITextAreaProps> = ({
   label,
   placeholder,
+  ...rest
 }) => {
   const { baby_blue70, blue } = theme.colors;
 
@@ -25,10 +26,11 @@ const TextArea: React.FC<ITextAreaProps> = ({
         colors={[baby_blue70, blue]}
       >
         <TextInput
+          style={{ textAlignVertical: 'top' }}
           multiline
           numberOfLines={3}
           placeholder={placeholder}
-          style={{ textAlignVertical: 'top' }}
+          {...rest}
         />
       </InputBorder>
     </Container>

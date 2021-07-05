@@ -33,6 +33,11 @@ const CreateEditTask: React.FC = () => {
   const [monthDays, setMonthDays] = useState<IDayProps[]>(DefaultDaysData.getDefaultMonthDays);
   const [weekDays, setWeekDays] = useState<IDayProps[]>(DefaultDaysData.getDefaultWeekDays);
 
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [hours, setHours] = useState('00');
+  const [minutes, setMinutes] = useState('00');
+
   const handleToggleModalIsOpen = useCallback(() => {
     setShowLoading(!showLoading);
 
@@ -52,6 +57,29 @@ const CreateEditTask: React.FC = () => {
       : setWeekDays(daysArray);
   }, [periodType, monthDays, weekDays]);
 
+  const handleSubmitFormDate = useCallback(async () => {
+    const period: string[] = [];
+
+    // eslint-disable-next-line no-unused-expressions
+    (periodType === 0
+      ? monthDays.forEach((day) => {
+        if (day.checked) period.push(day.id);
+      })
+      : weekDays.forEach((day) => {
+        if (day.checked) period.push(day.id);
+      }));
+
+    const taskData = {
+      title,
+      description,
+      time: `${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}`,
+      periodType,
+      period,
+    };
+
+    console.log(taskData);
+  }, [title, description, hours, minutes, periodType, monthDays, weekDays]);
+
   return (
     <Container>
       <Header />
@@ -66,12 +94,14 @@ const CreateEditTask: React.FC = () => {
             <Input
               label="Título"
               placeholder="Informe o título da tarefa"
+              onChangeText={(text) => setTitle(text)}
             />
           </InputMargin>
           <InputMargin>
             <TextArea
               label="Descrição"
               placeholder="Descreva a tarefa..."
+              onChangeText={(text) => setDescription(text)}
             />
           </InputMargin>
 
@@ -97,9 +127,9 @@ const CreateEditTask: React.FC = () => {
             </TimeLabel>
 
             <TimeInputsContainer>
-              <TimeInput />
+              <TimeInput onChangeText={(text) => setHours(text)} />
               <TimeDivisionText>:</TimeDivisionText>
-              <TimeInput />
+              <TimeInput onChangeText={(text) => setMinutes(text)} />
             </TimeInputsContainer>
           </InputMargin>
         </Form>
@@ -110,6 +140,7 @@ const CreateEditTask: React.FC = () => {
           name="Salvar"
           wSize="100%"
           color="blue"
+          onPress={handleSubmitFormDate}
         />
       </SubmitButtonView>
 
