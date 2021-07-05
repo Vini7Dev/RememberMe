@@ -4,13 +4,14 @@ import {
   Container,
 } from './styles';
 import { IDayProps } from '../../utils/DefaultDaysData';
-import MarkupButton from '../MarkupButton';
+import DayMarkupButton from '../DayMarkupButton';
 
 interface IPeriodOptionsProps {
   renderButtons?: boolean;
   periodType: number;
   monthDays: IDayProps[];
   weekDays: IDayProps[];
+  onPressDayMarkupButton(id: string): void;
 }
 
 const PeriodOptions: React.FC<IPeriodOptionsProps> = ({
@@ -18,6 +19,7 @@ const PeriodOptions: React.FC<IPeriodOptionsProps> = ({
   periodType,
   monthDays,
   weekDays,
+  onPressDayMarkupButton,
 }) => {
   return (
     <Container periodType={periodType} renderButtons={renderButtons}>
@@ -25,23 +27,23 @@ const PeriodOptions: React.FC<IPeriodOptionsProps> = ({
         renderButtons
           && (periodType === 0
             ? monthDays.map(({ id, value, checked }) => (
-              <MarkupButton
+              <DayMarkupButton
                 key={id}
                 small
                 id={id}
                 name={value}
                 checked={checked}
-                handleAlternatingChecks={console.log}
+                handleAlternatingChecks={onPressDayMarkupButton}
               />
             ))
 
             : weekDays.map(({ id, value, checked }) => (
-              <MarkupButton
+              <DayMarkupButton
                 key={id}
                 id={id}
                 name={value}
                 checked={checked}
-                handleAlternatingChecks={console.log}
+                handleAlternatingChecks={onPressDayMarkupButton}
               />
             )))
       }

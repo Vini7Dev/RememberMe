@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import { RectButtonProps } from 'react-native-gesture-handler';
 
 import {
@@ -6,7 +6,7 @@ import {
 } from './styles';
 import theme from '../../global/styles/theme';
 
-interface IMarkupButtonProps extends RectButtonProps {
+interface IDayMarkupButtonProps extends RectButtonProps {
   id: string;
   name: string;
   checked?: boolean;
@@ -18,7 +18,7 @@ const {
   baby_blue100, baby_blue80, cyan90,
 } = theme.colors;
 
-const MarkupButton: React.FC<IMarkupButtonProps> = ({
+const DayMarkupButton: React.FC<IDayMarkupButtonProps> = ({
   id,
   name,
   checked = false,
@@ -26,23 +26,29 @@ const MarkupButton: React.FC<IMarkupButtonProps> = ({
   handleAlternatingChecks,
   ...rest
 }) => {
+  const [buttonChecked, setButtonChecked] = useState(checked);
+
+  const handleOnPressButton = useCallback((day_id: string) => {
+    setButtonChecked(!buttonChecked);
+
+    handleAlternatingChecks(day_id);
+  }, [buttonChecked, handleAlternatingChecks]);
+
   return (
     <Container
-      colors={checked ? [baby_blue80, cyan90] : [baby_blue100, cyan90]}
+      colors={buttonChecked ? [baby_blue80, cyan90] : [baby_blue100, cyan90]}
       start={[0, 0]}
       end={[1, 1]}
       small={small}
     >
       <InsideGradient
-        colors={checked ? [baby_blue80, cyan90] : ['#FFFFFF', '#FFFFFF']}
+        colors={buttonChecked ? [baby_blue80, cyan90] : ['#FFFFFF', '#FFFFFF']}
       >
         <ButtonElement
-          onPress={() => handleAlternatingChecks(id)}
+          onPress={() => handleOnPressButton(id)}
           {...rest}
         >
-          <ButtonText
-            checked={checked}
-          >
+          <ButtonText checked={buttonChecked}>
             {name}
           </ButtonText>
         </ButtonElement>
@@ -51,4 +57,4 @@ const MarkupButton: React.FC<IMarkupButtonProps> = ({
   );
 };
 
-export default MarkupButton;
+export default DayMarkupButton;

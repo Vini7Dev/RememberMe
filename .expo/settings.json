@@ -1,10 +1,10 @@
 {
-  "hostType": "lan",
+  "scheme": null,
+  "hostType": "localhost",
   "lanType": "ip",
+  "devClient": false,
   "dev": true,
   "minify": false,
-  "urlRandomness": "cv-ngm",
-  "https": false,
-  "scheme": null,
-  "devClient": false
+  "urlRandomness": null,
+  "https": false
 }

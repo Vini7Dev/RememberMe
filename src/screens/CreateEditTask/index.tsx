@@ -39,6 +39,19 @@ const CreateEditTask: React.FC = () => {
     setTimeout(() => setModalIsOpen(!modalIsOpen), 0.01);
   }, [showLoading, modalIsOpen]);
 
+  const handleOnPressDayMarkupButton = useCallback((id: string) => {
+    const daysArray = periodType === 0 ? monthDays : weekDays;
+
+    const dayIndex = daysArray.findIndex((day) => day.id === id);
+
+    daysArray[dayIndex].checked = !daysArray[dayIndex].checked;
+
+    // eslint-disable-next-line no-unused-expressions
+    periodType === 0
+      ? setMonthDays(daysArray)
+      : setWeekDays(daysArray);
+  }, [periodType, monthDays, weekDays]);
+
   return (
     <Container>
       <Header />
@@ -113,6 +126,7 @@ const CreateEditTask: React.FC = () => {
           periodType={periodType}
           monthDays={monthDays}
           weekDays={weekDays}
+          onPressDayMarkupButton={handleOnPressDayMarkupButton}
         />
 
         <Button
