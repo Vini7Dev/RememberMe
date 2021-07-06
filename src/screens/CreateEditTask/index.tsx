@@ -1,6 +1,10 @@
 import React, { useState, useCallback } from 'react';
 import { Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import uuid from 'react-native-uuid';
 
+import { COLLECTION_TASKS } from '../../global/configs/storage';
 import {
   Container,
   TitleView,
@@ -29,6 +33,8 @@ import ModalContainer from '../../components/ModalContainer';
 import Loading from '../../components/Loading';
 
 const CreateEditTask: React.FC = () => {
+  const navigation = useNavigation();
+
   const [showLoading, setShowLoading] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [periodType, setPeriodType] = useState(0);
@@ -88,16 +94,38 @@ const CreateEditTask: React.FC = () => {
       return;
     }
 
+    setShowLoading(true);
+
     const taskData = {
+      id: uuid.v4(),
       title,
       description,
       time: `${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}`,
       periodType,
       period,
+      created_at: new Date(),
+      updated_at: new Date(),
     };
 
-    console.log(taskData);
-  }, [title, description, hours, minutes, periodType, monthDays, weekDays]);
+    let newTasksList = [];
+
+    const storageTasks = await AsyncStorage.getItem(COLLECTION_TASKS);
+
+    if (storageTasks) {
+      newTasksList = JSON.parse(storageTasks);
+    }
+
+    newTasksList.push((taskData));
+
+    await AsyncStorage.setItem(COLLECTION_TASKS, JSON.stringify(newTasksList));
+
+    setShowLoading(false);
+
+    navigation.reset({
+      routes: [{ name: 'Home' }],
+      index: 0,
+    });
+  }, [title, description, hours, minutes, periodType, monthDays, weekDays, navigation]);
 
   return (
     <Container>

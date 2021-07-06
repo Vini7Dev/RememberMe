@@ -20,8 +20,6 @@ const TimeInput: React.FC<ITimeInputProps> = ({ type, onChangeText, ...rest }) =
   const handleFormatTime = useCallback((text: string) => {
     const validationResponse = FormValidation.timeInputValidation(type, text);
 
-    console.log(validationResponse);
-
     if (validationResponse.type === 'success') { onChangeText(text); }
   }, [type, onChangeText]);
 

@@ -59,7 +59,7 @@ class FormValidation {
     const time = Number(text);
 
     if (inputType === 'hour') {
-      if (time > 12 || time < 0) {
+      if (time > 23 || time < 0) {
         return {
           type: 'error',
         };
