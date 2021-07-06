@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import { COLLECTION_USERNAME } from '../../global/configs/storage';
 import {
   Container, Content, Image, NameView, HelloMessage, NameText, Greeting,
 } from './styles';
@@ -25,7 +26,7 @@ const Header: React.FC = () => {
         setMessage('Tenha uma noite agradável!');
       }
 
-      const nameSaved = await AsyncStorage.getItem('@RememberMe:name');
+      const nameSaved = await AsyncStorage.getItem(COLLECTION_USERNAME);
 
       setName(nameSaved || '');
     };

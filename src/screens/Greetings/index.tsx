@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import { COLLECTION_USERNAME } from '../../global/configs/storage';
 import IconBlueIMG from '../../assets/icon_blue.png';
 import theme from '../../global/styles/theme';
 import {
@@ -30,7 +31,7 @@ const Greetings: React.FC = () => {
   const handleNavigateToHome = useCallback(async () => {
     setIsLoading(true);
 
-    await AsyncStorage.setItem('@RememberMe:name', name);
+    await AsyncStorage.setItem(COLLECTION_USERNAME, name);
 
     navigation.navigate('Home');
 
