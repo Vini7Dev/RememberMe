@@ -13,8 +13,8 @@ interface IResponseProps {
   }
 }
 
-class SubmitTaskFormValidation {
-  public static submitFormValidation({
+class FormValidation {
+  public static submitTaskDataFormValidation({
     title,
     hours,
     minutes,
@@ -45,7 +45,7 @@ class SubmitTaskFormValidation {
         type: 'error',
         error: {
           title: 'Horário inválido!',
-          description: 'Preencha o horário com a hora e os minutos de quando devo te alertar da tarefa.',
+          description: 'Preencha o horário com a hora e os minutos de quando devo te alertar sobre a tarefa.',
         },
       };
     }
@@ -56,4 +56,4 @@ class SubmitTaskFormValidation {
   }
 }
 
-export default SubmitTaskFormValidation;
+export default FormValidation;
