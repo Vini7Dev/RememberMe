@@ -1,4 +1,4 @@
-interface IFormDataProps {
+interface ITaskDataFormProps {
   title: string;
   hours: string;
   minutes: string;
@@ -19,7 +19,7 @@ class FormValidation {
     hours,
     minutes,
     period,
-  }: IFormDataProps): IResponseProps {
+  }: ITaskDataFormProps): IResponseProps {
     if (title.length === 0) {
       return {
         type: 'error',
@@ -47,6 +47,26 @@ class FormValidation {
           title: 'Horário inválido!',
           description: 'Preencha o horário com a hora e os minutos de quando devo te alertar sobre a tarefa.',
         },
+      };
+    }
+
+    return {
+      type: 'success',
+    };
+  }
+
+  public static timeInputValidation(inputType: 'hour' | 'minute', text: string): IResponseProps {
+    const time = Number(text);
+
+    if (inputType === 'hour') {
+      if (time > 12 || time < 0) {
+        return {
+          type: 'error',
+        };
+      }
+    } else if (time > 59 || time < 0) {
+      return {
+        type: 'error',
       };
     }
 

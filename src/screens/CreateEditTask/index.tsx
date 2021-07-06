@@ -15,7 +15,8 @@ import {
 } from './styles';
 
 import DefaultDaysData, { IDayProps } from '../../utils/DefaultDaysData';
-import SubmitTaskFormValidation from '../../utils/SubmitFormValidation';
+import FormValidation from '../../utils/FormValidation';
+
 import Header from '../../components/Header';
 import UpperWhiteBackground from '../../components/UpperWhiteBackground';
 import Input from '../../components/Input';
@@ -71,7 +72,7 @@ const CreateEditTask: React.FC = () => {
         if (day.checked) period.push(day.id);
       }));
 
-    const validationResponse = SubmitTaskFormValidation.submitTaskDataFormValidation({
+    const validationResponse = FormValidation.submitTaskDataFormValidation({
       title,
       hours,
       minutes,
@@ -146,12 +147,16 @@ const CreateEditTask: React.FC = () => {
 
             <TimeInputsContainer>
               <TimeInput
+                type="hour"
                 defaultValue={hours}
+                value={hours}
                 onChangeText={(text) => setHours(text)}
               />
               <TimeDivisionText>:</TimeDivisionText>
               <TimeInput
+                type="minute"
                 defaultValue={minutes}
+                value={minutes}
                 onChangeText={(text) => setMinutes(text)}
               />
             </TimeInputsContainer>
