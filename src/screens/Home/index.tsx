@@ -53,7 +53,7 @@ const Home: React.FC = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [currentDate, setCurrentDate] = useState('DD/MM/YYYY');
 
-  const [todayTasks, setTodayTasks] = useState<ITodayTaskProps[]>(tasksExample);
+  const [todayTasks, setTodayTasks] = useState<ITaskData[]>([]);
   const [allTasks, setAllTasks] = useState<ITaskData[]>([]);
 
   const [periodType, setPeriodType] = useState(0);
@@ -91,6 +91,7 @@ const Home: React.FC = () => {
 
     if (!loadedTasks) {
       setAllTasks([]);
+      setTodayTasks([]);
 
       return;
     }
@@ -114,6 +115,7 @@ const Home: React.FC = () => {
     });
 
     setAllTasks(formatedTasksApresentation);
+    setTodayTasks(formatedTasksApresentation);
   }, []);
 
   useEffect(() => {
@@ -153,7 +155,6 @@ const Home: React.FC = () => {
                     id={item.id}
                     title={item.title}
                     time={item.time}
-                    period={item.period}
                     description={item.description}
                   />
                 )}

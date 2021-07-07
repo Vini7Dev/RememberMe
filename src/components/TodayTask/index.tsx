@@ -10,14 +10,12 @@ export interface ITodayTaskProps {
   id: string;
   title: string;
   time: string;
-  period: string;
   description: string;
 }
 
 const TodayTask: React.FC<ITodayTaskProps> = ({
   title,
   time,
-  period,
   description,
 }) => {
   const {
@@ -43,14 +41,6 @@ const TodayTask: React.FC<ITodayTaskProps> = ({
               color={baby_blue80}
             />
             <DataText>{time}</DataText>
-          </DataView>
-          <DataView>
-            <DataIcon
-              name="calendar"
-              size={18}
-              color={baby_blue80}
-            />
-            <DataText>{period}</DataText>
           </DataView>
           <DataView>
             <DataIcon

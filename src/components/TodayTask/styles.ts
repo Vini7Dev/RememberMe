@@ -50,10 +50,11 @@ export const TaskData = styled.View`
 
 export const DataView = styled.View`
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
 `;
 
 export const DataIcon = styled(Feather)`
+  margin-top: 1px;
   margin-right: 5px;
 `;
 

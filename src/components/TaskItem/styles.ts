@@ -5,7 +5,7 @@ import styled from 'styled-components/native';
 
 import theme from '../../global/styles/theme';
 
-const { baby_blue70, baby_blue80, cyan90 } = theme.colors;
+const { baby_blue80, cyan90 } = theme.colors;
 const { poppins600, heebo400 } = theme.fonts;
 
 export const Container = styled(LinearGradient)`
