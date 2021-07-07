@@ -1,10 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import { Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import uuid from 'react-native-uuid';
 
-import { COLLECTION_TASKS } from '../../global/configs/storage';
+import TasksRepository from '../../utils/repositories/TasksRepository';
 import {
   Container,
   TitleView,
@@ -117,35 +115,15 @@ const CreateEditTask: React.FC = () => {
     // Display loading in screen
     setShowLoading(true);
 
-    // Create task object with form data
-    const taskData = {
-      id: uuid.v4(),
+    // Saving task on storage
+    await TasksRepository.saveTask({
       title,
       description,
-      time: `${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}`,
+      hours,
+      minutes,
       periodType,
       period,
-      created_at: new Date(),
-      updated_at: new Date(),
-    };
-
-    // Start tasks list empty
-    let newTasksList = [];
-
-    // Get tasks from storage
-    const storageTasks = await AsyncStorage.getItem(COLLECTION_TASKS);
-
-    // If exists tasks in storage
-    if (storageTasks) {
-      // Set saved tasks into list
-      newTasksList = JSON.parse(storageTasks);
-    }
-
-    // Add new task in tasks list
-    newTasksList.push((taskData));
-
-    // Save new tasks list in storage
-    await AsyncStorage.setItem(COLLECTION_TASKS, JSON.stringify(newTasksList));
+    });
 
     // Stop loading
     setShowLoading(false);

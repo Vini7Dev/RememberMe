@@ -1,10 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { FlatList, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { COLLECTION_TASKS } from '../../global/configs/storage';
-import ITaskData from '../../models/ITaskData';
+import TasksRepository, { ITaskData } from '../../utils/repositories/TasksRepository';
 import DateProvider from '../../utils/DateProvider';
 
 import {
@@ -81,19 +79,16 @@ const Home: React.FC = () => {
 
   // Load tasks saved from storage
   const handleLoadTasksFromStorage = useCallback(async () => {
-  // Load tasks
-    const loadedTasks = await AsyncStorage.getItem(COLLECTION_TASKS);
+    // Load tasks
+    const loadedTasks = await TasksRepository.listTasks();
 
     // If not exists tasks saved, cancel operation
-    if (!loadedTasks) {
+    if (loadedTasks.length === 0) {
       return;
     }
 
-    // Parse tasks string to object
-    const parsedTasks = JSON.parse(loadedTasks) as ITaskData[];
-
     // Format tasks to apresentation
-    const formatedTasksPresentation = parsedTasks.map((task) => {
+    const formatedTasksPresentation = loadedTasks.map((task) => {
       const formatedTask = task;
 
       const taskPeriodNumbersParsed = task.periodType === 0
@@ -123,35 +118,14 @@ const Home: React.FC = () => {
     });
 
     // Update all tasks and today tasks state
-    console.log(formatedTasksPresentation);
-    console.log(filteredTasks);
     setTodayTasks(filteredTasks);
     setAllTasks(formatedTasksPresentation);
   }, []);
 
   // Delete task when user confirm this action
   const handleDeleteSelectedTask = useCallback(async (id: string) => {
-    // Load all tasks saved
-    const loadedTasks = await AsyncStorage.getItem(COLLECTION_TASKS);
-
-    // If not exists tasks saved, cancel operation
-    if (!loadedTasks) {
-      Alert.alert('Nenhuma tarefa foi encontrada!');
-
-      return;
-    }
-
-    // Parse tasks string to object
-    const parsedTasks = JSON.parse(loadedTasks) as ITaskData[];
-
-    // Find index of task to delete
-    const taskIndex = parsedTasks.findIndex((task) => task.id === id);
-
-    // Removing task from array
-    parsedTasks.splice(taskIndex, 1);
-
-    // Saving a new array of tasks in storage
-    await AsyncStorage.setItem(COLLECTION_TASKS, JSON.stringify(parsedTasks));
+    // Deleting task from storage
+    await TasksRepository.deleteTask(id);
 
     // Reload tasks items
     handleLoadTasksFromStorage();
