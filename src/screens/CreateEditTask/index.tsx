@@ -32,43 +32,59 @@ import Button from '../../components/Button';
 import ModalContainer from '../../components/ModalContainer';
 import Loading from '../../components/Loading';
 
+// Screen component
 const CreateEditTask: React.FC = () => {
+  // Navigation
   const navigation = useNavigation();
 
+  // Screen states
   const [showLoading, setShowLoading] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [periodType, setPeriodType] = useState(0);
 
+  // Period selectors
   const [monthDays, setMonthDays] = useState<IDayProps[]>(DefaultDaysData.getDefaultMonthDays);
   const [weekDays, setWeekDays] = useState<IDayProps[]>(DefaultDaysData.getDefaultWeekDays);
 
+  // Task data
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [hours, setHours] = useState('06');
   const [minutes, setMinutes] = useState('00');
 
+  // Show or hide modal
   const handleToggleModalIsOpen = useCallback(() => {
+    // Toggle loading presentation
     setShowLoading(!showLoading);
 
-    setTimeout(() => setModalIsOpen(!modalIsOpen), 0.01);
+    // Wait for presentation of loading
+    setTimeout(() => setModalIsOpen(!modalIsOpen), 1);
   }, [showLoading, modalIsOpen]);
 
+  // Toggle day markup
   const handleOnPressDayMarkupButton = useCallback((id: string) => {
+    // Get month days or week days array
     const daysArray = periodType === 0 ? monthDays : weekDays;
 
+    // Find selected day index
     const dayIndex = daysArray.findIndex((day) => day.id === id);
 
+    // Toggle day checked value
     daysArray[dayIndex].checked = !daysArray[dayIndex].checked;
 
+    // Update days array
     // eslint-disable-next-line no-unused-expressions
     periodType === 0
       ? setMonthDays(daysArray)
       : setWeekDays(daysArray);
   }, [periodType, monthDays, weekDays]);
 
+  // On press button to submit form data
   const handleSubmitFormDate = useCallback(async () => {
+    // Start period empty
     const period: string[] = [];
 
+    // Add checked days in the period array
     // eslint-disable-next-line no-unused-expressions
     (periodType === 0
       ? monthDays.forEach((day) => {
@@ -78,6 +94,7 @@ const CreateEditTask: React.FC = () => {
         if (day.checked) period.push(day.id);
       }));
 
+    // Validate form data
     const validationResponse = FormValidation.submitTaskDataFormValidation({
       title,
       hours,
@@ -85,17 +102,22 @@ const CreateEditTask: React.FC = () => {
       period,
     });
 
+    // If validation return 'error'
     if (validationResponse.type === 'error') {
+      // Show alert about error
       Alert.alert(
         validationResponse.error?.title || 'Informações incompletas!',
         validationResponse.error?.description || 'Reveja o formulário.',
       );
 
+      // Cancel operation
       return;
     }
 
+    // Display loading in screen
     setShowLoading(true);
 
+    // Create task object with form data
     const taskData = {
       id: uuid.v4(),
       title,
@@ -107,20 +129,28 @@ const CreateEditTask: React.FC = () => {
       updated_at: new Date(),
     };
 
+    // Start tasks list empty
     let newTasksList = [];
 
+    // Get tasks from storage
     const storageTasks = await AsyncStorage.getItem(COLLECTION_TASKS);
 
+    // If exists tasks in storage
     if (storageTasks) {
+      // Set saved tasks into list
       newTasksList = JSON.parse(storageTasks);
     }
 
+    // Add new task in tasks list
     newTasksList.push((taskData));
 
+    // Save new tasks list in storage
     await AsyncStorage.setItem(COLLECTION_TASKS, JSON.stringify(newTasksList));
 
+    // Stop loading
     setShowLoading(false);
 
+    // Go back to Home screen
     navigation.reset({
       routes: [{ name: 'Home' }],
       index: 0,

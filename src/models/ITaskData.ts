@@ -1,3 +1,4 @@
+// Task properties
 interface ITaskData {
   id: string;
   title: string;
@@ -5,7 +6,7 @@ interface ITaskData {
   time: string;
   periodType: number;
   period: string[];
-  periodApresentation?: string;
+  periodPresentation?: string;
   created_at: Date;
   updated_at: Date;
 }

@@ -2,6 +2,7 @@ import styled from 'styled-components/native';
 
 import theme from '../../global/styles/theme';
 
+// Theme colors and fonts
 const { baby_blue90, cyan90 } = theme.colors;
 const { poppins600, heebo500 } = theme.fonts;
 

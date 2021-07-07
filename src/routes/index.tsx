@@ -3,12 +3,13 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import AppRoutes from './app.routes';
 
+// Routes center
 const Routes: React.FC = () => {
-    return (
-        <NavigationContainer>
-            <AppRoutes />
-        </NavigationContainer>
-    );
-}
+  return (
+    <NavigationContainer>
+      <AppRoutes />
+    </NavigationContainer>
+  );
+};
 
 export default Routes;

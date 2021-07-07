@@ -7,7 +7,7 @@ class DateProvider {
     return `${day}/${month}/${year}`;
   }
 
-  public static transformDaysArrayToApresentationText(days: string[] | number[]): string {
+  public static transformDaysArrayToPresentationText(days: string[] | number[]): string {
     const apresentation = days.join(', ');
 
     const lastComma = apresentation.lastIndexOf(',');

@@ -1,3 +1,4 @@
+// App style theme
 const theme = {
   colors: {
     baby_blue100: '#00F0FF',

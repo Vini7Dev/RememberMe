@@ -6,8 +6,10 @@ import Greetings from '../screens/Greetings';
 import Home from '../screens/Home';
 import CreateEditTask from '../screens/CreateEditTask';
 
+// Creating stack navigator
 const { Navigator, Screen } = createStackNavigator();
 
+// Application routes component
 const AppRoutes: React.FC = () => {
   return (
     <Navigator

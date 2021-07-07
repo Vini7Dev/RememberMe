@@ -3,6 +3,8 @@ import { FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import { COLLECTION_TASKS } from '../../global/configs/storage';
+import ITaskData from '../../models/ITaskData';
 import DateProvider from '../../utils/DateProvider';
 
 import {
@@ -30,26 +32,31 @@ import SelectInput, { IPickerItemProps } from '../../components/SelectInput';
 import Button from '../../components/Button';
 import ModalContainer from '../../components/ModalContainer';
 import DefaultDaysData from '../../utils/DefaultDaysData';
-import { COLLECTION_TASKS } from '../../global/configs/storage';
-import ITaskData from '../../models/ITaskData';
 
+// Screen component
 const Home: React.FC = () => {
+  // Screen states
   const navigation = useNavigation();
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [currentDate, setCurrentDate] = useState('DD/MM/YYYY');
 
+  // Period selectors
   const [todayTasks, setTodayTasks] = useState<ITaskData[]>([]);
   const [allTasks, setAllTasks] = useState<ITaskData[]>([]);
 
+  // Modal filter states
   const [periodType, setPeriodType] = useState(0);
   const [optionItems, setOptionItems] = useState<IPickerItemProps[]>([]);
   const [dayFilterSelected, setDayFilterSelected] = useState('');
 
+  // Getting picker items list
   const handleLoadPickerItems = useCallback(() => {
+    // Get month days or week days default properties
     const daysData = periodType === 0
       ? DefaultDaysData.getDefaultMonthDays()
       : DefaultDaysData.getDefaultWeekDays();
 
+    // Generate items object
     const items = daysData.map((data) => ({
       label: periodType === 0
         ? data.value.padStart(2, '0')
@@ -57,62 +64,79 @@ const Home: React.FC = () => {
       value: data.id,
     }));
 
+    // Update option items value
     setOptionItems(items);
     setDayFilterSelected(items[0].value);
   }, [periodType]);
 
+  // Navigate to CreateEditTask screen
   const navigateToCreateEditTask = useCallback((id?: string) => {
     navigation.navigate('CreateEditTask', { id });
   }, [navigation]);
 
+  // Toggle modal open
   const handleToggleModalIsOpen = useCallback(() => {
     setModalIsOpen(!modalIsOpen);
+  }, [modalIsOpen]);
 
-    handleLoadPickerItems();
-  }, [modalIsOpen, handleLoadPickerItems]);
-
+  // Load tasks saved from storage
   const handleLoadTasksFromStorage = useCallback(async () => {
+    // Load tasks
     const loadedTasks = await AsyncStorage.getItem(COLLECTION_TASKS);
 
+    // If not exists tasks saved, cancel operation
     if (!loadedTasks) {
       return;
     }
 
+    // Parse tasks string to object
     const parsedTasks = JSON.parse(loadedTasks) as ITaskData[];
 
-    const formatedTasksApresentation = parsedTasks.map((task) => {
+    // Format tasks to apresentation
+    const formatedTasksPresentation = parsedTasks.map((task) => {
       const formatedTask = task;
 
-      formatedTask.periodApresentation = DateProvider.transformDaysArrayToApresentationText(
+      // Format period array to string
+      formatedTask.periodPresentation = DateProvider.transformDaysArrayToPresentationText(
         task.period,
       );
 
+      // If task description is empty, set as '...'
       if (!task.description) formatedTask.description = '...';
 
+      // Return formated task
       return formatedTask;
     });
 
+    // Getting current date
     const thisDate = new Date();
 
-    const filteredTasks = formatedTasksApresentation.filter((task) => {
+    // Filter today task
+    const filteredTasks = formatedTasksPresentation.filter((task) => {
       return (task.periodType === 0
         ? task.period.findIndex((day) => Number(day) === thisDate.getDate()) !== -1
         : task.period.findIndex((day) => Number(day) === thisDate.getDay()) !== -1);
     });
 
-    setAllTasks(formatedTasksApresentation);
+    // Update all tasks and today tasks state
+    setAllTasks(formatedTasksPresentation);
     setTodayTasks(filteredTasks);
   }, []);
 
+  // Load tasks from storage on start
   useEffect(() => {
     handleLoadTasksFromStorage();
   }, []);
 
+  // Set screen states
   useEffect(() => {
+    // Format date value to DD/MM/YYYY string
     const dateFormated = DateProvider.parseDateFormat(new Date());
 
+    // Save day formated
     setCurrentDate(dateFormated);
 
+    // Load picker items data
     handleLoadPickerItems();
   }, [handleLoadPickerItems]);
 
@@ -127,6 +151,7 @@ const Home: React.FC = () => {
         </TitleView>
 
         {
+          // Render today tasks list
           todayTasks.length === 0
             ? <EmptyListAlert />
 
@@ -173,6 +198,7 @@ const Home: React.FC = () => {
         />
 
         {
+          // Render all tasks list
           allTasks.length === 0
             ? <EmptyListAlert />
             : (
@@ -187,7 +213,7 @@ const Home: React.FC = () => {
                     id={item.id}
                     title={item.title}
                     time={item.time}
-                    period={item.periodApresentation as string}
+                    period={item.periodPresentation as string}
                     description={item.description}
                   />
                 )}
