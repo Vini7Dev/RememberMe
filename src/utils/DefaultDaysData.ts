@@ -12,12 +12,14 @@ export interface IDayOptionItemProps {
   checked: boolean;
 }
 
-// Default Days Data
+// Default days data
 class DefaultDaysData {
   // Get default data of month days
   public static getDefaultMonthDays(): IDayProps[] {
+    // Month days, starting empty
     const days = [];
 
+    // Generating a new object with default values for each month day
     for (let i = 1; i <= 31; i++) {
       const iString = i.toString();
       days.push({
@@ -27,11 +29,13 @@ class DefaultDaysData {
       });
     }
 
+    // Returning array
     return days;
   }
 
   // Get default data of week days
   public static getDefaultWeekDays(): IDayProps[] {
+    // Returning a new array with default data for each week day
     return [
       { id: '0', value: 'Domingo', checked: false },
       { id: '1', value: 'Segunda-feira', checked: false },

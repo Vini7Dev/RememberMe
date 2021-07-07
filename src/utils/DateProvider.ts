@@ -28,15 +28,18 @@ class DateProvider {
     return apresentation;
   }
 
-  // Transform month days id array string to two zero position "00"
+  // Transform the array of days of the month to two positions "00"
   public static parseDaysNumberToMonthDay(daysNumber: string[]): string[] {
+    // Generating a new array with two position for each element
     const daysParsed = daysNumber.map((day) => day.padStart(2, '0'));
 
+    // Returning string array
     return daysParsed;
   }
 
   // Transform week days number array to name
   public static parseDaysNumberToWeekDay(daysNumber: string[]): string[] {
+    // Generating a new days array with week days name
     const daysParsed = daysNumber.map((day) => {
       switch (day) {
         case '0':
@@ -58,6 +61,7 @@ class DateProvider {
       }
     });
 
+    // Returning array parsed
     return daysParsed;
   }
 }
