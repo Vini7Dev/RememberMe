@@ -1,16 +1,20 @@
+// Day properties
 export interface IDayProps {
   id: string;
   value: string;
   checked: boolean;
 }
 
+// Day option items properties
 export interface IDayOptionItemProps {
   id: string;
   value: string;
   checked: boolean;
 }
 
+// Default Days Data
 class DefaultDaysData {
+  // Get default data of month days
   public static getDefaultMonthDays(): IDayProps[] {
     const days = [];
 
@@ -26,6 +30,7 @@ class DefaultDaysData {
     return days;
   }
 
+  // Get default data of week days
   public static getDefaultWeekDays(): IDayProps[] {
     return [
       { id: '0', value: 'Domingo', checked: false },
