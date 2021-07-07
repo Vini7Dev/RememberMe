@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { FlatList } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import DateProvider from '../../utils/DateProvider';
 
@@ -18,7 +19,7 @@ import {
 } from './styles';
 
 import TodayTask, { ITodayTaskProps } from '../../components/TodayTask';
-import TaskItem, { ITaskItemProps } from '../../components/TaskItem';
+import TaskItem from '../../components/TaskItem';
 import EmptyListAlert from '../../components/EmptyListAlert';
 import Header from '../../components/Header';
 import UpperWhiteBackground from '../../components/UpperWhiteBackground';
@@ -29,6 +30,8 @@ import SelectInput, { IPickerItemProps } from '../../components/SelectInput';
 import Button from '../../components/Button';
 import ModalContainer from '../../components/ModalContainer';
 import DefaultDaysData from '../../utils/DefaultDaysData';
+import { COLLECTION_TASKS } from '../../global/configs/storage';
+import ITaskData from '../../models/ITaskData';
 
 const tasksExample = [
   {
@@ -51,7 +54,7 @@ const Home: React.FC = () => {
   const [currentDate, setCurrentDate] = useState('DD/MM/YYYY');
 
   const [todayTasks, setTodayTasks] = useState<ITodayTaskProps[]>(tasksExample);
-  const [allTasks, setAllTasks] = useState<ITaskItemProps[]>(tasksExample);
+  const [allTasks, setAllTasks] = useState<ITaskData[]>([]);
 
   const [periodType, setPeriodType] = useState(0);
   const [optionItems, setOptionItems] = useState<IPickerItemProps[]>([]);
@@ -73,14 +76,6 @@ const Home: React.FC = () => {
     setDayFilterSelected(items[0].value);
   }, [periodType]);
 
-  useEffect(() => {
-    const dateFormated = DateProvider.parseDateFormat(new Date());
-
-    setCurrentDate(dateFormated);
-
-    handleLoadPickerItems();
-  }, [handleLoadPickerItems]);
-
   const navigateToCreateEditTask = useCallback((id?: string) => {
     navigation.navigate('CreateEditTask', { id });
   }, [navigation]);
@@ -90,6 +85,44 @@ const Home: React.FC = () => {
 
     handleLoadPickerItems();
   }, [modalIsOpen, handleLoadPickerItems]);
+
+  const handleLoadTasksFromStorage = useCallback(async () => {
+    const loadedTasks = await AsyncStorage.getItem(COLLECTION_TASKS);
+
+    if (!loadedTasks) {
+      setAllTasks([]);
+
+      return;
+    }
+
+    const parsedTasks = JSON.parse(loadedTasks) as ITaskData[];
+
+    const formatedTasksApresentation = parsedTasks.map((task) => {
+      const formatedTask = task;
+
+      formatedTask.period = task.periodType === 1
+        ? DateProvider.parseDaysNumberToWeekDay(task.period)
+        : DateProvider.parseDaysNumberToMonthDay(task.period);
+
+      formatedTask.periodApresentation = DateProvider.transformDaysArrayToApresentationText(
+        task.period,
+      );
+
+      return formatedTask;
+    });
+
+    setAllTasks(formatedTasksApresentation);
+  }, []);
+
+  useEffect(() => {
+    const dateFormated = DateProvider.parseDateFormat(new Date());
+
+    setCurrentDate(dateFormated);
+
+    handleLoadPickerItems();
+
+    handleLoadTasksFromStorage();
+  }, [handleLoadPickerItems, handleLoadTasksFromStorage]);
 
   return (
     <Container>
@@ -163,7 +196,7 @@ const Home: React.FC = () => {
                     id={item.id}
                     title={item.title}
                     time={item.time}
-                    period={item.period}
+                    period={item.periodApresentation as string}
                     description={item.description}
                   />
                 )}
