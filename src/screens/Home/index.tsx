@@ -18,7 +18,7 @@ import {
   InputMargin,
 } from './styles';
 
-import TodayTask, { ITodayTaskProps } from '../../components/TodayTask';
+import TodayTask from '../../components/TodayTask';
 import TaskItem from '../../components/TaskItem';
 import EmptyListAlert from '../../components/EmptyListAlert';
 import Header from '../../components/Header';
@@ -32,21 +32,6 @@ import ModalContainer from '../../components/ModalContainer';
 import DefaultDaysData from '../../utils/DefaultDaysData';
 import { COLLECTION_TASKS } from '../../global/configs/storage';
 import ITaskData from '../../models/ITaskData';
-
-const tasksExample = [
-  {
-    id: '1', title: 'Tomar Remédio', time: '09:30', period: 'Dia 28', description: 'Tomar 10ml do remédio XYZ com bastante água.',
-  },
-  {
-    id: '2', title: 'Estudar React Native', time: '14:00', period: 'Segunda', description: 'Sem descrição...',
-  },
-  {
-    id: '3', title: 'Ir no Centro', time: '17:00', period: 'Terça e Sexta', description: 'Levar garrafinha',
-  },
-  {
-    id: '4', title: 'Fazer Exercício', time: '18:25', period: 'Segunda, Terça, Quarta, Quinta e Sexta', description: 'Sem descrição...',
-  },
-];
 
 const Home: React.FC = () => {
   const navigation = useNavigation();
@@ -87,12 +72,10 @@ const Home: React.FC = () => {
   }, [modalIsOpen, handleLoadPickerItems]);
 
   const handleLoadTasksFromStorage = useCallback(async () => {
+    console.log('A = 1');
     const loadedTasks = await AsyncStorage.getItem(COLLECTION_TASKS);
 
     if (!loadedTasks) {
-      setAllTasks([]);
-      setTodayTasks([]);
-
       return;
     }
 
@@ -100,10 +83,6 @@ const Home: React.FC = () => {
 
     const formatedTasksApresentation = parsedTasks.map((task) => {
       const formatedTask = task;
-
-      formatedTask.period = task.periodType === 1
-        ? DateProvider.parseDaysNumberToWeekDay(task.period)
-        : DateProvider.parseDaysNumberToMonthDay(task.period);
 
       formatedTask.periodApresentation = DateProvider.transformDaysArrayToApresentationText(
         task.period,
@@ -114,8 +93,20 @@ const Home: React.FC = () => {
       return formatedTask;
     });
 
+    const thisDate = new Date();
+
+    const filteredTasks = formatedTasksApresentation.filter((task) => {
+      return (task.periodType === 0
+        ? task.period.findIndex((day) => Number(day) === thisDate.getDate()) !== -1
+        : task.period.findIndex((day) => Number(day) === thisDate.getDay()) !== -1);
+    });
+
     setAllTasks(formatedTasksApresentation);
-    setTodayTasks(formatedTasksApresentation);
+    setTodayTasks(filteredTasks);
+  }, []);
+
+  useEffect(() => {
+    handleLoadTasksFromStorage();
   }, []);
 
   useEffect(() => {
@@ -124,9 +115,7 @@ const Home: React.FC = () => {
     setCurrentDate(dateFormated);
 
     handleLoadPickerItems();
-
-    handleLoadTasksFromStorage();
-  }, [handleLoadPickerItems, handleLoadTasksFromStorage]);
+  }, [handleLoadPickerItems]);
 
   return (
     <Container>
