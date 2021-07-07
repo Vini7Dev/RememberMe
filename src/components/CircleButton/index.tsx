@@ -7,11 +7,13 @@ import {
 } from './styles';
 import theme from '../../global/styles/theme';
 
+// CircleButton properties
 interface ICircleButton extends RectButtonProps {
   icon?: 'check' | 'trash-2' | 'filter';
   color?: 'confirm' | 'danger' | 'transparent_blue';
 }
 
+// Theme colors
 const {
   baby_blue100,
   baby_blue90,
@@ -21,15 +23,18 @@ const {
   danger90,
 } = theme.colors;
 
+// Component
 const CircleButton: React.FC<ICircleButton> = ({
   icon = 'check',
   color = 'confirm',
   ...rest
 }) => {
+  // Component colors
   const [iconColor, setIconColor] = useState(baby_blue90);
   const [borderColor, setBorderColor] = useState(cyan100);
   const [gradientColor, setGradientColor] = useState<string[]>([baby_blue90, cyan100]);
 
+  // Set component colors by "color" parameter
   useEffect(() => {
     switch (color) {
       case 'confirm':

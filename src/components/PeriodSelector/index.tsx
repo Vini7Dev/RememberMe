@@ -11,14 +11,17 @@ import {
 } from './styles';
 import theme from '../../global/styles/theme';
 
+// Theme colors
 const { baby_blue100, cyan90 } = theme.colors;
 
+// PeriodSelector properties
 interface IPeriodSelectorProps {
   optionSelected: number;
   onPressInLeftButton(): void;
   onPressInRightButton(): void;
 }
 
+// Component
 const PeriodSelector: React.FC<IPeriodSelectorProps> = ({
   optionSelected,
   onPressInLeftButton,

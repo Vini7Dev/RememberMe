@@ -2,6 +2,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import styled from 'styled-components/native';
 import theme from '../../global/styles/theme';
 
+// Theme fonts
 const { heebo400 } = theme.fonts;
 
 export const Conteiner = styled.View`

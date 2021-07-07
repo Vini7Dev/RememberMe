@@ -6,6 +6,7 @@ import {
 } from './styles';
 import theme from '../../global/styles/theme';
 
+// DayMarkupButton properties
 interface IDayMarkupButtonProps extends RectButtonProps {
   id: string;
   name: string;
@@ -14,10 +15,12 @@ interface IDayMarkupButtonProps extends RectButtonProps {
   handleAlternatingChecks(id: string): void;
 }
 
+// Theme colors
 const {
   baby_blue100, baby_blue80, cyan90,
 } = theme.colors;
 
+// Component
 const DayMarkupButton: React.FC<IDayMarkupButtonProps> = ({
   id,
   name,
@@ -26,11 +29,15 @@ const DayMarkupButton: React.FC<IDayMarkupButtonProps> = ({
   handleAlternatingChecks,
   ...rest
 }) => {
+  // Button checked state
   const [buttonChecked, setButtonChecked] = useState(checked);
 
+  // Toggle markup value
   const handleOnPressButton = useCallback((day_id: string) => {
+    // Toggle value
     setButtonChecked(!buttonChecked);
 
+    // Update list of verified days
     handleAlternatingChecks(day_id);
   }, [buttonChecked, handleAlternatingChecks]);
 

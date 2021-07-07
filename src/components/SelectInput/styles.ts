@@ -8,6 +8,7 @@ interface IContainerProps {
   wSize: '100%' | '110px';
 }
 
+// Theme colors and fonts
 const { baby_blue90, text } = theme.colors;
 const { heebo400, heebo500 } = theme.fonts;
 

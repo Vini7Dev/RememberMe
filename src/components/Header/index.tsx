@@ -9,11 +9,16 @@ import {
 import theme from '../../global/styles/theme';
 import LogoIMG from '../../assets/icon.png';
 
+// Theme colors
+const { baby_blue90, cyan90 } = theme.colors;
+
+// Component
 const Header: React.FC = () => {
-  const { baby_blue90, cyan90 } = theme.colors;
+  // Component properties
   const [name, setName] = useState('');
   const [message, setMessage] = useState('');
 
+  // Set greeting message according to time of day
   useEffect(() => {
     const loadingData = async () => {
       const currentHour = (new Date()).getHours();

@@ -6,6 +6,7 @@ import {
 import { IDayProps } from '../../utils/DefaultDaysData';
 import DayMarkupButton from '../DayMarkupButton';
 
+// PeriodOptions properties
 interface IPeriodOptionsProps {
   renderButtons?: boolean;
   periodType: number;
@@ -14,6 +15,7 @@ interface IPeriodOptionsProps {
   onPressDayMarkupButton(id: string): void;
 }
 
+// Component
 const PeriodOptions: React.FC<IPeriodOptionsProps> = ({
   renderButtons = false,
   periodType,
@@ -24,8 +26,10 @@ const PeriodOptions: React.FC<IPeriodOptionsProps> = ({
   return (
     <Container periodType={periodType} renderButtons={renderButtons}>
       {
+        // Render markup buttons
         renderButtons
           && (periodType === 0
+            // Render month day options
             ? monthDays.map(({ id, value, checked }) => (
               <DayMarkupButton
                 key={id}
@@ -37,6 +41,7 @@ const PeriodOptions: React.FC<IPeriodOptionsProps> = ({
               />
             ))
 
+            // Show week day options
             : weekDays.map(({ id, value, checked }) => (
               <DayMarkupButton
                 key={id}

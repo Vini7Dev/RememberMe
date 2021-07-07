@@ -6,17 +6,20 @@ import {
 } from './styles';
 import theme from '../../global/styles/theme';
 
+// TextArea properties
 interface ITextAreaProps extends TextInputProps {
   label?: string;
 }
 
+// Theme colors
+const { baby_blue70, blue } = theme.colors;
+
+// Component
 const TextArea: React.FC<ITextAreaProps> = ({
   label,
   placeholder,
   ...rest
 }) => {
-  const { baby_blue70, blue } = theme.colors;
-
   return (
     <Container>
       {

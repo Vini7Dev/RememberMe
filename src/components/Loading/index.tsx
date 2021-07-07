@@ -7,8 +7,10 @@ import {
   Container,
 } from './styles';
 
+// Theme colors
 const { baby_blue90 } = theme.colors;
 
+// Component
 const Loading: React.FC = () => {
   return (
     <Container>

@@ -4,6 +4,7 @@ import {
   Container, AlertText,
 } from './styles';
 
+// Component
 const EmptyListAlert: React.FC = () => {
   return (
     <Container>

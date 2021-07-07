@@ -6,17 +6,20 @@ import {
 } from './styles';
 import theme from '../../global/styles/theme';
 
+// Input properties
 interface IInputProps extends TextInputProps {
   label?: string;
 }
 
+// Theme colors
+const { baby_blue70, blue } = theme.colors;
+
+// Component
 const Input: React.FC<IInputProps> = ({
   label,
   placeholder,
   onChangeText,
 }) => {
-  const { baby_blue70, blue } = theme.colors;
-
   return (
     <Container>
       {

@@ -2,6 +2,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import styled from 'styled-components/native';
 import theme from '../../global/styles/theme';
 
+// Theme colors and fonts
 const { baby_blue90 } = theme.colors;
 const { heebo400, heebo500 } = theme.fonts;
 

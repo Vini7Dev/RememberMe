@@ -17,6 +17,8 @@ export const Container = styled(LinearGradient)<IContainerProps>`
   border-radius: 20px;
   justify-content: center;
   align-items: center;
+
+  /* If the button is transparent blue */
   ${(props) => (
     props.inputColor !== 'transparent_blue' && css`
       border-width: 2px;
@@ -28,6 +30,7 @@ export const Container = styled(LinearGradient)<IContainerProps>`
 export const ButtonElement = styled(RectButton)<IContentProps>`
   border-radius: 20px;
 
+  /* If the button is transparent blue */
   ${(props) => (
     props.inputColor === 'transparent_blue' && css`
       width: 36px;

@@ -11,6 +11,7 @@ interface IButtonTextProps {
   checked: boolean;
 }
 
+// Theme colors and fonts
 const { baby_blue90 } = theme.colors;
 const { heebo500 } = theme.fonts;
 

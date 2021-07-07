@@ -2,6 +2,7 @@ import styled from 'styled-components/native';
 
 import theme from '../../global/styles/theme';
 
+// Theme colors and fonts
 const { text } = theme.colors;
 const { heebo500 } = theme.fonts;
 

@@ -7,6 +7,7 @@ interface IModalElementProps {
   isVisible: boolean;
 }
 
+// Theme colors and fonts
 const { cyan90 } = theme.colors;
 const { poppins600 } = theme.fonts;
 

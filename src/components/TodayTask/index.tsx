@@ -6,6 +6,7 @@ import {
 import theme from '../../global/styles/theme';
 import CircleButton from '../CircleButton';
 
+// TodayTask properties
 export interface ITodayTaskProps {
   id: string;
   title: string;
@@ -13,15 +14,15 @@ export interface ITodayTaskProps {
   description: string;
 }
 
+// Theme colors
+const { baby_blue90, baby_blue80, blue } = theme.colors;
+
+// Component
 const TodayTask: React.FC<ITodayTaskProps> = ({
   title,
   time,
   description,
 }) => {
-  const {
-    baby_blue90, baby_blue80, blue,
-  } = theme.colors;
-
   return (
     <Container colors={[baby_blue90, blue]}>
       <Button>

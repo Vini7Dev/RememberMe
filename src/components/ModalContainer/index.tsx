@@ -5,13 +5,16 @@ import {
 } from './styles';
 import theme from '../../global/styles/theme';
 
-const { baby_blue70, cyan90 } = theme.colors;
-
+// ModalContainer properties
 interface IModalContainerProps {
   title: string;
   isVisible?: boolean;
 }
 
+// Theme colors
+const { baby_blue70, cyan90 } = theme.colors;
+
+// Component
 const ModalContainer: React.FC<IModalContainerProps> = ({
   title, isVisible = false, children,
 }) => {

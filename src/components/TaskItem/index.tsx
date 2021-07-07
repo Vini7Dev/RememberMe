@@ -14,6 +14,7 @@ import {
 import theme from '../../global/styles/theme';
 import CircleButton from '../CircleButton';
 
+// TaskItem properties
 export interface ITaskItemProps {
   id: string;
   title: string;
@@ -22,16 +23,16 @@ export interface ITaskItemProps {
   description: string;
 }
 
+// Theme colors
+const { baby_blue90, baby_blue80, blue } = theme.colors;
+
+// Component
 const TaskItem: React.FC<ITaskItemProps> = ({
   title,
   time,
   period,
   description,
 }) => {
-  const {
-    baby_blue90, baby_blue80, blue,
-  } = theme.colors;
-
   return (
     <Container
       colors={[baby_blue90, blue]}
