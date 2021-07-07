@@ -10,7 +10,6 @@ const { baby_blue80, cyan90 } = theme.colors;
 const { poppins600, heebo400 } = theme.fonts;
 
 export const Container = styled(LinearGradient)`
-  flex: 1;
   position: relative;
   width: 103%;
   margin-top: 15px;

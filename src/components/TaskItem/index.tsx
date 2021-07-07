@@ -21,6 +21,7 @@ export interface ITaskItemProps {
   time: string;
   period: string;
   description: string;
+  onPressToDelete(id: string): void;
 }
 
 // Theme colors
@@ -28,10 +29,12 @@ const { baby_blue90, baby_blue80, blue } = theme.colors;
 
 // Component
 const TaskItem: React.FC<ITaskItemProps> = ({
+  id,
   title,
   time,
   period,
   description,
+  onPressToDelete,
 }) => {
   return (
     <Container
@@ -78,6 +81,7 @@ const TaskItem: React.FC<ITaskItemProps> = ({
         <CircleButton
           color="danger"
           icon="trash-2"
+          onPress={() => onPressToDelete(id)}
         />
       </DeleteButtonView>
     </Container>

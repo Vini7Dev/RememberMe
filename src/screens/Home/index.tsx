@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -49,6 +49,16 @@ const Home: React.FC = () => {
   const [optionItems, setOptionItems] = useState<IPickerItemProps[]>([]);
   const [dayFilterSelected, setDayFilterSelected] = useState('');
 
+  // Navigate to CreateEditTask screen
+  const navigateToCreateEditTask = useCallback((id?: string) => {
+    navigation.navigate('CreateEditTask', { id });
+  }, [navigation]);
+
+  // Toggle modal open
+  const handleToggleModalIsOpen = useCallback(() => {
+    setModalIsOpen(!modalIsOpen);
+  }, [modalIsOpen]);
+
   // Getting picker items list
   const handleLoadPickerItems = useCallback(() => {
     // Get month days or week days default properties
@@ -69,19 +79,9 @@ const Home: React.FC = () => {
     setDayFilterSelected(items[0].value);
   }, [periodType]);
 
-  // Navigate to CreateEditTask screen
-  const navigateToCreateEditTask = useCallback((id?: string) => {
-    navigation.navigate('CreateEditTask', { id });
-  }, [navigation]);
-
-  // Toggle modal open
-  const handleToggleModalIsOpen = useCallback(() => {
-    setModalIsOpen(!modalIsOpen);
-  }, [modalIsOpen]);
-
   // Load tasks saved from storage
   const handleLoadTasksFromStorage = useCallback(async () => {
-    // Load tasks
+  // Load tasks
     const loadedTasks = await AsyncStorage.getItem(COLLECTION_TASKS);
 
     // If not exists tasks saved, cancel operation
@@ -123,14 +123,60 @@ const Home: React.FC = () => {
     });
 
     // Update all tasks and today tasks state
-    setAllTasks(formatedTasksPresentation);
+    console.log(formatedTasksPresentation);
+    console.log(filteredTasks);
     setTodayTasks(filteredTasks);
+    setAllTasks(formatedTasksPresentation);
   }, []);
+
+  // Delete task when user confirm this action
+  const handleDeleteSelectedTask = useCallback(async (id: string) => {
+    // Load all tasks saved
+    const loadedTasks = await AsyncStorage.getItem(COLLECTION_TASKS);
+
+    // If not exists tasks saved, cancel operation
+    if (!loadedTasks) {
+      Alert.alert('Nenhuma tarefa foi encontrada!');
+
+      return;
+    }
+
+    // Parse tasks string to object
+    const parsedTasks = JSON.parse(loadedTasks) as ITaskData[];
+
+    // Find index of task to delete
+    const taskIndex = parsedTasks.findIndex((task) => task.id === id);
+
+    // Removing task from array
+    parsedTasks.splice(taskIndex, 1);
+
+    // Saving a new array of tasks in storage
+    await AsyncStorage.setItem(COLLECTION_TASKS, JSON.stringify(parsedTasks));
+
+    // Reload tasks items
+    handleLoadTasksFromStorage();
+  }, [handleLoadTasksFromStorage]);
+
+  // Ask the user if he really wants to delete the task
+  const handleQuestionToDeleteTask = useCallback(async (id: string) => {
+    // Send question alert
+    Alert.alert(
+      'Deseja apagar a tarefa?',
+      'Esta ação não pode ser desfeita!',
+      [
+        {
+          text: 'Sim',
+          onPress: () => handleDeleteSelectedTask(id),
+        },
+        { text: 'Não' },
+      ],
+    );
+  }, [handleDeleteSelectedTask]);
 
   // Load tasks from storage on start
   useEffect(() => {
     handleLoadTasksFromStorage();
-  }, []);
+  }, [handleLoadTasksFromStorage]);
 
   // Set screen states
   useEffect(() => {
@@ -158,7 +204,6 @@ const Home: React.FC = () => {
           // Render today tasks list
           todayTasks.length === 0
             ? <EmptyListAlert />
-
             : (
               <FlatList
                 style={{ marginTop: 10 }}
@@ -219,6 +264,7 @@ const Home: React.FC = () => {
                     time={item.time}
                     period={item.periodPresentation as string}
                     description={item.description}
+                    onPressToDelete={(id) => handleQuestionToDeleteTask(id)}
                   />
                 )}
               />
