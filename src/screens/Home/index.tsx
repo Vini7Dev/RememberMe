@@ -18,6 +18,8 @@ import {
   InputMargin,
 } from './styles';
 
+import DefaultDaysData from '../../utils/DefaultDaysData';
+import Loading from '../../components/Loading';
 import TodayTask from '../../components/TodayTask';
 import TaskItem from '../../components/TaskItem';
 import EmptyListAlert from '../../components/EmptyListAlert';
@@ -29,12 +31,12 @@ import PeriodSelector from '../../components/PeriodSelector';
 import SelectInput, { IPickerItemProps } from '../../components/SelectInput';
 import Button from '../../components/Button';
 import ModalContainer from '../../components/ModalContainer';
-import DefaultDaysData from '../../utils/DefaultDaysData';
 
 // Screen component
 const Home: React.FC = () => {
   // Screen states
   const navigation = useNavigation();
+  const [isLoading, setIsLoading] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [currentDate, setCurrentDate] = useState('DD/MM/YYYY');
 
@@ -79,6 +81,9 @@ const Home: React.FC = () => {
 
   // Load tasks saved from storage
   const handleLoadTasksFromStorage = useCallback(async () => {
+    // Start loading
+    setIsLoading(true);
+
     // Load tasks
     const loadedTasks = await TasksRepository.listTasks();
 
@@ -120,10 +125,16 @@ const Home: React.FC = () => {
     // Update all tasks and today tasks state
     setTodayTasks(filteredTasks);
     setAllTasks(formatedTasksPresentation);
+
+    // Stop loading
+    setIsLoading(false);
   }, []);
 
   // Delete task when user confirm this action
   const handleDeleteSelectedTask = useCallback(async (id: string) => {
+    // Start loading
+    setIsLoading(true);
+
     // Deleting task from storage
     await TasksRepository.deleteTask(id);
 
@@ -165,16 +176,17 @@ const Home: React.FC = () => {
   }, [handleLoadPickerItems]);
 
   return (
-    <Container>
-      <Header />
+    <>
+      <Container>
+        <Header />
 
-      <UpperWhiteBackground>
-        <TitleView>
-          <TitleText>Tarefas do Dia</TitleText>
-          <SubtitleText>{currentDate}</SubtitleText>
-        </TitleView>
+        <UpperWhiteBackground>
+          <TitleView>
+            <TitleText>Tarefas do Dia</TitleText>
+            <SubtitleText>{currentDate}</SubtitleText>
+          </TitleView>
 
-        {
+          {
           // Render today tasks list
           todayTasks.length === 0
             ? <EmptyListAlert />
@@ -197,30 +209,30 @@ const Home: React.FC = () => {
               />
             )
         }
-      </UpperWhiteBackground>
+        </UpperWhiteBackground>
 
-      <TasksListArea>
-        <TasksListTitleView>
-          <TasksListTitleText>Tarefas</TasksListTitleText>
+        <TasksListArea>
+          <TasksListTitleView>
+            <TasksListTitleText>Tarefas</TasksListTitleText>
 
-          <FilterButtonView>
-            <CircleButton
-              color="transparent_blue"
-              icon="filter"
-              onPress={handleToggleModalIsOpen}
-            />
-          </FilterButtonView>
-        </TasksListTitleView>
+            <FilterButtonView>
+              <CircleButton
+                color="transparent_blue"
+                icon="filter"
+                onPress={handleToggleModalIsOpen}
+              />
+            </FilterButtonView>
+          </TasksListTitleView>
 
-        <Button
-          name="Adicionar"
-          wSize="100%"
-          color="blue"
-          icon="plus"
-          onPress={() => navigateToCreateEditTask()}
-        />
+          <Button
+            name="Adicionar"
+            wSize="100%"
+            color="blue"
+            icon="plus"
+            onPress={() => navigateToCreateEditTask()}
+          />
 
-        {
+          {
           // Render all tasks list
           allTasks.length === 0
             ? <EmptyListAlert />
@@ -244,47 +256,52 @@ const Home: React.FC = () => {
               />
             )
         }
-      </TasksListArea>
+        </TasksListArea>
 
-      <ModalContainer
-        title="Filtrar"
-        isVisible={modalIsOpen}
-      >
-        <Form>
-          <InputMargin>
-            <Input
-              label="Título"
-              placeholder="Informe o títutlo"
+        <ModalContainer
+          title="Filtrar"
+          isVisible={modalIsOpen}
+        >
+          <Form>
+            <InputMargin>
+              <Input
+                label="Título"
+                placeholder="Informe o títutlo"
+              />
+            </InputMargin>
+
+            <InputMargin>
+              <PeriodSelector
+                optionSelected={periodType}
+                onPressInLeftButton={() => setPeriodType(0)}
+                onPressInRightButton={() => setPeriodType(1)}
+              />
+            </InputMargin>
+
+            <InputMargin>
+              <SelectInput
+                wSize={periodType === 0 ? '110px' : '100%'}
+                label={periodType === 0 ? 'Dia' : 'Dia da Semana'}
+                items={optionItems}
+                selectedValue={dayFilterSelected}
+                onValueChange={(value: string) => setDayFilterSelected(value)}
+              />
+            </InputMargin>
+
+            <Button
+              name="Confirmar"
+              color="lightBlue"
+              wSize="80%"
+              onPress={handleToggleModalIsOpen}
             />
-          </InputMargin>
+          </Form>
+        </ModalContainer>
+      </Container>
 
-          <InputMargin>
-            <PeriodSelector
-              optionSelected={periodType}
-              onPressInLeftButton={() => setPeriodType(0)}
-              onPressInRightButton={() => setPeriodType(1)}
-            />
-          </InputMargin>
-
-          <InputMargin>
-            <SelectInput
-              wSize={periodType === 0 ? '110px' : '100%'}
-              label={periodType === 0 ? 'Dia' : 'Dia da Semana'}
-              items={optionItems}
-              selectedValue={dayFilterSelected}
-              onValueChange={(value: string) => setDayFilterSelected(value)}
-            />
-          </InputMargin>
-
-          <Button
-            name="Confirmar"
-            color="lightBlue"
-            wSize="80%"
-            onPress={handleToggleModalIsOpen}
-          />
-        </Form>
-      </ModalContainer>
-    </Container>
+      {
+        isLoading && <Loading />
+      }
+    </>
   );
 };
 
