@@ -72,7 +72,6 @@ const Home: React.FC = () => {
   }, [modalIsOpen, handleLoadPickerItems]);
 
   const handleLoadTasksFromStorage = useCallback(async () => {
-    console.log('A = 1');
     const loadedTasks = await AsyncStorage.getItem(COLLECTION_TASKS);
 
     if (!loadedTasks) {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { RectButtonProps } from 'react-native-gesture-handler';
 import { Feather } from '@expo/vector-icons';
 
@@ -7,6 +7,7 @@ import {
 } from './styles';
 import theme from '../../global/styles/theme';
 
+// Button properties
 interface IButtonProps extends RectButtonProps {
   name: string;
   wSize: '100%' | '80%' | '50%';
@@ -14,8 +15,10 @@ interface IButtonProps extends RectButtonProps {
   icon?: 'plus' | 'edit-3';
 }
 
+// Theme colors
 const { baby_blue100, baby_blue80, cyan90 } = theme.colors;
 
+// Component
 const Button: React.FC<IButtonProps> = ({
   name,
   wSize,
@@ -23,25 +26,20 @@ const Button: React.FC<IButtonProps> = ({
   icon,
   ...rest
 }) => {
-  const [gradientColor, setGradientColor] = useState<string[]>([baby_blue80, cyan90]);
-
-  useEffect(() => {
-    switch (color) {
-      case 'blue':
-        setGradientColor([baby_blue80, cyan90]);
-        break;
-      case 'lightBlue':
-        setGradientColor([baby_blue100, cyan90]);
-        break;
-      default:
-        setGradientColor([baby_blue80, cyan90]);
-        break;
-    }
-  }, [color]);
-
   return (
     <Container
-      colors={gradientColor}
+      colors={
+        (function () {
+          switch (color) {
+            case 'blue':
+              return [baby_blue80, cyan90];
+            case 'lightBlue':
+              return [baby_blue100, cyan90];
+            default:
+              return [baby_blue80, cyan90];
+          }
+        }())
+      }
       start={[0, 0]}
       end={[1, 1]}
       wSize={wSize}

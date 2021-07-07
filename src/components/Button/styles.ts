@@ -8,6 +8,7 @@ interface IContainerProps {
   wSize: string;
 }
 
+// Theme fonts
 const { poppins600 } = theme.fonts;
 
 export const Container = styled(LinearGradient)<IContainerProps>`
