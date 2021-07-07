@@ -108,6 +108,8 @@ const Home: React.FC = () => {
         task.period,
       );
 
+      if (!task.description) formatedTask.description = '...';
+
       return formatedTask;
     });
 

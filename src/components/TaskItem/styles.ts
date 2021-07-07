@@ -5,7 +5,7 @@ import styled from 'styled-components/native';
 
 import theme from '../../global/styles/theme';
 
-const { baby_blue80, cyan90 } = theme.colors;
+const { baby_blue70, baby_blue80, cyan90 } = theme.colors;
 const { poppins600, heebo400 } = theme.fonts;
 
 export const Container = styled(LinearGradient)`
@@ -45,10 +45,15 @@ export const TaskDataArea = styled.View`
 
 export const TaskDataView = styled.View`
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
+  padding: 2px 0;
+
+  border-top-width: 1px;
+  border-top-color: ${baby_blue80};
 `;
 
 export const TaskDataIcon = styled(Feather)`
+  margin-top: 1px;
   margin-right: 5px;
 `;
 
