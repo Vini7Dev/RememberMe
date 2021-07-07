@@ -96,9 +96,13 @@ const Home: React.FC = () => {
     const formatedTasksPresentation = parsedTasks.map((task) => {
       const formatedTask = task;
 
+      const taskPeriodNumbersParsed = task.periodType === 0
+        ? DateProvider.parseDaysNumberToMonthDay(task.period)
+        : DateProvider.parseDaysNumberToWeekDay(task.period);
+
       // Format period array to string
       formatedTask.periodPresentation = DateProvider.transformDaysArrayToPresentationText(
-        task.period,
+        taskPeriodNumbersParsed,
       );
 
       // If task description is empty, set as '...'
