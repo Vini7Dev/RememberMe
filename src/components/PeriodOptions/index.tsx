@@ -3,7 +3,7 @@ import React from 'react';
 import {
   Container,
 } from './styles';
-import { IDayProps } from '../../utils/DefaultDaysData';
+import { IDayProps } from '../../scripts/utils/DefaultDaysData';
 import DayMarkupButton from '../DayMarkupButton';
 
 // PeriodOptions properties

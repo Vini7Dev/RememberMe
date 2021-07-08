@@ -2,8 +2,9 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { FlatList, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import TasksRepository, { ITaskData } from '../../utils/repositories/TasksRepository';
-import DateProvider from '../../utils/DateProvider';
+import TasksRepository, { ITaskData } from '../../scripts/repositories/TasksRepository';
+import DateProvider from '../../scripts/providers/DateProvider';
+import DefaultDaysData from '../../scripts/utils/DefaultDaysData';
 
 import {
   Container,
@@ -18,7 +19,6 @@ import {
   InputMargin,
 } from './styles';
 
-import DefaultDaysData from '../../utils/DefaultDaysData';
 import Loading from '../../components/Loading';
 import TodayTask from '../../components/TodayTask';
 import TaskItem from '../../components/TaskItem';
@@ -89,6 +89,9 @@ const Home: React.FC = () => {
 
     // If not exists tasks saved, cancel operation
     if (loadedTasks.length === 0) {
+      // Stop loading
+      setIsLoading(false);
+
       return;
     }
 

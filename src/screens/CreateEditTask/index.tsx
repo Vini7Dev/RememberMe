@@ -2,7 +2,6 @@ import React, { useState, useCallback } from 'react';
 import { Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import TasksRepository from '../../utils/repositories/TasksRepository';
 import {
   Container,
   TitleView,
@@ -16,8 +15,9 @@ import {
   SubmitButtonView,
 } from './styles';
 
-import DefaultDaysData, { IDayProps } from '../../utils/DefaultDaysData';
-import FormValidation from '../../utils/FormValidation';
+import TasksRepository from '../../scripts/repositories/TasksRepository';
+import DefaultDaysData, { IDayProps } from '../../scripts/utils/DefaultDaysData';
+import FormValidation from '../../scripts/utils/FormValidation';
 
 import Header from '../../components/Header';
 import UpperWhiteBackground from '../../components/UpperWhiteBackground';

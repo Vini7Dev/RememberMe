@@ -6,7 +6,7 @@ import {
 } from './styles';
 import theme from '../../global/styles/theme';
 
-import FormValidation from '../../utils/FormValidation';
+import FormValidation from '../../scripts/utils/FormValidation';
 
 // TimeInput properties
 interface ITimeInputProps extends TextInputProps {
