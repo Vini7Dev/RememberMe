@@ -43,9 +43,11 @@ const Home: React.FC = () => {
   // Period selectors
   const [todayTasks, setTodayTasks] = useState<ITaskData[]>([]);
   const [allTasks, setAllTasks] = useState<ITaskData[]>([]);
+  const [filteredTasks, setFilteredTasks] = useState<ITaskData[]>([]);
 
   // Modal filter states
-  const [periodType, setPeriodType] = useState(0);
+  const [filterTitle, setFilterTitle] = useState('');
+  const [filterPeriodType, setFilterPeriodType] = useState(-1);
   const [optionItems, setOptionItems] = useState<IPickerItemProps[]>([]);
   const [dayFilterSelected, setDayFilterSelected] = useState('');
 
@@ -62,13 +64,13 @@ const Home: React.FC = () => {
   // Getting picker items list
   const handleLoadPickerItems = useCallback(() => {
     // Get month days or week days default properties
-    const daysData = periodType === 0
+    const daysData = filterPeriodType === 0
       ? DefaultDaysData.getDefaultMonthDays()
       : DefaultDaysData.getDefaultWeekDays();
 
     // Generate items object
     const items = daysData.map((data) => ({
-      label: periodType === 0
+      label: filterPeriodType === 0
         ? data.value.padStart(2, '0')
         : data.value,
       value: data.id,
@@ -77,7 +79,32 @@ const Home: React.FC = () => {
     // Update option items value
     setOptionItems(items);
     setDayFilterSelected(items[0].value);
-  }, [periodType]);
+  }, [filterPeriodType]);
+
+  // Apply filters
+  const handleApplyFilters = useCallback(() => {
+    // Starting filter with all tasks
+    let filtered = allTasks;
+
+    // Filter by title
+    if (filterTitle.length > 0) {
+      filtered = filtered.filter((task) => task.title === filterTitle);
+    }
+
+    // Filter by day
+    if (filterPeriodType !== -1) {
+      filtered = filtered.filter((task) => (
+        task.periodType === filterPeriodType
+        && task.period.findIndex((item) => item === dayFilterSelected) !== -1
+      ));
+    }
+
+    // Save filtered tasks state
+    setFilteredTasks(filtered);
+
+    // Close modal
+    handleToggleModalIsOpen();
+  }, [allTasks, filterTitle, handleToggleModalIsOpen]);
 
   // Load tasks saved from storage
   const handleLoadTasksFromStorage = useCallback(async () => {
@@ -119,15 +146,16 @@ const Home: React.FC = () => {
     const thisDate = new Date();
 
     // Filter today task
-    const filteredTasks = formatedTasksPresentation.filter((task) => {
+    const filteredTodayTasks = formatedTasksPresentation.filter((task) => {
       return (task.periodType === 0
         ? task.period.findIndex((day) => Number(day) === thisDate.getDate()) !== -1
         : task.period.findIndex((day) => Number(day) === thisDate.getDay()) !== -1);
     });
 
     // Update all tasks and today tasks state
-    setTodayTasks(filteredTasks);
     setAllTasks(formatedTasksPresentation);
+    setFilteredTasks(formatedTasksPresentation);
+    setTodayTasks(filteredTodayTasks);
 
     // Stop loading
     setIsLoading(false);
@@ -245,7 +273,7 @@ const Home: React.FC = () => {
                 style={{ marginTop: 10, flexGrow: 0 }}
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{ paddingRight: 20 }}
-                data={allTasks}
+                data={filteredTasks}
                 keyExtractor={(task) => task.id}
                 renderItem={({ item }) => (
                   <TaskItem
@@ -272,32 +300,46 @@ const Home: React.FC = () => {
               <Input
                 label="Título"
                 placeholder="Informe o títutlo"
+                onChangeText={(text) => setFilterTitle(text)}
               />
             </InputMargin>
 
             <InputMargin>
               <PeriodSelector
-                optionSelected={periodType}
-                onPressInLeftButton={() => setPeriodType(0)}
-                onPressInRightButton={() => setPeriodType(1)}
+                optionSelected={filterPeriodType}
+                onPressInLeftButton={() => (
+                  filterPeriodType === 0
+                    ? setFilterPeriodType(-1)
+                    : setFilterPeriodType(0)
+                )}
+                onPressInRightButton={() => (
+                  filterPeriodType === 1
+                    ? setFilterPeriodType(-1)
+                    : setFilterPeriodType(1)
+                )}
               />
             </InputMargin>
 
             <InputMargin>
-              <SelectInput
-                wSize={periodType === 0 ? '110px' : '100%'}
-                label={periodType === 0 ? 'Dia' : 'Dia da Semana'}
-                items={optionItems}
-                selectedValue={dayFilterSelected}
-                onValueChange={(value: string) => setDayFilterSelected(value)}
-              />
+              {
+                filterPeriodType !== -1
+                  && (
+                  <SelectInput
+                    wSize={filterPeriodType === 0 ? '110px' : '100%'}
+                    label={filterPeriodType === 0 ? 'Dia' : 'Dia da Semana'}
+                    items={optionItems}
+                    selectedValue={dayFilterSelected}
+                    onValueChange={(value: string) => setDayFilterSelected(value)}
+                  />
+                  )
+              }
             </InputMargin>
 
             <Button
               name="Confirmar"
               color="lightBlue"
               wSize="80%"
-              onPress={handleToggleModalIsOpen}
+              onPress={handleApplyFilters}
             />
           </Form>
         </ModalContainer>
