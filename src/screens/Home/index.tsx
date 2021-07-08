@@ -40,12 +40,13 @@ const Home: React.FC = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [currentDate, setCurrentDate] = useState('DD/MM/YYYY');
 
-  // Period selectors
+  // Tasks
   const [todayTasks, setTodayTasks] = useState<ITaskData[]>([]);
   const [allTasks, setAllTasks] = useState<ITaskData[]>([]);
   const [filteredTasks, setFilteredTasks] = useState<ITaskData[]>([]);
 
   // Modal filter states
+  const [isFiltered, setIsFiltered] = useState(false);
   const [filterTitle, setFilterTitle] = useState('');
   const [filterPeriodType, setFilterPeriodType] = useState(-1);
   const [optionItems, setOptionItems] = useState<IPickerItemProps[]>([]);
@@ -94,6 +95,9 @@ const Home: React.FC = () => {
 
         return taskTitleLowerCase.includes(filterTitleLowerCase);
       });
+
+      // Mark the filtered state
+      setIsFiltered(true);
     }
 
     // Filter by day
@@ -102,6 +106,14 @@ const Home: React.FC = () => {
         task.periodType === filterPeriodType
         && task.period.findIndex((item) => item === dayFilterSelected) !== -1
       ));
+
+      // Mark the filtered state
+      setIsFiltered(true);
+    }
+
+    // If there are no filters applied, uncheck the filtered state
+    if (filtered === allTasks) {
+      setIsFiltered(false);
     }
 
     // Save filtered tasks state
@@ -225,7 +237,7 @@ const Home: React.FC = () => {
           {
           // Render today tasks list
           todayTasks.length === 0
-            ? <EmptyListAlert />
+            ? <EmptyListAlert text="Sem Tarefas..." />
             : (
               <FlatList
                 style={{ marginTop: 10 }}
@@ -254,7 +266,7 @@ const Home: React.FC = () => {
 
             <FilterButtonView>
               <CircleButton
-                color="transparent_blue"
+                color={isFiltered ? 'danger' : 'transparent_blue'}
                 icon="filter"
                 onPress={handleToggleModalIsOpen}
               />
@@ -272,7 +284,7 @@ const Home: React.FC = () => {
           {
           // Render all filtered tasks list
           filteredTasks.length === 0
-            ? <EmptyListAlert />
+            ? <EmptyListAlert text={isFiltered ? 'Filtro sem resultado...' : 'Sem Tarefas...'} />
             : (
               <FlatList
                 style={{ marginTop: 10, flexGrow: 0 }}
@@ -325,10 +337,10 @@ const Home: React.FC = () => {
               />
             </InputMargin>
 
-            <InputMargin>
-              {
-                filterPeriodType !== -1
-                  && (
+            {
+              filterPeriodType !== -1
+              && (
+                <InputMargin>
                   <SelectInput
                     wSize={filterPeriodType === 0 ? '110px' : '100%'}
                     label={filterPeriodType === 0 ? 'Dia' : 'Dia da Semana'}
@@ -336,9 +348,9 @@ const Home: React.FC = () => {
                     selectedValue={dayFilterSelected}
                     onValueChange={(value: string) => setDayFilterSelected(value)}
                   />
-                  )
-              }
-            </InputMargin>
+                </InputMargin>
+              )
+            }
 
             <Button
               name="Confirmar"
