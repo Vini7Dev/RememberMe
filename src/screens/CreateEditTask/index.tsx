@@ -158,14 +158,54 @@ const CreateEditTask: React.FC = () => {
     });
   }, [taskId, title, description, hours, minutes, periodType, monthDays, weekDays, navigation]);
 
+  // Load task data to update
+  const handleLoadTaskData = useCallback(async (id: string) => {
+    // Start loading
+    setShowLoading(true);
+
+    // Saving tas id in state
+    setTaskId(id);
+
+    // Loading task data
+    const taskData = await TasksRepository.findTaskById(id);
+
+    // If tasks does not exists, cancel operation
+    if (!taskData) {
+      Alert.alert('A tarefa não foi encontrada!');
+
+      // Stop loading
+      setShowLoading(false);
+
+      return;
+    }
+
+    // Saving task data on state
+    const [taskHours, taskMinutes] = taskData.time.split(':');
+
+    setTitle(taskData.title);
+    setDescription(taskData.description);
+    setHours(taskHours);
+    setMinutes(taskMinutes);
+    setPeriodType(taskData.periodType);
+    // eslint-disable-next-line no-unused-expressions
+    taskData.periodType === 0
+      ? setMonthDays(DefaultDaysData.getCustomCheckedMonthDays(taskData.period))
+      : setWeekDays(DefaultDaysData.getCustomCheckedWeekDays(taskData.period));
+
+    // Stop loading
+    setShowLoading(false);
+  }, []);
+
   // Check that the task id is present in the route parameters to update the task
   useEffect(() => {
     const { id } = route.params as IRouteParams;
 
-    if (id) {
-      setTaskId(id);
+    if (!id) {
+      return;
     }
-  }, [route]);
+
+    handleLoadTaskData(id);
+  }, [route, handleLoadTaskData]);
 
   return (
     <Container>
@@ -181,6 +221,7 @@ const CreateEditTask: React.FC = () => {
             <Input
               label="Título"
               placeholder="Informe o título da tarefa"
+              defaultValue={title}
               onChangeText={(text) => setTitle(text)}
             />
           </InputMargin>
@@ -188,6 +229,7 @@ const CreateEditTask: React.FC = () => {
             <TextArea
               label="Descrição"
               placeholder="Descreva a tarefa..."
+              defaultValue={description}
               onChangeText={(text) => setDescription(text)}
             />
           </InputMargin>

@@ -17,6 +17,7 @@ const { baby_blue70, blue } = theme.colors;
 // Component
 const Input: React.FC<IInputProps> = ({
   label,
+  defaultValue,
   placeholder,
   onChangeText,
 }) => {
@@ -30,6 +31,7 @@ const Input: React.FC<IInputProps> = ({
       >
         <TextInput
           placeholder={placeholder}
+          defaultValue={defaultValue}
           onChangeText={onChangeText}
         />
       </InputBorder>

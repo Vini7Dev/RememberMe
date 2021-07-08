@@ -18,6 +18,7 @@ const { baby_blue70, blue } = theme.colors;
 const TextArea: React.FC<ITextAreaProps> = ({
   label,
   placeholder,
+  defaultValue,
   ...rest
 }) => {
   return (
@@ -32,6 +33,7 @@ const TextArea: React.FC<ITextAreaProps> = ({
           style={{ textAlignVertical: 'top' }}
           multiline
           numberOfLines={3}
+          defaultValue={defaultValue}
           placeholder={placeholder}
           {...rest}
         />

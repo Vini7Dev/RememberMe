@@ -46,6 +46,36 @@ class DefaultDaysData {
       { id: '6', value: 'Sábado', checked: false },
     ];
   }
+
+  // Generate a custom checked month days
+  public static getCustomCheckedMonthDays(days: string[]): IDayProps[] {
+    const defaultWeekDays = this.getDefaultMonthDays();
+
+    const customArray = defaultWeekDays.map((day) => {
+      if (days.findIndex((item) => item === day.id) !== -1) {
+        day.checked = true;
+      }
+
+      return day;
+    });
+
+    return customArray;
+  }
+
+  // Generate a custom checked week days
+  public static getCustomCheckedWeekDays(days: string[]): IDayProps[] {
+    const defaultWeekDays = this.getDefaultWeekDays();
+
+    const customArray = defaultWeekDays.map((day) => {
+      if (days.findIndex((item) => item === day.id) !== -1) {
+        day.checked = true;
+      }
+
+      return day;
+    });
+
+    return customArray;
+  }
 }
 
 export default DefaultDaysData;
