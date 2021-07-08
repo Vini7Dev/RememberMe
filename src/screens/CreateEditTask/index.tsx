@@ -1,6 +1,6 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Alert } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import {
   Container,
@@ -32,10 +32,16 @@ import Button from '../../components/Button';
 import ModalContainer from '../../components/ModalContainer';
 import Loading from '../../components/Loading';
 
+// Route parameters
+interface IRouteParams {
+  id?: string;
+}
+
 // Screen component
 const CreateEditTask: React.FC = () => {
-  // Navigation
+  // Navigation and Route
   const navigation = useNavigation();
+  const route = useRoute();
 
   // Screen states
   const [showLoading, setShowLoading] = useState(false);
@@ -47,6 +53,7 @@ const CreateEditTask: React.FC = () => {
   const [weekDays, setWeekDays] = useState<IDayProps[]>(DefaultDaysData.getDefaultWeekDays);
 
   // Task data
+  const [taskId, setTaskId] = useState('');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [hours, setHours] = useState('06');
@@ -117,15 +124,29 @@ const CreateEditTask: React.FC = () => {
     // Display loading in screen
     setShowLoading(true);
 
-    // Saving task on storage
-    await TasksRepository.saveTask({
-      title,
-      description,
-      hours,
-      minutes,
-      periodType,
-      period,
-    });
+    // If task id is present, update task
+    if (taskId.length > 0) {
+      // Updating task on storage
+      await TasksRepository.updateTask({
+        id: taskId,
+        title,
+        description,
+        hours,
+        minutes,
+        periodType,
+        period,
+      });
+    } else {
+      // Saving task on storage
+      await TasksRepository.saveTask({
+        title,
+        description,
+        hours,
+        minutes,
+        periodType,
+        period,
+      });
+    }
 
     // Stop loading
     setShowLoading(false);
@@ -135,7 +156,16 @@ const CreateEditTask: React.FC = () => {
       routes: [{ name: 'Home' }],
       index: 0,
     });
-  }, [title, description, hours, minutes, periodType, monthDays, weekDays, navigation]);
+  }, [taskId, title, description, hours, minutes, periodType, monthDays, weekDays, navigation]);
+
+  // Check that the task id is present in the route parameters to update the task
+  useEffect(() => {
+    const { id } = route.params as IRouteParams;
+
+    if (id) {
+      setTaskId(id);
+    }
+  }, [route]);
 
   return (
     <Container>
@@ -237,7 +267,11 @@ const CreateEditTask: React.FC = () => {
 
       <SubmitButtonView>
         <Button
-          name="Salvar"
+          name={
+            taskId.length > 0
+              ? 'Atualizar'
+              : 'Salvar'
+          }
           wSize="100%"
           color="blue"
           onPress={handleSubmitFormDate}

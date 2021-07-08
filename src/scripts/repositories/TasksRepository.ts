@@ -3,6 +3,7 @@ import uuid from 'react-native-uuid';
 import { COLLECTION_TASKS } from '../../global/configs/storage';
 
 import ICreateTaskDTO from '../dtos/ICreateTaskDTO';
+import IUpdateTaskDTO from '../dtos/IUpdateTaskDTO';
 
 // Task properties
 export interface ITaskData {
@@ -89,6 +90,47 @@ class TasksRepository {
 
     // Returning task saved
     return taskData;
+  }
+
+  // Update task in storage
+  public static async updateTask({
+    id,
+    title,
+    description,
+    hours,
+    minutes,
+    periodType,
+    period,
+  }: IUpdateTaskDTO): Promise<ITaskData | null> {
+    // Get tasks from storage
+    const tasksList = await this.listTasks();
+
+    // If not exists tasks saved, cancel operation
+    if (!tasksList) {
+      return null;
+    }
+
+    // Get task index on array
+    const taskIndex = tasksList.findIndex((task) => task.id === id);
+
+    // Updating task data
+    const updatedTask = Object.assign(tasksList[taskIndex], {
+      title,
+      description,
+      time: `${hours.padStart(2, '0')}:${minutes.padStart(2, '0')}`,
+      periodType,
+      period,
+      updated_at: new Date(),
+    }) as ITaskData;
+
+    // Update task data in array
+    tasksList[taskIndex] = updatedTask;
+
+    // Saving changes in storage
+    await AsyncStorage.setItem(COLLECTION_TASKS, JSON.stringify(tasksList));
+
+    // Returning updated task
+    return updatedTask;
   }
 
   public static async deleteTask(id: string): Promise<void> {
