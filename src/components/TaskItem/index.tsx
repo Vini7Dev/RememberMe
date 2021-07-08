@@ -22,6 +22,7 @@ export interface ITaskItemProps {
   period: string;
   description: string;
   onPressToDelete(id: string): void;
+  onPressToUpdate(id: string): void;
 }
 
 // Theme colors
@@ -35,12 +36,15 @@ const TaskItem: React.FC<ITaskItemProps> = ({
   period,
   description,
   onPressToDelete,
+  onPressToUpdate,
 }) => {
   return (
     <Container
       colors={[baby_blue90, blue]}
     >
-      <ButtonElement>
+      <ButtonElement
+        onPress={() => onPressToUpdate(id)}
+      >
         <TitleView>
           <TitleText
             style={{ textAlignVertical: 'center' }}

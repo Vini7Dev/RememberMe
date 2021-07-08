@@ -207,6 +207,7 @@ const Home: React.FC = () => {
                     title={item.title}
                     time={item.time}
                     description={item.description}
+                    onPressToUpdate={(id) => navigateToCreateEditTask(id)}
                   />
                 )}
               />
@@ -254,6 +255,7 @@ const Home: React.FC = () => {
                     period={item.periodPresentation as string}
                     description={item.description}
                     onPressToDelete={(id) => handleQuestionToDeleteTask(id)}
+                    onPressToUpdate={(id) => navigateToCreateEditTask(id)}
                   />
                 )}
               />

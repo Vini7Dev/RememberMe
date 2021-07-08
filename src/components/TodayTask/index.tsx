@@ -12,6 +12,7 @@ export interface ITodayTaskProps {
   title: string;
   time: string;
   description: string;
+  onPressToUpdate(id: string): void;
 }
 
 // Theme colors
@@ -19,13 +20,17 @@ const { baby_blue90, baby_blue80, blue } = theme.colors;
 
 // Component
 const TodayTask: React.FC<ITodayTaskProps> = ({
+  id,
   title,
   time,
   description,
+  onPressToUpdate,
 }) => {
   return (
     <Container colors={[baby_blue90, blue]}>
-      <Button>
+      <Button
+        onPress={() => onPressToUpdate(id)}
+      >
         <TitleView>
           <TitleText
             style={{ textAlignVertical: 'center' }}
