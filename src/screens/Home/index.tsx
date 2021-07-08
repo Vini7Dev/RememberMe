@@ -88,7 +88,12 @@ const Home: React.FC = () => {
 
     // Filter by title
     if (filterTitle.length > 0) {
-      filtered = filtered.filter((task) => task.title === filterTitle);
+      filtered = filtered.filter((task) => {
+        const taskTitleLowerCase = task.title.toLowerCase().trim();
+        const filterTitleLowerCase = filterTitle.toLocaleLowerCase().trim();
+
+        return taskTitleLowerCase.includes(filterTitleLowerCase);
+      });
     }
 
     // Filter by day
