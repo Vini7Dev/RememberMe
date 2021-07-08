@@ -4,17 +4,12 @@ import {
   Container, AlertText,
 } from './styles';
 
-// EmptyListAlert properties
-interface IEmptyListAlert {
-  text: string;
-}
-
 // Component
-const EmptyListAlert: React.FC<IEmptyListAlert> = ({ text }) => {
+const EmptyListAlert: React.FC = () => {
   return (
     <Container>
       <AlertText>
-        {text}
+        Sem Tarefas...
       </AlertText>
     </Container>
   );

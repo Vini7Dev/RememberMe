@@ -52,6 +52,13 @@ export const FilterButtonView = styled.View`
   right: 0;
 `;
 
+export const FiltersOnAlert = styled.Text`
+  font-family: ${heebo500};
+  font-size: 18px;
+  text-align: center;
+  margin: 5px 0 -10px;
+`;
+
 export const Form = styled.View`
   padding: 0 20px;
 `;

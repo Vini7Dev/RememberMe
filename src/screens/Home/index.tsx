@@ -15,6 +15,7 @@ import {
   TasksListTitleView,
   TasksListTitleText,
   FilterButtonView,
+  FiltersOnAlert,
   Form,
   InputMargin,
 } from './styles';
@@ -237,7 +238,7 @@ const Home: React.FC = () => {
           {
           // Render today tasks list
           todayTasks.length === 0
-            ? <EmptyListAlert text="Sem Tarefas..." />
+            ? <EmptyListAlert />
             : (
               <FlatList
                 style={{ marginTop: 10 }}
@@ -266,7 +267,7 @@ const Home: React.FC = () => {
 
             <FilterButtonView>
               <CircleButton
-                color={isFiltered ? 'danger' : 'transparent_blue'}
+                color="transparent_blue"
                 icon="filter"
                 onPress={handleToggleModalIsOpen}
               />
@@ -281,10 +282,16 @@ const Home: React.FC = () => {
             onPress={() => navigateToCreateEditTask()}
           />
 
+          {isFiltered && (
+            <FiltersOnAlert>
+              Filtros ativos!
+            </FiltersOnAlert>
+          )}
+
           {
           // Render all filtered tasks list
           filteredTasks.length === 0
-            ? <EmptyListAlert text={isFiltered ? 'Filtro sem resultado...' : 'Sem Tarefas...'} />
+            ? <EmptyListAlert />
             : (
               <FlatList
                 style={{ marginTop: 10, flexGrow: 0 }}
