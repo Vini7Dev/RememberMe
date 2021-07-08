@@ -104,7 +104,7 @@ const Home: React.FC = () => {
 
     // Close modal
     handleToggleModalIsOpen();
-  }, [allTasks, filterTitle, handleToggleModalIsOpen]);
+  }, [allTasks, dayFilterSelected, filterTitle, filterPeriodType, handleToggleModalIsOpen]);
 
   // Load tasks saved from storage
   const handleLoadTasksFromStorage = useCallback(async () => {
@@ -265,8 +265,8 @@ const Home: React.FC = () => {
           />
 
           {
-          // Render all tasks list
-          allTasks.length === 0
+          // Render all filtered tasks list
+          filteredTasks.length === 0
             ? <EmptyListAlert />
             : (
               <FlatList
