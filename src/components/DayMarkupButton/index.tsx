@@ -11,8 +11,9 @@ interface IDayMarkupButtonProps extends RectButtonProps {
   id: string;
   name: string;
   checked?: boolean;
+  desableCheck?: boolean;
   small?: boolean;
-  handleAlternatingChecks(id: string): void;
+  handleAlternatingChecks?(id: string): void;
 }
 
 // Theme colors
@@ -25,8 +26,9 @@ const DayMarkupButton: React.FC<IDayMarkupButtonProps> = ({
   id,
   name,
   checked = false,
+  desableCheck = false,
   small = false,
-  handleAlternatingChecks,
+  handleAlternatingChecks = () => { /**/ },
   ...rest
 }) => {
   // Button checked state
@@ -52,7 +54,7 @@ const DayMarkupButton: React.FC<IDayMarkupButtonProps> = ({
         colors={buttonChecked ? [baby_blue80, cyan90] : ['#FFFFFF', '#FFFFFF']}
       >
         <ButtonElement
-          onPress={() => handleOnPressButton(id)}
+          onPress={() => !desableCheck && handleOnPressButton(id)}
           {...rest}
         >
           <ButtonText checked={buttonChecked}>

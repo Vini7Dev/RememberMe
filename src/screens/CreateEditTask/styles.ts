@@ -1,6 +1,10 @@
-import styled from 'styled-components/native';
+import styled, { css } from 'styled-components/native';
 
 import theme from '../../global/styles/theme';
+
+interface IPeriodSelectedListProps {
+  periodType: number;
+}
 
 // Theme colors and fonts
 const { baby_blue90, cyan90 } = theme.colors;
@@ -35,6 +39,15 @@ export const PeriodSelectorView = styled.View`
   padding: 0 8px;
   border-radius: 20px;
   background-color: #F1F1F1;
+`;
+
+export const PeriodSelectedList = styled.View<IPeriodSelectedListProps>`
+  flex-direction: row;
+  flex-wrap: wrap;
+
+  ${(props) => props.periodType === 1 && css`justify-content: center;`}
+
+  margin: 3px 0;
 `;
 
 export const TimeLabel = styled.Text`

@@ -9,6 +9,7 @@ import {
   Form,
   InputMargin,
   PeriodSelectorView,
+  PeriodSelectedList,
   TimeLabel,
   TimeInputsContainer,
   TimeDivisionText,
@@ -26,6 +27,7 @@ import TextArea from '../../components/TextArea';
 import PeriodSelector from '../../components/PeriodSelector';
 import PeriodOptions from '../../components/PeriodOptions';
 import TimeInput from '../../components/TimeInput';
+import DayMarkupButton from '../../components/DayMarkupButton';
 import Button from '../../components/Button';
 import ModalContainer from '../../components/ModalContainer';
 import Loading from '../../components/Loading';
@@ -166,6 +168,39 @@ const CreateEditTask: React.FC = () => {
               onPressInLeftButton={() => setPeriodType(0)}
               onPressInRightButton={() => setPeriodType(1)}
             />
+
+            <PeriodSelectedList
+              periodType={periodType}
+            >
+              {
+                periodType === 0
+                  ? monthDays.map((day) => (
+                    day.checked
+                    && (
+                    <DayMarkupButton
+                      key={day.id}
+                      id={day.id}
+                      name={day.value}
+                      checked
+                      desableCheck
+                      small
+                    />
+                    )
+                  ))
+                  : weekDays.map((day) => (
+                    day.checked
+                    && (
+                    <DayMarkupButton
+                      key={day.id}
+                      id={day.id}
+                      name={day.value}
+                      checked
+                      desableCheck
+                    />
+                    )
+                  ))
+              }
+            </PeriodSelectedList>
 
             <Button
               name="Editar"
