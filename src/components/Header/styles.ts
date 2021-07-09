@@ -21,6 +21,8 @@ export const Content = styled.View`
   align-items: center;
 `;
 
+export const UpdateNameButton = styled.TouchableOpacity``;
+
 export const Image = styled.Image`
   width: 24px;
   height: 24px;
