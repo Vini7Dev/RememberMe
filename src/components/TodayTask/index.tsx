@@ -12,6 +12,7 @@ export interface ITodayTaskProps {
   title: string;
   time: string;
   description: string;
+  onPressToMarkCompleted(id: string): void;
   onPressToUpdate(id: string): void;
 }
 
@@ -24,6 +25,7 @@ const TodayTask: React.FC<ITodayTaskProps> = ({
   title,
   time,
   description,
+  onPressToMarkCompleted,
   onPressToUpdate,
 }) => {
   return (
@@ -60,7 +62,9 @@ const TodayTask: React.FC<ITodayTaskProps> = ({
       </Button>
 
       <CheckButtonView>
-        <CircleButton />
+        <CircleButton
+          onPress={() => onPressToMarkCompleted(id)}
+        />
       </CheckButtonView>
     </Container>
   );

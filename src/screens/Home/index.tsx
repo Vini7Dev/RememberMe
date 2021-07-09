@@ -3,6 +3,7 @@ import { FlatList, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import TasksRepository, { ITaskData } from '../../scripts/repositories/TasksRepository';
+import TodayTasksManagementProvider, { ITodayTask } from '../../scripts/providers/TodayTasksManagementProvider';
 import DateProvider from '../../scripts/providers/DateProvider';
 import DefaultDaysData from '../../scripts/utils/DefaultDaysData';
 
@@ -42,7 +43,7 @@ const Home: React.FC = () => {
   const [currentDate, setCurrentDate] = useState('DD/MM/YYYY');
 
   // Tasks
-  const [todayTasks, setTodayTasks] = useState<ITaskData[]>([]);
+  const [todayTasks, setTodayTasks] = useState<ITodayTask[]>([]);
   const [allTasks, setAllTasks] = useState<ITaskData[]>([]);
   const [filteredTasks, setFilteredTasks] = useState<ITaskData[]>([]);
 
@@ -82,6 +83,20 @@ const Home: React.FC = () => {
     setOptionItems(items);
     setDayFilterSelected(items[0].value);
   }, [filterPeriodType]);
+
+  // Mark today's task as completed
+  const handleMarkTodayTask = useCallback((id: string) => {
+    // Mark task and recover the updated array
+    TodayTasksManagementProvider.markTaskAsCompleted(id);
+
+    // Getting only incompleted tasks
+    const updateTodayTasksArray = TodayTasksManagementProvider.getOnlyIncompletedTasks();
+
+    // If not occurred an error, update the today tasks array state
+    if (updateTodayTasksArray) {
+      setTodayTasks(updateTodayTasksArray);
+    }
+  }, []);
 
   // Apply filters
   const handleApplyFilters = useCallback(() => {
@@ -160,20 +175,16 @@ const Home: React.FC = () => {
       return formatedTask;
     });
 
-    // Getting current date
-    const thisDate = new Date();
+    // Generating today tasks list
+    TodayTasksManagementProvider.generateTodayTasksList(formatedTasksPresentation);
 
-    // Filter today task
-    const filteredTodayTasks = formatedTasksPresentation.filter((task) => {
-      return (task.periodType === 0
-        ? task.period.findIndex((day) => Number(day) === thisDate.getDate()) !== -1
-        : task.period.findIndex((day) => Number(day) === thisDate.getDay()) !== -1);
-    });
+    // Getting incompleted tasks
+    const todayTaskList = TodayTasksManagementProvider.getOnlyIncompletedTasks();
 
     // Update all tasks and today tasks state
     setAllTasks(formatedTasksPresentation);
     setFilteredTasks(formatedTasksPresentation);
-    setTodayTasks(filteredTodayTasks);
+    setTodayTasks(todayTaskList);
 
     // Stop loading
     setIsLoading(false);
@@ -253,7 +264,8 @@ const Home: React.FC = () => {
                     title={item.title}
                     time={item.time}
                     description={item.description}
-                    onPressToUpdate={(id) => navigateToCreateEditTask(id)}
+                    onPressToMarkCompleted={handleMarkTodayTask}
+                    onPressToUpdate={navigateToCreateEditTask}
                   />
                 )}
               />
