@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "607681042698",
+    "project_id": "rememerme-69661",
+    "storage_bucket": "rememerme-69661.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:607681042698:android:6bf7e74ffcd2d07edbc2f3",
+        "android_client_info": {
+          "package_name": "com.vinicius7dev.rememberme"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "607681042698-vd7905b16e6p061ipk45ac4d1fmlrvn5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKeohBU5I6H3_Z-L-xIfCak6mBbUKgJUU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "607681042698-vd7905b16e6p061ipk45ac4d1fmlrvn5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
