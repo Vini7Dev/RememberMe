@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useEffect } from 'react';
+import React from 'react';
 import AppLoading from 'expo-app-loading';
 import { useFonts } from 'expo-font';
 import {
@@ -12,19 +12,9 @@ import {
   Poppins_600SemiBold,
 } from '@expo-google-fonts/poppins';
 
-import NotificationProvider from './src/scripts/providers/NotificationProvider';
 import Routes from './src/routes';
 
 const App: React.FC = () => {
-  // Starting notifications configuration on load app
-  useEffect(() => {
-    const startNotificationsConfigs = async () => {
-      await NotificationProvider.startNotificationsConfigs();
-    };
-
-    startNotificationsConfigs();
-  }, []);
-
   // Getting app fonts
   const [fontsLoaded] = useFonts({
     Heebo_400Regular,

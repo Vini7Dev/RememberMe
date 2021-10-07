@@ -15,7 +15,9 @@ class NotificationProvider {
   private static expoPushToken: string | undefined;
 
   // Starting notifications configuration
-  public static async startNotificationsConfigs(): Promise<() => void> {
+  public static async startNotificationsConfigs(
+    onClickInNotificationCallBack: (task_id: string) => void,
+  ): Promise<() => void> {
     Notifications.setNotificationHandler({
       handleNotification: async () => ({
         shouldShowAlert: true,
@@ -26,18 +28,14 @@ class NotificationProvider {
 
     this.expoPushToken = await this.registerForPushNotificationsAsync();
 
-    const sendNotificationListener = Notifications
-      .addNotificationReceivedListener((notificationData) => {
-        console.log(notificationData);
-      });
-
     const clickNorificationListener = Notifications
-      .addNotificationResponseReceivedListener((response) => {
-        console.log(response);
+      .addNotificationResponseReceivedListener((taskData) => {
+        const { task_id } = taskData.notification.request.content.data;
+
+        onClickInNotificationCallBack(task_id as string);
       });
 
     return () => {
-      Notifications.removeNotificationSubscription(sendNotificationListener);
       Notifications.removeNotificationSubscription(clickNorificationListener);
     };
   }

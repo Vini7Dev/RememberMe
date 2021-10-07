@@ -21,6 +21,8 @@ import {
   InputMargin,
 } from './styles';
 
+import NotificationProvider from '../../scripts/providers/NotificationProvider';
+
 import Loading from '../../components/Loading';
 import TodayTask from '../../components/TodayTask';
 import TaskItem from '../../components/TaskItem';
@@ -53,6 +55,25 @@ const Home: React.FC = () => {
   const [filterPeriodType, setFilterPeriodType] = useState(-1);
   const [optionItems, setOptionItems] = useState<IPickerItemProps[]>([]);
   const [dayFilterSelected, setDayFilterSelected] = useState('');
+
+  // On click in task notification, navigate to task data
+  const onClickInNotification = useCallback((id: string) => {
+    navigation.navigate('CreateEditTask', { id });
+  }, [navigation]);
+
+  // Starting notifications configuration on load app
+  useEffect(() => {
+    const startNotificationsConfigs = async () => {
+      // Verify if push notification is already configured
+      if (NotificationProvider.getExpoPushToken()) {
+        return;
+      }
+
+      await NotificationProvider.startNotificationsConfigs(onClickInNotification);
+    };
+
+    startNotificationsConfigs();
+  }, [onClickInNotification]);
 
   // Navigate to CreateEditTask screen
   const navigateToCreateEditTask = useCallback((id?: string) => {

@@ -1,7 +1,6 @@
-import React, { useEffect, useCallback } from 'react';
+import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { useNavigation } from '@react-navigation/native';
 import theme from '../global/styles/theme';
 import Greetings from '../screens/Greetings';
 import Home from '../screens/Home';
