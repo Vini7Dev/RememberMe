@@ -12,66 +12,29 @@ import {
   Poppins_600SemiBold,
 } from '@expo-google-fonts/poppins';
 
-import Constants from 'expo-constants';
-import * as Notifications from 'expo-notifications';
+import {
+  Button, Text, View,
+} from 'react-native';
 
-import { Platform } from 'react-native';
+import NotificationProvider from './src/scripts/providers/NotificationProvider';
+
 import Routes from './src/routes';
 
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: false,
-    shouldSetBadge: false,
-  }),
-});
-
 async function schedulePushNotification() {
-  await Notifications.scheduleNotificationAsync({
-    content: {
-      title: "You've got mail! 📬",
-      body: 'Here is the notification body',
-      data: { data: 'goes here' },
+  await NotificationProvider.sendTaskNotification({
+    title: 'Título da notificação',
+    body: 'Descrição da notificação',
+    data: {
+      task_id: 'id_da_notificação',
     },
-    trigger: { seconds: 2 },
   });
 }
 
-async function registerForPushNotificationsAsync() {
-  let token;
-  if (Constants.isDevice) {
-    const { status: existingStatus } = await Notifications.getPermissionsAsync();
-    let finalStatus = existingStatus;
-    if (existingStatus !== 'granted') {
-      const { status } = await Notifications.requestPermissionsAsync();
-      finalStatus = status;
-    }
-    if (finalStatus !== 'granted') {
-      // eslint-disable-next-line no-alert
-      alert('Failed to get push token for push notification!');
-      return;
-    }
-    token = (await Notifications.getExpoPushTokenAsync()).data;
-    console.log(token);
-  } else {
-    // eslint-disable-next-line no-alert
-    alert('Must use physical device for Push Notifications');
-  }
-
-  if (Platform.OS === 'android') {
-    Notifications.setNotificationChannelAsync('default', {
-      name: 'default',
-      importance: Notifications.AndroidImportance.MAX,
-      vibrationPattern: [0, 250, 250, 250],
-      lightColor: '#FF231F7C',
-    });
-  }
-
-  // eslint-disable-next-line consistent-return
-  return token;
-}
-
 const App: React.FC = () => {
+  useEffect(() => {
+    NotificationProvider.startNotificationsConfigs().then();
+  }, []);
+
   const [fontsLoaded] = useFonts({
     Heebo_400Regular,
     Heebo_500Medium,
@@ -84,36 +47,32 @@ const App: React.FC = () => {
     return <AppLoading />;
   }
 
-  const [expoPushToken, setExpoPushToken] = useState('');
-  const [notification, setNotification] = useState(false);
-  const notificationListener = useRef();
-  const responseListener = useRef();
-
-  useEffect(() => {
-    registerForPushNotificationsAsync().then((token) => setExpoPushToken(token));
-
-    notificationListener.current = Notifications.addNotificationReceivedListener((notification) => {
-      setNotification(notification);
-    });
-
-    responseListener.current = Notifications.addNotificationResponseReceivedListener((response) => {
-      console.log(response);
-    });
-
-    return () => {
-      Notifications.removeNotificationSubscription(notificationListener.current);
-      Notifications.removeNotificationSubscription(responseListener.current);
-    };
-  }, []);
-
   return (
     <>
+      <View
+        style={{
+          flex: 1,
+          alignItems: 'center',
+          justifyContent: 'space-around',
+        }}
+      >
+        <Text>
+          Your expo push token:
+        </Text>
+        <Button
+          title="Press to schedule a notification"
+          onPress={async () => {
+            await schedulePushNotification();
+          }}
+        />
+      </View>
+      {/*
       <StatusBar
         backgroundColor="transparent"
         translucent
       />
-
       <Routes />
+      */}
     </>
   );
 };
