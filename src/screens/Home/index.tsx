@@ -56,25 +56,6 @@ const Home: React.FC = () => {
   const [optionItems, setOptionItems] = useState<IPickerItemProps[]>([]);
   const [dayFilterSelected, setDayFilterSelected] = useState('');
 
-  // On click in task notification, navigate to task data
-  const onClickInNotification = useCallback((id: string) => {
-    navigation.navigate('CreateEditTask', { id });
-  }, [navigation]);
-
-  // Starting notifications configuration on load app
-  useEffect(() => {
-    const startNotificationsConfigs = async () => {
-      // Verify if push notification is already configured
-      if (NotificationProvider.getExpoPushToken()) {
-        return;
-      }
-
-      await NotificationProvider.startNotificationsConfigs(onClickInNotification);
-    };
-
-    startNotificationsConfigs();
-  }, [onClickInNotification]);
-
   // Navigate to CreateEditTask screen
   const navigateToCreateEditTask = useCallback((id?: string) => {
     navigation.navigate('CreateEditTask', { id });
@@ -238,6 +219,25 @@ const Home: React.FC = () => {
       ],
     );
   }, [handleDeleteSelectedTask]);
+
+  // On click in task notification, navigate to task data
+  const onClickInNotification = useCallback((id: string) => {
+    navigation.navigate('CreateEditTask', { id });
+  }, [navigation]);
+
+  // Starting notifications configuration on load app
+  useEffect(() => {
+    const startNotificationsConfigs = async () => {
+      // Verify if push notification is already configured
+      if (NotificationProvider.getExpoPushToken()) {
+        return;
+      }
+
+      await NotificationProvider.startNotificationsConfigs(onClickInNotification);
+    };
+
+    startNotificationsConfigs();
+  }, [onClickInNotification]);
 
   // Load tasks from storage on start
   useEffect(() => {
