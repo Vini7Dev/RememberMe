@@ -2,8 +2,6 @@ import { Platform } from 'react-native';
 import * as Notifications from 'expo-notifications';
 import Constants from 'expo-constants';
 
-import { NotificationSchedulerModule } from 'expo-notifications/build/NotificationScheduler.types';
-
 interface ITaskNotificationProps {
   title: string;
   body: string;
@@ -13,18 +11,11 @@ interface ITaskNotificationProps {
 }
 
 class NotificationProvider {
+  // Push notifications token
   private static expoPushToken: string | undefined;
 
-  private static notification: Notifications.Notification = {} as Notifications.Notification;
-
-  private static sendNotificationListener:
-    NotificationSchedulerModule = {} as NotificationSchedulerModule;
-
-  private static clickNorificationListener:
-    NotificationSchedulerModule = {} as NotificationSchedulerModule;
-
   // Starting notifications configuration
-  public static async startNotificationsConfigs(): Promise<any> {
+  public static async startNotificationsConfigs(): Promise<() => void> {
     Notifications.setNotificationHandler({
       handleNotification: async () => ({
         shouldShowAlert: true,
@@ -33,23 +24,21 @@ class NotificationProvider {
       }),
     });
 
-    this.registerForPushNotificationsAsync().then((token) => {
-      this.expoPushToken = token;
-    });
+    this.expoPushToken = await this.registerForPushNotificationsAsync();
 
-    this.sendNotificationListener.current = Notifications
+    const sendNotificationListener = Notifications
       .addNotificationReceivedListener((notificationData) => {
-        this.notification = notificationData;
+        console.log(notificationData);
       });
 
-    this.clickNorificationListener.current = Notifications
+    const clickNorificationListener = Notifications
       .addNotificationResponseReceivedListener((response) => {
         console.log(response);
       });
 
     return () => {
-      Notifications.removeNotificationSubscription(this.sendNotificationListener.current);
-      Notifications.removeNotificationSubscription(this.clickNorificationListener.current);
+      Notifications.removeNotificationSubscription(sendNotificationListener);
+      Notifications.removeNotificationSubscription(clickNorificationListener);
     };
   }
 
@@ -107,6 +96,11 @@ class NotificationProvider {
       },
       trigger: { seconds: 2 },
     });
+  }
+
+  // Getting expo push notifications token
+  public static getExpoPushToken(): string | undefined {
+    return this.expoPushToken;
   }
 }
 
